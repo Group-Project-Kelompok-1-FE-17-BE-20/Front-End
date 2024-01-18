@@ -4,6 +4,8 @@ import { FC, FormEvent } from "react";
 import { LoginState } from "../utils/interface";
 import { useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
+import Cookies from "js-cookie";
 
 interface setDataKu {
   data?: [];
@@ -29,16 +31,35 @@ const Login: FC = () => {
         setData(response.data);
         const findOut = response.data.find((user: any) => user.email === loginState.email);
         const findOut2 = response.data.find((user: any) => user.password === loginState.password);
-        console.log(response.data);
-        if (findOut && findOut2) {
-          alert("Selamat Datang anda Berhasil Login");
-          navigate("/");
+        const user = findOut.username;
+
+        if (datas || (findOut && findOut2)) {
+          Swal.fire({
+            title: "Confirmation",
+            text: `Congratulations, Hello ${user}`,
+            icon: "success",
+            confirmButtonText: "OK",
+            confirmButtonColor: "rgb(3 150 199)",
+          }).then((res) => {
+            if (res.isConfirmed) {
+              Cookies.set("username", user);
+              navigate("/");
+            }
+          });
         } else {
-          alert("Salah!!! cek username Password Anda");
-          setLoginState({
-            email: "",
-            password: "",
-            passwordVisible: false,
+          Swal.fire({
+            title: "Confirmation",
+            text: "Username and Password Was Wrong",
+            icon: "error",
+            showCancelButton: true,
+            confirmButtonText: "OK",
+            confirmButtonColor: "rgb(255 10 10)",
+          }).then(() => {
+            setLoginState({
+              email: "",
+              password: "",
+              passwordVisible: false,
+            });
           });
         }
       } catch (error) {

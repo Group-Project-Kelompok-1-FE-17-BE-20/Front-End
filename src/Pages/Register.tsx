@@ -3,6 +3,7 @@ import { FC, FormEvent, useState } from "react";
 import { registerType } from "../utils/interface";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Register: FC = () => {
   const navigate = useNavigate();
@@ -27,9 +28,19 @@ const Register: FC = () => {
         email: registerState.email,
         phoneNumber: registerState.phoneNumber,
       });
-      alert("Data Berhasil disimpan");
-      console.log("Response:", response);
-      navigate("/login");
+      if (response) {
+        Swal.fire({
+          title: "Confirmation",
+          text: `${registerState.username} Anda Berhasil Registrasi Silahkan Login`,
+          icon: "success",
+          confirmButtonText: "OK",
+          confirmButtonColor: "rgb(3 150 199)",
+        }).then((res: any) => {
+          if (res.isConfirmed) {
+            navigate("/login");
+          }
+        });
+      }
     } catch (error) {
       console.error("Error:", error);
     }

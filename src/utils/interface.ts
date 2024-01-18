@@ -13,6 +13,20 @@ export interface registerType {
   email: string;
   phoneNumber: string;
 }
+export interface productDataType {
+  brand: string;
+  model: string;
+  processor: string;
+  ram: string;
+  storage: string;
+  price: number;
+  cekProduk: () => void;
+}
+
+export interface lapData {
+  data: [];
+}
+
 export interface MenuItem {
   id: string;
   title: string;

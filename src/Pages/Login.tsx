@@ -1,4 +1,3 @@
-// import React from "react";
 import { useNavigate } from "react-router-dom";
 import { FC, FormEvent } from "react";
 import { LoginState } from "../utils/interface";
@@ -6,10 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
-
-interface setDataKu {
-  data?: [];
-}
+import { setDataKu } from "../utils/interface";
 
 const Login: FC = () => {
   const navigate = useNavigate();
@@ -31,7 +27,7 @@ const Login: FC = () => {
         setData(response.data);
         const findOut = response.data.find((user: any) => user.email === loginState.email);
         const findOut2 = response.data.find((user: any) => user.password === loginState.password);
-        const user = findOut.username;
+        const user = findOut.fullName;
 
         if (datas || (findOut && findOut2)) {
           Swal.fire({

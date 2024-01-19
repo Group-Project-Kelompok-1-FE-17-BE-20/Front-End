@@ -12,7 +12,7 @@ const Card: FC<productDataType> = (props: productDataType) => {
         <span className="text-xs">{`${processor} ${ram} ${storage} `}</span>
         <p className="font-extrabold text-red-500 font-sans">${price}</p>
         <div className="flex justify-center items-center w-full md:gap-5 gap-3">
-          <button onClick={cekProduk} className="w-[80%] lg:text-base text-xs py-2 bg-blue-500 text-white rounded-md">
+          <button onClick={cekProduk} className="w-[80%] lg:text-base text-xs py-2 bg-[#0396C7] text-white rounded-md">
             Lihat Produk
           </button>
           <button className="w-[20%] bg-slate-300 md:py-2 py-[3px] rounded-md flex justify-center items-center">

@@ -34,3 +34,18 @@ export interface MenuItem {
   content: JSX.Element;
   svg: JSX.Element;
 }
+
+export interface setDataKu {
+  data?: [];
+}
+
+export interface typeLaptopDetail {
+  storage: string;
+  price: number;
+  ram: string;
+  description: string;
+  model: string;
+  gambar?: string;
+  brand?: string;
+  processor: string;
+}

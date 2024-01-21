@@ -1,26 +1,35 @@
 import Cookies from "js-cookie";
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Header() {
+const Header: FC = () => {
   const username = Cookies.get("username");
   const navigate = useNavigate();
+  // const [showHamMenu, setShowHam] = useState<Boolean>(false);
 
-  useEffect(() => {}, [username]);
+  useEffect(() => {
+    username;
+  }, [username]);
   return (
     <div className="flex justify-between fixed z-10 w-screen items-center px-4 md:px-28 py-2 md:py-0 bg-white shadow-sm h-[114px]">
       <h2 className="text-2xl md:text-4xl font-bold text-[#0396C7]">StoreID</h2>
-      <div className="items-center justify-between gap-5 hidden xl:flex">
-        <p className="font-poppins font-normal text-lg font-Poppins text-[#828282]">Beranda</p>
-        <p className="font-poppins font-normal text-lg font-Poppins text-[#828282]">Product</p>
-        <div className="m-w-[792px] h-[54px] px-4 py-3 bg-neutral-100 rounded-lg justify-start items-start gap-3 inline-flex">
-          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M27.2451 25.255L21.6799 19.6875C23.3485 17.513 24.1276 14.7853 23.859 12.0575C23.5904 9.32983 22.2943 6.80641 20.2336 4.99917C18.1729 3.19193 15.502 2.2362 12.7625 2.32585C10.0231 2.41551 7.4203 3.54383 5.48219 5.48195C3.54408 7.42006 2.41575 10.0228 2.32609 12.7623C2.23644 15.5017 3.19217 18.1727 4.99941 20.2334C6.80665 22.2941 9.33008 23.5902 12.0578 23.8587C14.7855 24.1273 17.5133 23.3483 19.6877 21.6797L25.2576 27.2507C25.3884 27.3816 25.5437 27.4853 25.7146 27.5561C25.8855 27.6269 26.0687 27.6633 26.2537 27.6633C26.4387 27.6633 26.6219 27.6269 26.7928 27.5561C26.9637 27.4853 27.119 27.3816 27.2498 27.2507C27.3806 27.1199 27.4844 26.9646 27.5552 26.7937C27.626 26.6228 27.6624 26.4396 27.6624 26.2547C27.6624 26.0697 27.626 25.8865 27.5552 25.7156C27.4844 25.5447 27.3806 25.3894 27.2498 25.2586L27.2451 25.255ZM5.15646 13.125C5.15646 11.5489 5.62381 10.0082 6.49943 8.69776C7.37505 7.38731 8.6196 6.36593 10.0757 5.7628C11.5318 5.15966 13.134 5.00185 14.6798 5.30933C16.2256 5.61681 17.6455 6.37576 18.76 7.49021C19.8744 8.60466 20.6334 10.0246 20.9408 11.5703C21.2483 13.1161 21.0905 14.7184 20.4874 16.1745C19.8842 17.6306 18.8629 18.8751 17.5524 19.7507C16.242 20.6264 14.7013 21.0937 13.1252 21.0937C11.0124 21.0915 8.98681 20.2513 7.49285 18.7573C5.99889 17.2634 5.15863 15.2377 5.15646 13.125Z"
-              fill="#CCCCCC"
-            />
-          </svg>
-          <div className="text-stone-300 text-xl font-normal font-['Poppins']">Cari produk yang kamu inginkan..</div>
+      <div className="items-center justify-between gap-5 flex">
+        <p className="font-poppins font-normal text-lg font-Poppins text-[#828282] hidden md:block">Product</p>
+        <div className="m-w-[792px] h-[2.5rem] md:h-[54px] p-2 bg-neutral-100 rounded-lg justify-center items-center gap-1 inline-flex">
+          <div className="md:flex hidden">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M27.2451 25.255L21.6799 19.6875C23.3485 17.513 24.1276 14.7853 23.859 12.0575C23.5904 9.32983 22.2943 6.80641 20.2336 4.99917C18.1729 3.19193 15.502 2.2362 12.7625 2.32585C10.0231 2.41551 7.4203 3.54383 5.48219 5.48195C3.54408 7.42006 2.41575 10.0228 2.32609 12.7623C2.23644 15.5017 3.19217 18.1727 4.99941 20.2334C6.80665 22.2941 9.33008 23.5902 12.0578 23.8587C14.7855 24.1273 17.5133 23.3483 19.6877 21.6797L25.2576 27.2507C25.3884 27.3816 25.5437 27.4853 25.7146 27.5561C25.8855 27.6269 26.0687 27.6633 26.2537 27.6633C26.4387 27.6633 26.6219 27.6269 26.7928 27.5561C26.9637 27.4853 27.119 27.3816 27.2498 27.2507C27.3806 27.1199 27.4844 26.9646 27.5552 26.7937C27.626 26.6228 27.6624 26.4396 27.6624 26.2547C27.6624 26.0697 27.626 25.8865 27.5552 25.7156C27.4844 25.5447 27.3806 25.3894 27.2498 25.2586L27.2451 25.255ZM5.15646 13.125C5.15646 11.5489 5.62381 10.0082 6.49943 8.69776C7.37505 7.38731 8.6196 6.36593 10.0757 5.7628C11.5318 5.15966 13.134 5.00185 14.6798 5.30933C16.2256 5.61681 17.6455 6.37576 18.76 7.49021C19.8744 8.60466 20.6334 10.0246 20.9408 11.5703C21.2483 13.1161 21.0905 14.7184 20.4874 16.1745C19.8842 17.6306 18.8629 18.8751 17.5524 19.7507C16.242 20.6264 14.7013 21.0937 13.1252 21.0937C11.0124 21.0915 8.98681 20.2513 7.49285 18.7573C5.99889 17.2634 5.15863 15.2377 5.15646 13.125Z"
+                fill="#CCCCCC"
+              />
+            </svg>
+          </div>
+
+          {/* {showHamMenu ? 
+          <div></div>
+        : } */}
+
+          <input type="text" placeholder="Cari produk" className="md:w-[28vw] md:text-left text-center w-[40vw] text-sm md:text-lg bg-neutral-100 h-full md:px-5 px-2 rounded-md" />
         </div>
         {username ? (
           <svg width="28" height="26" viewBox="0 0 28 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -30,7 +39,7 @@ function Header() {
             />
           </svg>
         ) : (
-          <span onClick={() => navigate("/register")} className="mr-[10vw] underline text-xs lg:text-lg font-bold text-[#0396C7] cursor-pointer">
+          <span onClick={() => navigate("/register")} className="md:mr-[10vw] mr-0 underline text-xs lg:text-lg font-bold text-[#0396C7] cursor-pointer">
             Sign Up
           </span>
         )}
@@ -45,6 +54,6 @@ function Header() {
       </div>
     </div>
   );
-}
+};
 
 export default Header;

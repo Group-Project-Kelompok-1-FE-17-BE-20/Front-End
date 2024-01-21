@@ -40,12 +40,13 @@ export interface setDataKu {
 }
 
 export interface typeLaptopDetail {
-  storage: string;
-  price: number;
-  ram: string;
-  description: string;
-  model: string;
+  storage?: string;
+  price?: number;
+  ram?: string;
+  description?: string;
+  model?: string;
   gambar?: string;
   brand?: string;
-  processor: string;
+  processor?: string;
+  id: number;
 }

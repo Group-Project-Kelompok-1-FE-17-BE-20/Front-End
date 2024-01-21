@@ -1,6 +1,6 @@
 import { FC } from "react";
-import keranjangIcon from "../img/Keranjang.svg";
-import { productDataType } from "../utils/interface";
+import keranjangIcon from "../../img/Keranjang.svg";
+import { productDataType } from "../../utils/interface";
 
 const Card: FC<productDataType> = (props: productDataType) => {
   const { brand, model, price, processor, ram, storage, cekProduk } = props;

@@ -1,9 +1,13 @@
-function Footer() {
+import { FC } from "react";
+import { useNavigate } from "react-router-dom";
+
+const Footer: FC = () => {
+  const navigate = useNavigate();
   return (
-    <div className="w-full min-h-[552px] px-10 py-8 bottom-0 bg-sky-50 flex justify-center items-center font-Poppins">
+    <div className="w-full min-h-[552px] px-3 md:px-10 py-8 bottom-0 bg-sky-50 flex justify-center items-center font-Poppins">
       <div className="flex flex-col items-start gap-8">
         <div className="justify-start items-start gap-[50px] 2xl:gap-[280px] md:inline-flex flex-wrap">
-          <div className="flex flex-wrap justify-start items-start gap-8">
+          <div className="md:flex grid grid-cols-2 md:flex-wrap justify-start items-start gap-2  md:gap-8">
             <div className="flex flex-col justify-start items-start gap-4">
               <div className="text-gray-800 text-sm font-semibold uppercase tracking-wide">INFORMASI STOREID</div>
               <div className="flex-col justify-start items-start gap-2 flex">
@@ -82,10 +86,14 @@ function Footer() {
                 <div className="text-gray-800 text-sm font-medium font-poppins tracking-wide">Bergabung bersama kami untuk mengikuti perkembangan aplikasi</div>
                 <div className="justify-start items-start gap-2 inline-flex">
                   <div className="h-[47px] px-4 py-[13px] bg-white rounded-lg border border-gray-400 justify-start items-start gap-2.5 flex">
-                    <div className="text-gray-500 text-sm font-medium font-poppins tracking-wide">Masukkan emailmu...</div>
+                    <div onClick={() => navigate("/register")} className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                      Masukkan emailmu...
+                    </div>
                   </div>
                   <div className="px-[30px] py-[13px] bg-sky-600 rounded-lg justify-start items-start gap-2.5 flex">
-                    <div className="text-white text-sm font-semibold font-poppins uppercase tracking-wide">Bergabung</div>
+                    <div onClick={() => navigate("/register")} className="text-white text-sm font-semibold font-poppins uppercase tracking-wide">
+                      Bergabung
+                    </div>
                   </div>
                 </div>
               </div>
@@ -100,15 +108,15 @@ function Footer() {
           <div className="flex flex-col justify-start items-start gap-6">
             <div className="text-gray-500 text-sm font-medium tracking-wide">©2010-2023 StoreID All Rights Reserved</div>
             <div className="flex-col justify-start items-start gap-4 flex">
-              <div className="justify-start items-center gap-[7px] inline-flex">
-                <div className="text-gray-500 text-sm font-medium font-poppins underline tracking-wide">Privacy Center</div>
-                <div className="text-gray-500 text-sm font-medium font-poppins underline tracking-wide">Privacy & Cookie Policy</div>
-                <div className="text-gray-500 text-sm font-medium font-poppins underline tracking-wide">Manage Cookies</div>
+              <div className="grid justify-start items-center gap-[7px] md:inline-flex">
+                <div className="text-gray-500 text-xs md:text-sm font-medium font-poppins underline tracking-wide">Privacy Center</div>
+                <div className="text-gray-500 text-xs md:text-sm font-medium font-poppins underline tracking-wide">Privacy & Cookie Policy</div>
+                <div className="text-gray-500 text-xs md:text-sm font-medium font-poppins underline tracking-wide">Manage Cookies</div>
               </div>
               <div className="justify-start items-center gap-[7px] inline-flex">
-                <div className="text-gray-500 text-sm font-medium font-poppins underline tracking-wide">Terms & Conditions</div>
-                <div className="text-gray-500 text-sm font-medium font-poppins underline tracking-wide">Copyright Notice</div>
-                <div className="text-gray-500 text-sm font-medium font-poppins underline tracking-wide">Imprint</div>
+                <div className="text-gray-500 text-xs md:text-sm font-medium font-poppins underline tracking-wide">Terms & Conditions</div>
+                <div className="text-gray-500 text-xs md:text-sm font-medium font-poppins underline tracking-wide">Copyright Notice</div>
+                <div className="text-gray-500 text-xs md:text-sm font-medium font-poppins underline tracking-wide">Imprint</div>
               </div>
             </div>
           </div>
@@ -116,6 +124,6 @@ function Footer() {
       </div>
     </div>
   );
-}
+};
 
 export default Footer;

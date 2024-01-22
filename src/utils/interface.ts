@@ -50,3 +50,34 @@ export interface typeLaptopDetail {
   processor?: string;
   id: number;
 }
+
+export interface Cart {
+  product_id: string;
+  nama_produk: string;
+  jumlah: number;
+  harga_satuan: number;
+  total_harga: number;
+}
+
+export interface CartState {
+  items: Cart[];
+  total: number;
+}
+export interface MenuItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  content: JSX.Element;
+  svg: JSX.Element;
+}
+
+export interface Product {
+  id: string;
+  nama: string;
+  merek: string;
+  jumlah_barang: number;
+  harga_satuan: number;
+  deskripsi_barang: string;
+  username: string;
+  gambar_barang: string;
+}

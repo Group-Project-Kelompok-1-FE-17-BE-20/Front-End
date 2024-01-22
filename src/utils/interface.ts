@@ -21,6 +21,7 @@ export interface productDataType {
   storage: string;
   price: number;
   cekProduk: () => void;
+  allData: any;
 }
 
 export interface lapData {
@@ -49,4 +50,17 @@ export interface typeLaptopDetail {
   brand?: string;
   processor?: string;
   id: number;
+}
+
+export interface typePayment {
+  gambar: string;
+  value: string;
+  onSelection: (value: string) => void;
+  name: string;
+}
+
+export interface postPayment {
+  nama: string;
+  alamat: string;
+  metode_pembayaran: string;
 }

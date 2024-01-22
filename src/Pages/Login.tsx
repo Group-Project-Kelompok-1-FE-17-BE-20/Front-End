@@ -29,34 +29,39 @@ const Login: FC = () => {
         const findOut2 = response.data.find((user: any) => user.password === loginState.password);
         const user = findOut.fullName;
 
-        if (datas || (findOut && findOut2)) {
-          Swal.fire({
-            title: "Confirmation",
-            text: `Congratulations, Hello ${user}`,
-            icon: "success",
-            confirmButtonText: "OK",
-            confirmButtonColor: "rgb(3 150 199)",
-          }).then((res) => {
-            if (res.isConfirmed) {
-              Cookies.set("username", user);
-              navigate("/");
-            }
-          });
+        if (loginState.email === "admin@gmail.com") {
+          navigate("/daftar-users");
+          Cookies.set("username", "admin");
         } else {
-          Swal.fire({
-            title: "Confirmation",
-            text: "Username and Password Was Wrong",
-            icon: "error",
-            showCancelButton: true,
-            confirmButtonText: "OK",
-            confirmButtonColor: "rgb(255 10 10)",
-          }).then(() => {
-            setLoginState({
-              email: "",
-              password: "",
-              passwordVisible: false,
+          if (datas || (findOut && findOut2)) {
+            Swal.fire({
+              title: "Confirmation",
+              text: `Congratulations, Hello ${user}`,
+              icon: "success",
+              confirmButtonText: "OK",
+              confirmButtonColor: "rgb(3 150 199)",
+            }).then((res) => {
+              if (res.isConfirmed) {
+                Cookies.set("username", user);
+                navigate("/");
+              }
             });
-          });
+          } else {
+            Swal.fire({
+              title: "Confirmation",
+              text: "Username and Password Was Wrong",
+              icon: "error",
+              showCancelButton: true,
+              confirmButtonText: "OK",
+              confirmButtonColor: "rgb(255 10 10)",
+            }).then(() => {
+              setLoginState({
+                email: "",
+                password: "",
+                passwordVisible: false,
+              });
+            });
+          }
         }
       } catch (error) {
         console.error("Error:");

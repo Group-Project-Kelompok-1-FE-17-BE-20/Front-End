@@ -51,7 +51,7 @@ export interface typeLaptopDetail {
   id: number;
 }
 
-export interface Cart {
+export interface CartType {
   product_id: string;
   nama_produk: string;
   jumlah: number;
@@ -60,7 +60,7 @@ export interface Cart {
 }
 
 export interface CartState {
-  items: Cart[];
+  items: CartType[];
   total: number;
 }
 export interface MenuItem {

@@ -7,6 +7,8 @@ import DetailProduct from "./Pages/DetailProduct";
 import ListUsers from "./Pages/DaftarUser";
 import Payment from "./Pages/Payment";
 import HistoryOrder from "./Pages/historyOrder";
+import ListProduct from "./Pages/ListProduct";
+import Cart from "./Pages/Cart";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path="/daftar/users" element={<ListUsers />}></Route>
           <Route path="/history-order/users" element={<HistoryOrder />}></Route>
           <Route path="/payment" element={<Payment />}></Route>
+          <Route path="/list-product" element={<ListProduct />}></Route>
+          <Route path="/cart" element={<Cart />}></Route>
         </Routes>
       </Router>
     </>
@@ -28,12 +32,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-
-
-

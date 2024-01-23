@@ -50,3 +50,19 @@ export interface typeLaptopDetail {
   processor?: string;
   id: number;
 }
+
+export interface MyProfile {
+  id: string;
+  title: string;
+  subtitle: string;
+  content: JSX.Element;
+  svg: JSX.Element;
+}
+
+export interface ShopProfile {
+  id: string;
+  title: string;
+  subtitle: string;
+  content: JSX.Element;
+  svg: JSX.Element;
+}

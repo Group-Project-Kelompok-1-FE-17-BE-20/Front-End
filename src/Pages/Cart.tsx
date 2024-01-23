@@ -4,8 +4,10 @@ import Header from "../components/Product/Header";
 import axios from "axios";
 import { CartType } from "../utils/interface";
 import { CartState } from "../utils/interface";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState<CartType[]>([]);
   const [finalOrder, setFinalOrder] = useState<CartState>({
     items: [],
@@ -138,7 +140,7 @@ function Cart() {
   return (
     <div>
       <Header />
-      <div className="px-3 md:px-24 pt-7">
+      <div className="px-3 md:px-24 pt-44">
         <nav className="flex mb-4 font-poppins " aria-label="Breadcrumb">
           <ol className="inline-flex items-center space-x-1 md:space-x-3">
             <li className="inline-flex items-center">
@@ -170,7 +172,7 @@ function Cart() {
               <div key={product_id} className="w-full h-[188px] px-6 py-5 bg-white rounded-[20px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex-col justify-start items-start gap-6 inline-flex ">
                 <div className="self-stretch justify-start items-center gap-4 inline-flex">
                   <div className="w-[124px] h-[124px] pl-[13px] pr-[13.07px] bg-zinc-100 rounded-lg justify-center items-center flex">
-                    <img className="w-[97.93px] h-[146.50px]" src="https://via.placeholder.com/98x146" />
+                    <img className="w-full h-full" src="https://via.placeholder.com/120x146" />
                   </div>
                   <div className="grow shrink basis-0 h-[124px] justify-between items-center flex">
                     <div className="h-[118px] flex-col justify-between items-start inline-flex">
@@ -244,7 +246,9 @@ function Cart() {
               </div>
             </div>
             <div className="self-stretch h-[60px] px-[54px] py-4 bg-sky-600 rounded-lg justify-center items-center gap-3 inline-flex">
-              <div className="text-white text-base font-medium font-poppins">Lanjut Ke Pembayaran</div>
+              <div className="text-white text-base font-medium font-poppins" onClick={() => navigate("/payment")}>
+                Lanjut Ke Pembayaran
+              </div>
               <div className="w-6 h-6 relative origin-top-left -rotate-90" />
             </div>
           </div>

@@ -95,3 +95,15 @@ export interface postPayment {
   alamat: string;
   metode_pembayaran: string;
 }
+
+export interface userDataType {
+  data: [];
+}
+
+export interface typeListUsers {
+  id: string | number;
+  nama: string;
+  no_hp: number;
+  email: string;
+  gambar?: string;
+}

@@ -4,7 +4,6 @@ import Header from "../components/Product/Header";
 import { useState } from "react";
 import { bankData } from "../utils/payment";
 import PaymentButton from "../components/PaymentButton";
-import { walletData } from "../utils/payment";
 import { postPayment } from "../utils/interface";
 // import axios from "axios";
 import Swal from "sweetalert2";
@@ -14,7 +13,6 @@ const Payment: FC = () => {
   const [showPayment, setShow] = useState<Boolean>(false);
   const [showPopup, setShowPopup] = useState<Boolean>(false);
   // const navigate = useNavigate();
-  const [showWallet, setShowWallet] = useState<Boolean>(false);
   const [pembayaran, setPembayaran] = useState<postPayment>({
     nama: "",
     alamat: "",
@@ -23,10 +21,6 @@ const Payment: FC = () => {
 
   const changeShow = () => {
     setShow(!showPayment);
-  };
-
-  const changeWallet = () => {
-    setShowWallet(!showWallet);
   };
 
   const handleChange = (e: any) => {
@@ -118,17 +112,6 @@ const Payment: FC = () => {
 
             {showPayment &&
               bankData.banks.map((item: any) => {
-                return <PaymentButton key={item.name} name={"bankPayment"} value={item.name} gambar={item.gambar} onSelection={() => handlePaymentSelection(item.name)} />;
-              })}
-
-            <div className="lg:w-[567px] w-[90vw] h-20 relative bg-white rounded shadow">
-              <div className="left-[77px] top-[25.14px] absolute text-gray-600 text-[0.8rem] md:text-2xl font-bold font-Poppins leading-9">E-Walet</div>
-              <img className="w-[35px] h-[33px] left-[19px] top-[22px] absolute rounded" src="https://img.icons8.com/?size=64&id=hZIe22ZBukYv&format=png" />
-              <img onClick={changeWallet} className="cursor-pointer w-[31px] h-[31px] right-4 md:left-[495px] top-[22px] absolute rounded" src="https://img.icons8.com/ios/50/expand-arrow--v2.png" />
-            </div>
-
-            {showWallet &&
-              walletData.banks.map((item: any) => {
                 return <PaymentButton key={item.name} name={"bankPayment"} value={item.name} gambar={item.gambar} onSelection={() => handlePaymentSelection(item.name)} />;
               })}
 

@@ -7,13 +7,10 @@ import DetailProduct from "./Pages/DetailProduct";
 import ListUsers from "./Pages/DaftarUser";
 import Payment from "./Pages/Payment";
 import HistoryOrder from "./Pages/historyOrder";
-<<<<<<< HEAD
 import ListProduct from "./Pages/ListProduct";
 import Cart from "./Pages/Cart";
-=======
 import UserProfile from "./Pages/ProfilSaya";
 import ProfileToko from "./Pages/ShopProfile";
->>>>>>> 99aee2f (Menambahkan user profile dan shop profile)
 
 function App() {
   return (
@@ -28,13 +25,10 @@ function App() {
           <Route path="/daftar-users" element={<ListUsers />}></Route>
           <Route path="/history-order/users" element={<HistoryOrder />}></Route>
           <Route path="/payment" element={<Payment />}></Route>
-<<<<<<< HEAD
           <Route path="/list-product" element={<ListProduct />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
-=======
-          <Route path="/profiltoko" element={<ProfileToko/> }></Route>
+          <Route path="/profiltoko" element={<ProfileToko />}></Route>
           <Route path="/profilsaya" element={<UserProfile />}></Route>
->>>>>>> 99aee2f (Menambahkan user profile dan shop profile)
         </Routes>
       </Router>
     </>

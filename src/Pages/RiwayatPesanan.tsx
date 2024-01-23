@@ -1,12 +1,12 @@
 import axios, { AxiosResponse } from 'axios';
 import Header from '../components/Product/Header';
 import { useEffect, useState } from 'react';
+import Footer from '../components/Footer';
 import { MenuItem } from '../utils/interface';
-import { Product } from '../utils/interface';
+import { OrderHistory } from '../utils/interface';
 
-
-function ListProduct() {
-    const [activeItem, setActiveItem] = useState<string>('myProducts');
+function RiwayatPesanan() {
+    const [activeItem, setActiveItem] = useState<string>('orderHistory');
 
     const menuItems: MenuItem[] = [
         {
@@ -69,7 +69,7 @@ function ListProduct() {
             id: 'orderHistory',
             title: 'Riwayat Pesanan',
             subtitle: 'Lihat riwayat transaksi dari pengguna',
-            content: orderHistory(),
+            content: OrderHistory(),
             svg: (
                 <svg
                     width='16'
@@ -121,7 +121,7 @@ function ListProduct() {
             <div>
                 <div className='px-3 md:px-24 pt-7'>
                     <h2 className='font-poppins text-3xl font-semibold leading-4 mb-4'>
-                        Produk Toko Saya
+                        Riwayat Pesanan Saya
                     </h2>
                     <nav className='flex mb-4 font-poppins ' aria-label='Breadcrumb'>
                         <ol className='inline-flex items-center space-x-1 md:space-x-3'>
@@ -130,7 +130,8 @@ function ListProduct() {
                                     href='#'
                                     className='inline-flex items-center text-xl font-medium text-gray-500 hover:text-gray-700'
                                 >
-                                    Lihat dan kelola produk di toko Anda
+                                    Lihat riwayat pesanan anda yang sudah selesai ataupun yang
+                                    sedang berlangsung
                                 </a>
                             </li>
                         </ol>
@@ -173,6 +174,7 @@ function ListProduct() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }
@@ -193,29 +195,31 @@ function notifications() {
     );
 }
 
-function orderHistory() {
-    return (
-        <section className='w-full lg:flex-1 px-[38px] py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8'>
-            <div>Content for Order History</div>
-        </section>
-    );
-}
-
-function MyProducts() {
-    const [products, setProducts] = useState<Product[]>([]);
+function OrderHistory() {
+    const [orderHistory, setOrderHistory] = useState<OrderHistory[]>([]);
 
     useEffect(() => {
         axios
-            .get<Product[]>(
-                'https://virtserver.swaggerhub.com/Firlydani/Laptop/1.0.0/products',
+            .get<OrderHistory[]>(
+                'https://virtserver.swaggerhub.com/Firlydani/Laptop/1.0.0/order-history/string',
             )
-            .then((response: AxiosResponse<Product[]>) => {
-                setProducts(response.data);
+            .then((response: AxiosResponse<OrderHistory[]>) => {
+                setOrderHistory(response.data);
             })
             .catch((error: Error) => {
                 console.error('Error fetching products:', error);
             });
     }, []);
+
+    function formatToIDR(price: number) {
+        const formattedPrice = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0, // Adjust this value based on your requirements for showing decimal places
+        }).format(price);
+
+        return formattedPrice.replace(/^Rp\s?/, ''); // Remove the Rp symbol
+    }
 
     return (
         <div className='w-full'>
@@ -228,115 +232,95 @@ function MyProducts() {
                     </li>
                 </ol>
             </section>
-            <section className='w-full lg:flex-1 py-[10px] px-[18px] rounded-md mb-8 shadow-[0_3px_10px_rgb(0,0,0,0.2)]'>
-                <div className='flex gap-6'>
-                    <div className='w-full h-[54px] bg-neutral-100 rounded-lg flex items-center gap-3'>
-                        <div className='w-[30px] h-[30px] relative'></div>
-                        <div className='text-stone-300 text-xl font-normal font-poppins'>
-                            Cari produk anda
-                        </div>
-                    </div>
-
-                    <div className='h-[54px] min-w-48 px-2 rounded-lg border-2 border-sky-600 flex items-center justify-between'>
-                        <div className='text-sky-600 text-xl font-normal font-poppins text-nowrap'>
-                            Nama Produk
-                        </div>
-                        <svg
-                            width='24'
-                            height='24'
-                            viewBox='0 0 24 24'
-                            fill='none'
-                            xmlns='http://www.w3.org/2000/svg'
-                        >
-                            <path
-                                d='M6 9L12 15L18 9'
-                                stroke='#0396C7'
-                                strokeWidth='3'
-                                strokeLinecap='round'
-                                strokeLinejoin='round'
-                            />
-                        </svg>
-                    </div>
-
-                    <div className='h-[54px] px-2 min-w-52 bg-sky-600 rounded-lg flex items-center justify-between'>
-                        <svg
-                            width='24'
-                            height='24'
-                            viewBox='0 0 24 24'
-                            fill='none'
-                            xmlns='http://www.w3.org/2000/svg'
-                        >
-                            <path
-                                d='M12 5V19M5 12H19'
-                                stroke='white'
-                                strokeWidth='3'
-                                strokeLinecap='round'
-                                strokeLinejoin='round'
-                            />
-                        </svg>
-                        <div className='text-white text-xl font-normal font-poppins'>
-                            Tambah Produk
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section className='w-full lg:flex-1 px-[18px] py-[15px] rounded-md mb-8 shadow-[0_3px_10px_rgb(0,0,0,0.2)] space-y-7 max-h-[60vh] overflow-scroll'>
-                {products.map(
-                    ({ id, nama, deskripsi_barang, harga_satuan, jumlah_barang }) => (
-                        <div
-                            key={id}
-                            className='bg-[#F0F8FF] shadow-lg rounded-lg p-4 lg:p-6'
-                        >
-                            <div className='grid grid-cols-12 gap-4 border-b-2 pb-4 font-semibold text-xl font-poppins'>
-                                <div className='col-span-3 lg:col-span-4'></div>
-                                <h5 className='col-span-2'>Detail Produk</h5>
-                                <h5 className='col-span-2'>Harga</h5>
-                                <h5 className='col-span-1'>Stok</h5>
-                                <h5 className='col-span-1'>Terjual</h5>
-                                <a
-                                    className='col-span-3 lg:col-span-2 text-end font-medium text-base underline text-[#0396C7]'
-                                    href='/'
-                                >
-                                    Lihat Di Toko
-                                </a>
-                            </div>
-                            <div className='grid grid-cols-12 gap-4 border-b-2 py-4 font-poppins text-[#808080] text-base font-normal'>
-                                <div className='col-span-3 lg:col-span-4 border-r-2 flex items-center gap-5'>
-                                    <img
-                                        src='https://via.placeholder.com/97x146.png/000000?text=.' // Replace with your image path
-                                        alt='Product'
-                                        className='object-cover rounded'
-                                    />
-                                    <h2 className='text-zinc-800 text-xl font-semibold font-poppins'>
-                                        {nama}
-                                    </h2>
+            <section className='w-full lg:flex-1 px-4 py-4 rounded-md mb-8 shadow-sm space-y-4 max-h-screen overflow-auto'>
+                {orderHistory.map(({ order_id, item_produk, status }) => (
+                    <div
+                        key={order_id}
+                        className='w-full h-auto relative bg-sky-50 rounded-lg p-4 font-poppins'
+                    >
+                        <div className='flex justify-between items-center pb-4 border-b-2 border-[#E6E6E6]'>
+                            <span className='flex items-center gap-4'>
+                                <div className='text-zinc-800 text-base font-medium'>
+                                    STORE ID
                                 </div>
-                                <div className='col-span-2 border-r-2'>
-                                    <span>{deskripsi_barang}</span>
-                                </div>
-                                <div className='col-span-2 border-r-2'>{harga_satuan}</div>
-                                <div className='col-span-1 border-r-2 text-center'>
-                                    <span>{jumlah_barang}</span>
-                                </div>
-                                <div className='col-span-1 border-r-2 text-center'>
-                                    <span>14</span>
-                                </div>
-                                <div className='col-span-3 lg:col-span-2'></div>
-                            </div>
-                            <div className='flex justify-end space-x-6 mt-4'>
-                                <button className='bg-[#EE6565] text-white px-24 py-2 rounded'>
-                                    Hapus Produk
+                                <button className='mt-2 px-3 py-1 rounded-lg border border-sky-600 text-sky-600 text-xs font-medium'>
+                                    Kunjungi Toko
                                 </button>
-                                <button className='bg-[#0396C7] text-white px-24 py-2 rounded'>
-                                    Ubah Produk
-                                </button>
+                            </span>
+                            <p className='text-right text-sky-600 text-base font-medium font-poppins'>
+                                {status}
+                            </p>
+                        </div>
+                        <div className='border-b-2 border-[#E6E6E6]'>
+                            {item_produk.map(
+                                ({
+                                    product_id,
+                                    nama_produk,
+                                    jumlah,
+                                    total_harga,
+                                    harga_satuan,
+                                }) => (
+                                    <div
+                                        key={product_id}
+                                        className='w-full flex justify-between items-center py-5'
+                                    >
+                                        <div className='flex items-center gap-4 w-full'>
+                                            <img
+                                                className='w-24 h-36 object-cover'
+                                                src='https://via.placeholder.com/98x146'
+                                                alt='Product'
+                                            />
+                                            <div className='flex flex-col justify-start items-start gap-2 w-full'>
+                                                <div className='text-zinc-800 text-lg font-semibold'>
+                                                    {nama_produk}
+                                                </div>
+                                                <div className='flex flex-col justify-start items-start gap-1'>
+                                                    <div className='text-black text-sm'>
+                                                        Harga Satuan :{' '}
+                                                        <span className='text-opacity-60'>
+                                                            {formatToIDR(harga_satuan)}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div className='flex items-center pb-3 justify-between w-full'>
+                                                    <div className='text-sky-600 text-lg font-semibold'>
+                                                        x {jumlah === 0 ? 1 : jumlah}
+                                                    </div>
+                                                    <div className='flex justify-between gap-5 items-center mt-4'>
+                                                        <div className='text-neutral-400 text-base font-medium'>
+                                                            Total Pesanan
+                                                        </div>
+                                                        <div className='text-sky-600 text-2xl font-semibold'>
+                                                            Rp {formatToIDR(total_harga)}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ),
+                            )}
+                        </div>
+                        <div className='flex justify-end pt-3'>
+                            <div className='w-80 h-10 py-2.5 bg-sky-600 rounded-md justify-start items-start gap-2.5 inline-flex'>
+                                <div className="w-80 h-5 text-center text-white text-sm font-medium font-['Poppins']">
+                                    Pesanan Selesai
+                                </div>
                             </div>
                         </div>
-                    ),
-                )}
+                    </div>
+                ))}
             </section>
         </div>
     );
 }
 
-export default ListProduct;
+function MyProducts() {
+    return (
+        <section className='w-full lg:flex-1 px-[38px] py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8'>
+            <div>Content for Produk Saya</div>
+        </section>
+    );
+}
+
+export default RiwayatPesanan;

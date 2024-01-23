@@ -107,3 +107,19 @@ export interface typeListUsers {
   email: string;
   gambar?: string;
 }
+
+export interface MyProfile {
+  id: string;
+  title: string;
+  subtitle: string;
+  content: JSX.Element;
+  svg: JSX.Element;
+}
+
+export interface ShopProfile {
+  id: string;
+  title: string;
+  subtitle: string;
+  content: JSX.Element;
+  svg: JSX.Element;
+}

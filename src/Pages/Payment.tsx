@@ -8,6 +8,7 @@ import { postPayment } from "../utils/interface";
 // import axios from "axios";
 import Swal from "sweetalert2";
 // import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD
 
 const Payment: FC = () => {
   const [showPayment, setShow] = useState<Boolean>(false);
@@ -18,6 +19,19 @@ const Payment: FC = () => {
     alamat: "",
     metode_pembayaran: "",
   });
+=======
+
+
+
+
+const Payment: FC = () => {
+  const [showPayment, setShow] = useState(false);
+  const [showWallet, setShowWallet] = useState(false);
+  const generateRandomCode = () => {
+  const randomCode = Math.floor(1000 + Math.random() * 9000);
+  return randomCode;
+};
+>>>>>>> 1d56b12 (Memperbarui page error (#21))
 
   const changeShow = () => {
     setShow(!showPayment);
@@ -90,6 +104,7 @@ const Payment: FC = () => {
               <span className="font-semibold md:text-base text-sm">Metode Pembayaran</span>
             </div>
 
+<<<<<<< HEAD
             {pembayaran.metode_pembayaran ? (
               <div className="lg:w-[567px] w-[90vw] h-[106px] relative bg-white rounded shadow">
                 <div className="left-[78px] top-[18.64px] absolute text-gray-600 text-[0.8rem] md:text-2xl font-bold font-Poppins leading-9">Bank Transfer Virtual Account</div>
@@ -109,6 +124,40 @@ const Payment: FC = () => {
                 <img onClick={changeShow} className="cursor-pointer w-[29px] h-[29px] right-4 md:left-[495px] top-[137px] absolute rounded" src="https://img.icons8.com/ios/50/expand-arrow--v2.png" />
               </div>
             )}
+=======
+      {showPopup && (
+        <>
+          <div className="fixed inset-0 bg-black opacity-50 z-50"></div>
+          <div className="fixed inset-0 flex items-center justify-center z-50 font-Poppins">
+            <div className="bg-white w-96 p-8 rounded shadow-lg">
+              <p className="mb-2 text-2xl font-semibold text-blue-600">Detail Pembayaran</p>
+              <p className="my-2 text-sm">Nama: {pembayaran.nama}</p>
+              <hr />
+              <p className="my-2 text-sm">Alamat: {pembayaran.alamat}</p>
+              <hr />
+              <p className="my-2 text-sm">Metode Pembayaran: {pembayaran.metode_pembayaran}</p>
+              <hr />
+              <p className="my-2 text-sm">
+                Total Pembayaran: <span className="font-bold">$5000</span>
+              </p>
+
+              {/* Div petunjuk dengan latar belakang oranye muda */}
+              <div className="mb-4 text-sm bg-orange-200 p-3 rounded">
+                Petunjuk untuk bertransaksi menggunakan {pembayaran.metode_pembayaran}: Masukkan kode berikut - {generateRandomCode()}
+              </div>
+
+              <div className="flex gap-3">
+                <button className="bg-gray-500 text-white px-4 py-2 mt-5 rounded hover:bg-gray-600" onClick={() => setShowPopup(false)}>
+                  Tutup
+                </button>
+              </div>
+            </div>
+
+          {showPayment &&
+            bankData.banks.map((item: any) => {
+              return <PaymentButton gambar={item.gambar} value={item.name} />;
+            })}
+>>>>>>> 1d56b12 (Memperbarui page error (#21))
 
             {showPayment &&
               bankData.banks.map((item: any) => {

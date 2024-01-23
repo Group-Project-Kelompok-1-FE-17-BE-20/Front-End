@@ -20,14 +20,21 @@ const Header: FC = () => {
     }).then((res) => {
       if (res.isConfirmed) {
         Cookies.remove("username");
+<<<<<<< HEAD
         navigate("/login");
+=======
+        navigate("/");
+>>>>>>> 1d56b12 (Memperbarui page error (#21))
         window.location.reload();
       }
     });
   };
 
   useEffect(() => {}, [username]);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1d56b12 (Memperbarui page error (#21))
   return (
     <div className="flex justify-between  fixed z-10 w-screen items-center px-12 md:px-28 py-2 md:py-0 bg-white shadow-sm h-[20vh]">
       <h2 className="text-2xl md:text-4xl font-bold text-[#0396C7]">StoreID</h2>
@@ -102,7 +109,11 @@ const Header: FC = () => {
           <div className="bg-white ease-in duration-1000 transition-all p-4 absolute top-[20vh] right-[7rem] border-[1.2px] shadow-md w-[15vw]">
             <div className="flex flex-col items-center justify-center">
               <div className="flex flex-col justify-center items-start w-full gap-3">
+<<<<<<< HEAD
                 <button className="text-[#828282] hover:text-[#0396C7] flex  items-center gap-3 w-full">
+=======
+                <button onClick={() => navigate("/profiltoko")} className="text-[#828282] hover:text-[#0396C7] flex  items-center gap-3 w-full">
+>>>>>>> 1d56b12 (Memperbarui page error (#21))
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M5.3163 19.4384C5.92462 18.0052 7.34492 17 9 17H15C16.6551 17 18.0754 18.0052 18.6837 19.4384M16 9.5C16 11.7091 14.2091 13.5 12 13.5C9.79086 13.5 8 11.7091 8 9.5C8 7.29086 9.79086 5.5 12 5.5C14.2091 5.5 16 7.29086 16 9.5ZM22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
@@ -114,7 +125,11 @@ const Header: FC = () => {
                   </svg>
                   Profil Saya
                 </button>
+<<<<<<< HEAD
                 <button className="text-[#828282] hover:text-[#0396C7] flex  items-center gap-3 w-full">
+=======
+                <button onClick={() => navigate("/profilsaya")} className="text-[#828282] hover:text-[#0396C7] flex  items-center gap-3 w-full">
+>>>>>>> 1d56b12 (Memperbarui page error (#21))
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M13 19V13.6C13 13.0399 13 12.7599 12.891 12.546C12.7951 12.3578 12.6422 12.2049 12.454 12.109C12.2401 12 11.9601 12 11.4 12H8.6C8.03995 12 7.75992 12 7.54601 12.109C7.35785 12.2049 7.20487 12.3578 7.10899 12.546C7 12.7599 7 13.0399 7 13.6V19M1 5C1 6.65685 2.34315 8 4 8C5.65685 8 7 6.65685 7 5C7 6.65685 8.34315 8 10 8C11.6569 8 13 6.65685 13 5C13 6.65685 14.3431 8 16 8C17.6569 8 19 6.65685 19 5M4.2 19H15.8C16.9201 19 17.4802 19 17.908 18.782C18.2843 18.5903 18.5903 18.2843 18.782 17.908C19 17.4802 19 16.9201 19 15.8V4.2C19 3.0799 19 2.51984 18.782 2.09202C18.5903 1.71569 18.2843 1.40973 17.908 1.21799C17.4802 1 16.9201 1 15.8 1H4.2C3.0799 1 2.51984 1 2.09202 1.21799C1.71569 1.40973 1.40973 1.71569 1.21799 2.09202C1 2.51984 1 3.07989 1 4.2V15.8C1 16.9201 1 17.4802 1.21799 17.908C1.40973 18.2843 1.71569 18.5903 2.09202 18.782C2.51984 19 3.07989 19 4.2 19Z"
@@ -140,6 +155,10 @@ const Header: FC = () => {
           </div>
         )}
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1d56b12 (Memperbarui page error (#21))
         {username && (
           <div className="flex items-center gap-2 md:gap-5">
             <p className="text-base md:text-xl font-medium text-[#0396C7]">{username}</p>

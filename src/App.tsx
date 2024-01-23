@@ -9,8 +9,12 @@ import Payment from "./Pages/Payment";
 import HistoryOrder from "./Pages/historyOrder";
 import ListProduct from "./Pages/ListProduct";
 import Cart from "./Pages/Cart";
+<<<<<<< HEAD
 import UserProfile from "./Pages/ProfilSaya";
+=======
+>>>>>>> 1d56b12 (Memperbarui page error (#21))
 import ProfileToko from "./Pages/ShopProfile";
+import UserProfile from "./Pages/ProfilSaya";
 
 function App() {
   return (

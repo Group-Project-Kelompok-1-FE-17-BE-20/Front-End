@@ -13,7 +13,7 @@ const DetailProduct: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [detail, setDetail] = useState<typeLaptopDetail>();
-  const [number, setNumber] = useState(0);
+  const [number, setNumber] = useState(1);
 
   const showDetail = async () => {
     try {
@@ -24,12 +24,31 @@ const DetailProduct: FC = () => {
     } catch (error) {}
   };
 
+  const addCart = (data: any) => {
+    const price = data.price * number;
+    const qty = 1 * number;
+    const updateData = { ...data, price, qty };
+    try {
+      axios.post(`https://65acaf53adbd5aa31bdf714f.mockapi.io/Keranjang`, updateData).then(() => {
+        Swal.fire({
+          title: "Berhasil",
+          text: `Barang sudah ditambahkan ke Keranjang`,
+          icon: "success",
+          confirmButtonText: "OK",
+          confirmButtonColor: "rgb(3 150 199)",
+        });
+      });
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
   const clickProduct = () => {
     if (username) {
-      navigate(`/`);
+      addCart(detail);
     } else {
       Swal.fire({
-        title: "Confirmation",
+        title: "Konfirmasi",
         text: `Sebelum membeli Barang, anda Harus Login Dulu`,
         icon: "info",
         showCancelButton: true,

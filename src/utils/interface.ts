@@ -123,3 +123,16 @@ export interface ShopProfile {
   content: JSX.Element;
   svg: JSX.Element;
 }
+
+export interface CartType {
+  product_id: string;
+  nama_produk: string;
+  jumlah: number;
+  harga_satuan: number;
+  total_harga: number;
+}
+
+export interface CartState {
+  items: CartType[];
+  total: number;
+}

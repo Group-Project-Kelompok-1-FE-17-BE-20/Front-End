@@ -187,6 +187,79 @@ function myProfile() {
     <section className="w-full lg:flex-1 px-[38px] py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8">
       <h2 className="font-poppins text-2xl font-semibold text-[#111827] mb-[12px]">Edit Profil</h2>
       <form onSubmit={handleSave}>
+        <div className="container w-full h-[17vh] relative">
+          <img src={bgUserCover} className="h-full w-full" alt="bgCover" />
+          <div className="GantiCover" style={{ width: 40, height: 20, position: "absolute", top: 0, right: 0, padding: "5px", display: "flex", justifyContent: "flex-end", alignItems: "flex-start" }}>
+            <label htmlFor="uploadInput" className="Cover" style={{ width: 70, height: 15, display: "flex", alignItems: "center" }}>
+              <input type="file" id="uploadInput" accept="image/*" style={{ display: "none" }} onChange={handleImageUpload} />
+              <div className="Camera" style={{ width: "50%", height: "50%", position: "relative", cursor: "pointer" }}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" role="img">
+                  <path
+                    d="M3.58579 7.58579C3.21071 7.96086 3 8.46957 3 9V18C3 18.5304 3.21071 19.0391 3.58579 19.4142C3.96086 19.7893 4.46957 20 5 20H19C19.5304 20 20.0391 19.7893 20.4142 19.4142C20.7893 19.0391 21 18.5304 21 18V9C21 8.46957 20.7893 7.96086 20.4142 7.58579C20.0391 7.21071 19.5304 7 19 7H18.07C17.7408 7.00005 17.4167 6.91884 17.1264 6.76359C16.8362 6.60834 16.5887 6.38383 16.406 6.11L15.594 4.89C15.4113 4.61617 15.1638 4.39166 14.8736 4.23641C14.5833 4.08116 14.2592 3.99995 13.93 4H10.07C9.74082 3.99995 9.41671 4.08116 9.12643 4.23641C8.83616 4.39166 8.5887 4.61617 8.406 4.89L7.594 6.11C7.4113 6.38383 7.16384 6.60834 6.87357 6.76359C6.58329 6.91884 6.25918 7.00005 5.93 7H5C4.46957 7 3.96086 7.21071 3.58579 7.58579Z"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M14.1213 15.1213C14.6839 14.5587 15 13.7956 15 13C15 12.2044 14.6839 11.4413 14.1213 10.8787C13.5587 10.3161 12.7956 10 12 10C11.2044 10 10.4413 10.3161 9.87868 10.8787C9.31607 11.4413 9 12.2044 9 13C9 13.7956 9.31607 14.5587 9.87868 15.1213C10.4413 15.6839 11.2044 16 12 16C12.7956 16 13.5587 15.6839 14.1213 15.1213Z"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div className="mb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-3">
+            <div>
+              <label htmlFor="NamaToko" className="block mb-2 text-sm font-medium text-[#6B7280]">
+                Nama Lengkap
+              </label>
+              <input
+                type="text"
+                id="NamaToko"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder="Nama Lengkap"
+                value={formData.NamaToko}
+                onChange={handlePerubahan}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="AlamatToko" className="block mb-2 text-sm font-medium text-[#6B7280]">
+                Alamat Toko<span className="text-[#F43F5E]">*</span>
+              </label>
+              <textarea
+                id="AlamatToko"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder="Alamat Toko"
+                required
+                value={formData.AlamatToko}
+                onChange={handlePerubahan}
+              ></textarea>
+              <div className="font-poppins text-sm font-normal text-[#6B7280] mt-2">
+                <p>Informasikan lokasi toko Anda, seperti Nama Jalan/Gedung, Nomor Rumah, dll</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-3">
+            <button type="submit" className="text-white bg-[#0396C7] focus:ring-4 font-poppins font-medium rounded-lg text-base px-12 py-2 text-center">
+              Simpan
+            </button>
+
+            <button type="submit" className="text-white bg-[#fa5151] focus:ring-4 font-poppins font-medium rounded-lg text-base px-12 py-2 text-center">
+              Hapus Akun
+            </button>
+          </div>
+        </div>
           
           <div className="container w-full h-[17vh] relative">
       <img src={bgUserCover} className="h-full w-full" alt="bgCover" />
@@ -255,6 +328,7 @@ function myProfile() {
           </button>
         </div>
       </div>
+
       </form>
     </section>
   );

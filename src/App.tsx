@@ -7,8 +7,10 @@ import DetailProduct from "./Pages/DetailProduct";
 import ListUsers from "./Pages/DaftarUser";
 import Payment from "./Pages/Payment";
 import HistoryOrder from "./Pages/historyOrder";
-import UserProfile from "./Pages/ProfilSaya";
+import ListProduct from "./Pages/ListProduct";
+import Cart from "./Pages/Cart";
 import ProfileToko from "./Pages/ShopProfile";
+import UserProfile from "./Pages/ProfilSaya";
 
 function App() {
   return (
@@ -23,7 +25,9 @@ function App() {
           <Route path="/daftar/users" element={<ListUsers />}></Route>
           <Route path="/history-order/users" element={<HistoryOrder />}></Route>
           <Route path="/payment" element={<Payment />}></Route>
-          <Route path="/profiltoko" element={<ProfileToko/> }></Route>
+          <Route path="/list-product" element={<ListProduct />}></Route>
+          <Route path="/cart" element={<Cart />}></Route>
+          <Route path="/profiltoko" element={<ProfileToko />}></Route>
           <Route path="/profilsaya" element={<UserProfile />}></Route>
         </Routes>
       </Router>

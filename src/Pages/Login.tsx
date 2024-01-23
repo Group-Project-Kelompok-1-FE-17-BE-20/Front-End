@@ -23,7 +23,7 @@ const Login: FC = () => {
     e.preventDefault();
     const cek = async () => {
       try {
-        const response = await axios.get("https://65a7a41b94c2c5762da72973.mockapi.io//product");
+        const response = await axios.get("http://34.121.193.16:8083/users");
         setData(response.data);
         const findOut = response.data.find((user: any) => user.email === loginState.email);
         const findOut2 = response.data.find((user: any) => user.password === loginState.password);

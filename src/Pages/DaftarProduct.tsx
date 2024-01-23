@@ -36,6 +36,7 @@ const DaftarProduct = () => {
       });
 
       const filteredData = category === "Semua" ? laptopWithdata : laptopWithdata.filter((item: any) => item.category === category);
+      console.log(response.data.map((item: any) => item.price));
       setLapData((prev) => ({ ...prev, data: filteredData }));
     } catch (error) {
       console.log(error);
@@ -89,9 +90,7 @@ const DaftarProduct = () => {
         <div className="content md:my-16 mt-2 pb-10 md:pb-0 flex flex-col justify-center items-center">
           <div className="grid lg:grid-cols-4 grid-cols-2 md:gap-8 gap-2 md:px-5  justify-center items-center w-[90vw]">
             {currentItems ? (
-              currentItems.map((item: any, id: any) => (
-                <Card key={id} brand={item.brand} model={item.model} allData={item} processor={item.processor} price={item.price} ram={item.ram} storage={item.storage} cekProduk={() => clickProduct(item.id)} />
-              ))
+              currentItems.map((item: any, id: any) => <Card key={id} brand={item.brand} model={item.model} processor={item.processor} price={item.price} ram={item.ram} storage={item.storage} cekProduk={() => clickProduct(item.id)} />)
             ) : (
               <div className="flex justify-center items-center text-5xl">
                 <h1>Data Tidak ditemukan</h1>

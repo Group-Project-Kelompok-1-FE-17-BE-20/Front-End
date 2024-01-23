@@ -1,21 +1,11 @@
-import { useEffect } from "react";
 import CardHistoryOrder from "../components/Admin/CardHistoryOrder";
 import Footer from "../components/Footer";
 import Header from "../components/Product/Header";
-import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
 
 const HistoryOrder = () => {
-  const username = Cookies.get("username");
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (username !== "admin") {
-      navigate("/login");
-    }
-  });
   return (
     <>
+      <div></div>
       <Header />
       <div className="flex flex-col pt-44 gap-8 font-Poppins">
         <div className="flex flex-col px-10 md:px-20">

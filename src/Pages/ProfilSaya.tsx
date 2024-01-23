@@ -1,9 +1,9 @@
 import bgUserCover from "../img/Rectangle 2775.png";
-import Navbar from "../components/Navbar";
 import { useState } from "react";
 import axios from "axios";
 import { MyProfile } from "../utils/interface";
 import Footer from "../components/Footer";
+import Header from "../components/Product/Header";
 
 function UserProfile() {
   const [activeUser, setActiveUser] = useState<string>("myProfile");
@@ -87,7 +87,7 @@ function UserProfile() {
 
   return (
     <div>
-      <Navbar />
+      <Header />
       <div>
         <div className="px-3 md:px-24 sm:pt-40">
           <h2 className="font-poppins text-3xl font-semibold leading-4 mb-4">Profil Saya</h2>

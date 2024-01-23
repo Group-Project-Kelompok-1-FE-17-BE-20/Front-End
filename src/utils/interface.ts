@@ -5,13 +5,13 @@ export interface LoginState {
 }
 
 export interface registerType {
-  fullName: string;
+  nama_lengkap: string;
   username: string;
   password: string | number;
   showPassword: boolean;
-  gender: string;
+  jenis_kelamin: string;
   email: string;
-  phoneNumber: string;
+  nomor_hp: string;
 }
 export interface productDataType {
   brand: string;

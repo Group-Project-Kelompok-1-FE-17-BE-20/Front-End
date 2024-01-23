@@ -30,7 +30,9 @@ const Header: FC = () => {
     <div className="flex justify-between fixed z-10 w-screen items-center px-4 md:px-28 py-2 md:py-0 bg-white shadow-sm h-[20vh]">
       <h2 className="text-2xl md:text-4xl font-bold text-[#0396C7]">StoreID</h2>
       <div className="items-center justify-between gap-5 flex">
-        <p className="font-poppins font-normal text-lg font-Poppins text-[#828282] hidden md:block">Product</p>
+        <p onClick={() => navigate("/")} className="font-poppins font-normal text-lg font-Poppins text-[#828282] hidden md:block">
+          Product
+        </p>
         <div className="m-w-[792px] h-[2.5rem] md:h-[54px] p-2 bg-neutral-100 rounded-lg justify-center items-center gap-1 inline-flex">
           <div className="md:flex hidden">
             <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">

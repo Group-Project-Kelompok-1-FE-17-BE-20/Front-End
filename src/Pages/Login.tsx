@@ -5,11 +5,10 @@ import { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
-import { setDataKu } from "../utils/interface";
+import bcrypt from "bcryptjs";
 
 const Login: FC = () => {
   const navigate = useNavigate();
-  const [datas, setData] = useState<setDataKu>();
   const [loginState, setLoginState] = useState<LoginState>({
     email: "",
     password: "",
@@ -19,21 +18,21 @@ const Login: FC = () => {
     navigate("/register");
   };
 
-  const handleLogin = (e: FormEvent) => {
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
-    const cek = async () => {
+    if (loginState.email === "admin@gmail.com" && loginState.password === "1") {
+      navigate("/daftar-users");
+      Cookies.set("username", "admin");
+    } else {
       try {
-        const response = await axios.get("https://65a7a41b94c2c5762da72973.mockapi.io//product");
-        setData(response.data);
-        const findOut = response.data.find((user: any) => user.email === loginState.email);
-        const findOut2 = response.data.find((user: any) => user.password === loginState.password);
-        const user = findOut.fullName;
+        const response = await axios.get("http://34.121.193.16:8083/users");
+        const userData = response.data.data;
+        const findOut = userData.find((user: any) => user.email === loginState.email);
 
-        if (loginState.email === "admin@gmail.com") {
-          navigate("/daftar-users");
-          Cookies.set("username", "admin");
-        } else {
-          if (datas || (findOut && findOut2)) {
+        if (findOut) {
+          const isPasswordMatch = await bcrypt.compare(loginState.password, findOut.password);
+          if (isPasswordMatch) {
+            const user = findOut.nama_lengkap;
             Swal.fire({
               title: "Confirmation",
               text: `Congratulations, Hello ${user}`,
@@ -47,27 +46,32 @@ const Login: FC = () => {
               }
             });
           } else {
-            Swal.fire({
-              title: "Confirmation",
-              text: "Username and Password Was Wrong",
-              icon: "error",
-              showCancelButton: true,
-              confirmButtonText: "OK",
-              confirmButtonColor: "rgb(255 10 10)",
-            }).then(() => {
-              setLoginState({
-                email: "",
-                password: "",
-                passwordVisible: false,
-              });
-            });
+            handleLoginError();
           }
+        } else {
+          handleLoginError();
         }
       } catch (error) {
-        console.error("Error:");
+        handleLoginError();
       }
-    };
-    cek();
+    }
+  };
+
+  const handleLoginError = () => {
+    Swal.fire({
+      title: "Confirmation",
+      text: "Username and Password Was Wrong",
+      icon: "error",
+      showCancelButton: true,
+      confirmButtonText: "OK",
+      confirmButtonColor: "rgb(255 10 10)",
+    }).then(() => {
+      setLoginState({
+        email: "",
+        password: "",
+        passwordVisible: false,
+      });
+    });
   };
 
   return (

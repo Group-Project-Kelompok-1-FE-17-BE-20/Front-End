@@ -153,6 +153,12 @@ const Register: FC = () => {
                       maxLength={12}
                       className="w-full px-[0.4rem]  py-[0.3rem] border-2 border-[#CED4DA] rounded-md"
                     />
+
+                    {registerState.fullName === "" && (
+                      <span className="underline p-2 text-[#0396C7] cursor-pointer " onClick={() => navigate("/login")}>
+                        Saya sudah punya akun
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="flex justify-center items-center">

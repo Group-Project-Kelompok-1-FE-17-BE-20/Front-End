@@ -1,15 +1,17 @@
 import { FC } from "react";
 import imageProfil from "../../img/image 8.png";
+import { typeListUsers } from "../../utils/interface";
 
-const ProfileUsers: FC = () => {
+const ProfileUsers: FC<typeListUsers> = (props: typeListUsers) => {
+  const { id, no_hp, email, nama } = props;
   return (
     <div className="flex gap-5 bg-[#E5F3FF] md:p-5 p-2 rounded-md">
       <img src={imageProfil} alt="person" className="rounded-md" />
       <div className="flex flex-col w-full">
-        <span className="font-semibold">Indah</span>
-        <span className="text-[#999999] text-xs md:text-base">No Id:  JP2321949193</span>
-        <span className="text-[#999999] text-xs md:text-base">No Handphone : 0812343567890410</span>
-        <span className="text-[#999999] text-xs md:text-base">Email : indahmayangsari@gmail.com</span>
+        <span className="font-semibold">{nama}</span>
+        <span className="text-[#999999] text-xs md:text-base">No Id:  {id}</span>
+        <span className="text-[#999999] text-xs md:text-base">No Handphone : {no_hp}</span>
+        <span className="text-[#999999] text-xs md:text-base">Email : {email}</span>
       </div>
     </div>
   );

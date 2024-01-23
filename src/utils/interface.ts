@@ -21,6 +21,7 @@ export interface productDataType {
   storage: string;
   price: number;
   cekProduk: () => void;
+  allData: any;
 }
 
 export interface lapData {
@@ -51,7 +52,7 @@ export interface typeLaptopDetail {
   id: number;
 }
 
-export interface Cart {
+export interface CartType {
   product_id: string;
   nama_produk: string;
   jumlah: number;
@@ -60,7 +61,7 @@ export interface Cart {
 }
 
 export interface CartState {
-  items: Cart[];
+  items: CartType[];
   total: number;
 }
 export interface MenuItem {
@@ -80,4 +81,29 @@ export interface Product {
   deskripsi_barang: string;
   username: string;
   gambar_barang: string;
+}
+
+export interface typePayment {
+  gambar: string;
+  value: string;
+  onSelection: (value: string) => void;
+  name: string;
+}
+
+export interface postPayment {
+  nama: string;
+  alamat: string;
+  metode_pembayaran: string;
+}
+
+export interface userDataType {
+  data: [];
+}
+
+export interface typeListUsers {
+  id: string | number;
+  nama: string;
+  no_hp: number;
+  email: string;
+  gambar?: string;
 }

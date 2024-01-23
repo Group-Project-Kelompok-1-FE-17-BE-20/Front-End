@@ -83,6 +83,22 @@ export interface Product {
   gambar_barang: string;
 }
 
+export interface ProductItem {
+  product_id: string;
+  nama_produk: string;
+  jumlah: number;
+  harga_satuan: number;
+  total_harga: number;
+}
+
+export interface OrderHistory {
+  order_id: string;
+  tanggal_pemesanan: string;
+  total_pembayaran: number;
+  status: string;
+  item_produk: ProductItem[];
+}
+
 export interface typePayment {
   gambar: string;
   value: string;

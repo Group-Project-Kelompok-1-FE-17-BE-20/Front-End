@@ -52,7 +52,6 @@ export interface typeLaptopDetail {
   id: number;
 }
 
-<<<<<<< HEAD
 export interface CartType {
   product_id: string;
   nama_produk: string;
@@ -65,7 +64,6 @@ export interface CartState {
   items: CartType[];
   total: number;
 }
-=======
 export interface LoginState {
   email: string;
   password: string;
@@ -95,7 +93,6 @@ export interface lapData {
   data: [];
 }
 
->>>>>>> 99aee2f (Menambahkan user profile dan shop profile)
 export interface MenuItem {
   id: string;
   title: string;
@@ -104,7 +101,6 @@ export interface MenuItem {
   svg: JSX.Element;
 }
 
-<<<<<<< HEAD
 export interface Product {
   id: string;
   nama: string;
@@ -140,7 +136,6 @@ export interface typeListUsers {
   email: string;
   gambar?: string;
 }
-=======
 export interface setDataKu {
   data?: [];
 }
@@ -172,4 +167,3 @@ export interface ShopProfile {
   content: JSX.Element;
   svg: JSX.Element;
 }
->>>>>>> 99aee2f (Menambahkan user profile dan shop profile)

@@ -97,7 +97,7 @@ export interface ProductItem {
   total_harga: number;
 }
 
-export interface OrderHistory {
+export interface OrderHistoryType {
   order_id: string;
   tanggal_pemesanan: string;
   total_pembayaran: number;

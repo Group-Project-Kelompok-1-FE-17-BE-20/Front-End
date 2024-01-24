@@ -142,7 +142,7 @@ const Payment: FC = () => {
             })}
             <div>
               <span className="text-sm font-bold">Total Bayar :</span>
-              <span className="font-bold text-lg text-red-500"> ${Math.round(location.state.total)}</span>
+              <span className="font-bold text-lg text-red-500"> Rp. {Math.round(location.state.total)}</span>
             </div>
             <button className="flex justify-center items-center" type="submit">
               <div className="flex justify-center items-center my-10 font-semibold bg-sky-600 w-full md:w-1/2 text-white py-2.5 rounded-md">Lanjutkan Pembayaran</div>
@@ -164,7 +164,7 @@ const Payment: FC = () => {
               <p className="my-2 text-sm">Metode Pembayaran: {pembayaran.metode_pembayaran}</p>
               <hr />
               <p className="my-2 text-sm font-semibold">
-                Total Pembayaran: <span className="font-bold text-lg">${Math.round(location.state.total)}</span>{" "}
+                Total Pembayaran: <span className="font-bold text-lg">Rp. {Math.round(location.state.total)}</span>{" "}
               </p>
 
               {/* Div petunjuk dengan latar belakang oranye muda */}

@@ -20,38 +20,55 @@ const Login: FC = () => {
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
+
     if (loginState.email === "admin@gmail.com" && loginState.password === "1") {
       navigate("/daftar-users");
       Cookies.set("username", "admin");
     } else {
       try {
-        const response = await axios.get("http://34.121.193.16:8083/users");
-        const userData = response.data.data;
-        const findOut = userData.find((user: any) => user.email === loginState.email);
+        const response = await axios.post("http://34.121.193.16:8083/login", {
+          email: loginState.email,
+          password: loginState.password,
+        });
+        if (response.data) {
+          Swal.fire({
+            title: "Confirmation",
+            text: `Congratulations, Hello Selamat Datang`,
+            icon: "success",
+            confirmButtonText: "OK",
+            confirmButtonColor: "rgb(3 150 199)",
+          }).then((res) => {
+            if (res.isConfirmed) {
+              const cekData = async () => {
+                try {
+                  const response = await axios.get("http://34.121.193.16:8083/users");
+                  const userData = response.data.data;
+                  const findOut = userData.find((user: any) => user.email === loginState.email);
 
-        if (findOut) {
-          const isPasswordMatch = await bcrypt.compare(loginState.password, findOut.password);
-          if (isPasswordMatch) {
-            const user = findOut.nama_lengkap;
-            Swal.fire({
-              title: "Confirmation",
-              text: `Congratulations, Hello ${user}`,
-              icon: "success",
-              confirmButtonText: "OK",
-              confirmButtonColor: "rgb(3 150 199)",
-            }).then((res) => {
-              if (res.isConfirmed) {
-                Cookies.set("username", user);
-                navigate("/");
-              }
-            });
-          } else {
-            handleLoginError();
-          }
+                  if (findOut) {
+                    const isPasswordMatch = await bcrypt.compare(loginState.password, findOut.password);
+                    if (isPasswordMatch) {
+                      const user = findOut.nama_lengkap;
+                      Cookies.set("username", user);
+                      navigate("/");
+                    } else {
+                      handleLoginError();
+                    }
+                  } else {
+                    handleLoginError();
+                  }
+                } catch (error) {
+                  handleLoginError();
+                }
+              };
+              cekData();
+            }
+          });
         } else {
           handleLoginError();
         }
       } catch (error) {
+        console.error("Login error:", error);
         handleLoginError();
       }
     }

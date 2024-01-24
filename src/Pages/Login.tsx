@@ -5,7 +5,6 @@ import { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
-import bcrypt from "bcryptjs";
 
 const Login: FC = () => {
   const navigate = useNavigate();
@@ -26,7 +25,7 @@ const Login: FC = () => {
       Cookies.set("username", "admin");
     } else {
       try {
-        const response = await axios.post("http://34.121.193.16:8083/login", {
+        const response = await axios.post("http://34.41.81.93:8083/login", {
           email: loginState.email,
           password: loginState.password,
         });
@@ -41,19 +40,14 @@ const Login: FC = () => {
             if (res.isConfirmed) {
               const cekData = async () => {
                 try {
-                  const response = await axios.get("http://34.121.193.16:8083/users");
+                  const response = await axios.get("http://34.41.81.93:8083/users");
                   const userData = response.data.data;
                   const findOut = userData.find((user: any) => user.email === loginState.email);
-
+                  console.log(findOut);
                   if (findOut) {
-                    const isPasswordMatch = await bcrypt.compare(loginState.password, findOut.password);
-                    if (isPasswordMatch) {
-                      const user = findOut.nama_lengkap;
-                      Cookies.set("username", user);
-                      navigate("/");
-                    } else {
-                      handleLoginError();
-                    }
+                    const user = findOut.nama_lengkap;
+                    Cookies.set("username", user);
+                    navigate("/");
                   } else {
                     handleLoginError();
                   }
@@ -103,7 +97,7 @@ const Login: FC = () => {
 
         <form onSubmit={handleLogin}>
           <div className="flex flex-col py-[8vh] h-[80vh] md:h-[60vh] lg:h-[80%] justify-center items-center gap-5">
-            <span className="font-bold text-[2.8rem] mb-5 font-['Poppins']">Sign Up</span>
+            <span className="font-bold text-[2.8rem] mb-5 font-['Poppins']">Sign In</span>
             <input
               value={loginState.email}
               onChange={(e) => setLoginState((prev) => ({ ...prev, email: e.target.value }))}

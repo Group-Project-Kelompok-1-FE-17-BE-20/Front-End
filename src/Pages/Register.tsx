@@ -20,7 +20,7 @@ const Register: FC = () => {
   const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://34.121.193.16:8083/users", {
+      const response = await axios.post("http://34.41.81.93:8083/users", {
         nama_lengkap: registerState.nama_lengkap,
         username: registerState.username,
         password: registerState.password,

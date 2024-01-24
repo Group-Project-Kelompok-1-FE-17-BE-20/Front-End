@@ -4,8 +4,9 @@ import { useState } from "react";
 import axios from "axios";
 import { MenuItem } from "../utils/interface";
 
-function CreateProduct() {
+function CreateProduct(props: any) {
   const [activeItem, setActiveItem] = useState<string>("myProducts");
+  const { hidden } = props;
 
   const menuItems: MenuItem[] = [
     {
@@ -87,44 +88,56 @@ function CreateProduct() {
 
   return (
     <div>
-      <Header />
+      {!hidden ? "" : <Header />}
       <div>
-        <div className="px-3 md:px-24 pt-7">
-          <h2 className="font-poppins text-3xl font-semibold leading-4 mb-4">Tambah Produk</h2>
-          <nav className="flex mb-4 font-poppins " aria-label="Breadcrumb">
-            <ol className="inline-flex items-center space-x-1 md:space-x-3">
-              <li className="inline-flex items-center">
-                <a href="#" className="inline-flex items-center text-xl font-medium text-gray-500 hover:text-gray-700">
-                  Produk Saya
-                </a>
-              </li>
-              <li aria-current="page">
-                <div className="flex items-center">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M8.16305 3.08675L14.4131 9.33675C14.5005 9.42385 14.5698 9.52734 14.6171 9.6413C14.6644 9.75525 14.6888 9.87743 14.6888 10.0008C14.6888 10.1242 14.6644 10.2464 14.6171 10.3603C14.5698 10.4743 14.5005 10.5778 14.4131 10.6649L8.16305 16.9149C7.98693 17.091 7.74806 17.1899 7.49899 17.1899C7.24992 17.1899 7.01105 17.091 6.83493 16.9149C6.65881 16.7388 6.55986 16.4999 6.55986 16.2508C6.55986 16.0017 6.65881 15.7629 6.83493 15.5868L12.4216 10L6.83415 4.41332C6.65803 4.2372 6.55908 3.99833 6.55908 3.74926C6.55908 3.50018 6.65803 3.26131 6.83415 3.08519C7.01027 2.90907 7.24914 2.81013 7.49821 2.81013C7.74728 2.81013 7.98615 2.90907 8.16227 3.08519L8.16305 3.08675Z"
-                      fill="#828282"
-                    />
-                  </svg>
-                  <span className="ml-1 text-xl font-medium text-gray-700 md:ml-2">Tambah Produk</span>
-                </div>
-              </li>
-            </ol>
-          </nav>
-          <div className="flex flex-col lg:flex-row gap-12 mt-7">
-            <aside className="w-full lg:w-1/5 px-4 py-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md min-w-[309px] max-w-none lg:max-w-[309px] h-min">
-              <ul className="space-y-4 lg:space-y-10">
-                {menuItems.map(({ svg, title, subtitle, id }) => (
-                  <li key={id} className={`${activeItem === id ? "bg-[#0396C7]" : "bg-[#D0E9FEB2]"} rounded-md flex px-3 py-2 items-center gap-3 cursor-pointer`} onClick={() => handleMenuItemClick(id)}>
-                    <div className={`${activeItem === id ? "bg-white" : "bg-[#0396C7]"} p-2 rounded-full`}>{svg}</div>
-                    <div className="flex flex-col">
-                      <h4 className={`${activeItem === id ? "text-white" : "text-[#0396C7]"} font-poppins font-medium text-sm`}>{title}</h4>
-                      <p className={`${activeItem === id ? "text-white" : "text-[#0396C7]"} font-poppins font-normal text-[10px]`}>{subtitle}</p>
+        <div className={!hidden ? `px-3 md:px-10 py-5` : `px-3 md:px-24 pt-7`}>
+          {!hidden ? (
+            ""
+          ) : (
+            <>
+              <h2 className="font-poppins text-3xl font-semibold leading-4 mb-4">Tambah Produk</h2>
+              <nav className="flex mb-4 font-poppins " aria-label="Breadcrumb">
+                <ol className="inline-flex items-center space-x-1 md:space-x-3">
+                  <li className="inline-flex items-center">
+                    <a href="#" className="inline-flex items-center text-xl font-medium text-gray-500 hover:text-gray-700">
+                      Produk Saya
+                    </a>
+                  </li>
+                  <li aria-current="page">
+                    <div className="flex items-center">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M8.16305 3.08675L14.4131 9.33675C14.5005 9.42385 14.5698 9.52734 14.6171 9.6413C14.6644 9.75525 14.6888 9.87743 14.6888 10.0008C14.6888 10.1242 14.6644 10.2464 14.6171 10.3603C14.5698 10.4743 14.5005 10.5778 14.4131 10.6649L8.16305 16.9149C7.98693 17.091 7.74806 17.1899 7.49899 17.1899C7.24992 17.1899 7.01105 17.091 6.83493 16.9149C6.65881 16.7388 6.55986 16.4999 6.55986 16.2508C6.55986 16.0017 6.65881 15.7629 6.83493 15.5868L12.4216 10L6.83415 4.41332C6.65803 4.2372 6.55908 3.99833 6.55908 3.74926C6.55908 3.50018 6.65803 3.26131 6.83415 3.08519C7.01027 2.90907 7.24914 2.81013 7.49821 2.81013C7.74728 2.81013 7.98615 2.90907 8.16227 3.08519L8.16305 3.08675Z"
+                          fill="#828282"
+                        />
+                      </svg>
+                      <span className="ml-1 text-xl font-medium text-gray-700 md:ml-2">Tambah Produk</span>
                     </div>
                   </li>
-                ))}
-              </ul>
-            </aside>
+                </ol>
+              </nav>
+            </>
+          )}
+
+          <div className="flex flex-col lg:flex-row gap-12 mt-7">
+            {!hidden ? (
+              ""
+            ) : (
+              <aside className="w-full lg:w-1/5 px-4 py-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md min-w-[309px] max-w-none lg:max-w-[309px] h-min">
+                <ul className="space-y-4 lg:space-y-10">
+                  {menuItems.map(({ svg, title, subtitle, id }) => (
+                    <li key={id} className={`${activeItem === id ? "bg-[#0396C7]" : "bg-[#D0E9FEB2]"} rounded-md flex px-3 py-2 items-center gap-3 cursor-pointer`} onClick={() => handleMenuItemClick(id)}>
+                      <div className={`${activeItem === id ? "bg-white" : "bg-[#0396C7]"} p-2 rounded-full`}>{svg}</div>
+                      <div className="flex flex-col">
+                        <h4 className={`${activeItem === id ? "text-white" : "text-[#0396C7]"} font-poppins font-medium text-sm`}>{title}</h4>
+                        <p className={`${activeItem === id ? "text-white" : "text-[#0396C7]"} font-poppins font-normal text-[10px]`}>{subtitle}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+            )}
+
             {menuItems.find((item) => item.id === activeItem)?.content}
           </div>
         </div>
@@ -213,9 +226,8 @@ function MyProducts() {
   };
 
   return (
-    <section className="w-full lg:flex-1 px-[38px] py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8">
+    <section className={`w-full lg:flex-1 px-[38px] py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8`}>
       <h2 className="font-poppins text-2xl font-semibold text-[#111827] mb-[12px]">Tambah Produk Baru</h2>
-
       <form onSubmit={handleSubmit}>
         <AccordionItem title="Informasi Umum" sub="Untuk mulai berjualan, yang Anda perlukan hanyalah nama dan harga." alwaysOpen required>
           <div className="mb-6">

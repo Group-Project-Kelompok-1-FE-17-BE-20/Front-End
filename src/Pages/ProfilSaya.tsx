@@ -4,6 +4,7 @@ import axios from "axios";
 import { MyProfile } from "../utils/interface";
 import Footer from "../components/Footer";
 import Header from "../components/Product/Header";
+import RiwayatPesanan from "./RiwayatPesanan";
 
 function UserProfile() {
   const [activeUser, setActiveUser] = useState<string>("myProfile");
@@ -21,29 +22,6 @@ function UserProfile() {
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-        </svg>
-      ),
-    },
-    {
-      id: "notifications",
-      title: "Notifikasi",
-      subtitle: "Pembayaran, Pesanan, Pembaruan",
-      content: notifications(),
-      svg: (
-        <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g clipPath="url(#clip0_26_306)">
-            <path
-              d="M10 13.6429C10 14.7475 9.10457 15.6429 8 15.6429C6.89543 15.6429 6 14.7475 6 13.6429M9.19767 5.13528C9.488 4.83533 9.66667 4.42665 9.66667 3.97624C9.66667 3.05576 8.92048 2.30957 8 2.30957C7.07953 2.30957 6.33334 3.05576 6.33334 3.97624C6.33334 4.42665 6.512 4.83533 6.80233 5.13528M1.69788 6.52488C1.68832 5.55731 2.20997 4.65378 3.05269 4.17828M14.3021 6.52488C14.3117 5.55731 13.79 4.65378 12.9473 4.17828M12 8.4429C12 7.52349 11.5786 6.64173 10.8284 5.9916C10.0783 5.34147 9.06087 4.97624 8 4.97624C6.93914 4.97624 5.92172 5.34147 5.17158 5.9916C4.42143 6.64173 4 7.52349 4 8.4429C4 9.96411 3.62276 11.0766 3.15205 11.8727C2.61556 12.78 2.34732 13.2336 2.35791 13.342C2.37003 13.466 2.39235 13.5051 2.4929 13.5786C2.58078 13.6429 3.02234 13.6429 3.90546 13.6429H12.0945C12.9777 13.6429 13.4192 13.6429 13.5071 13.5786C13.6077 13.5051 13.63 13.466 13.6421 13.342C13.6527 13.2336 13.3844 12.78 12.848 11.8727C12.3772 11.0766 12 9.96411 12 8.4429Z"
-              stroke={activeUser === "notifications" ? "#0396C7" : "white"}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </g>
-          <defs>
-            <clipPath id="clip0_26_306">
-              <rect width="16" height="16" fill="white" transform="translate(0 0.976196)" />
-            </clipPath>
-          </defs>
         </svg>
       ),
     },
@@ -130,18 +108,11 @@ function editSetting() {
     </section>
   );
 }
-function notifications() {
-  return (
-    <section className="w-full lg:flex-1 px-[38px] py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8">
-      <div>Content for Notification</div>
-    </section>
-  );
-}
 
 function orderHistory() {
   return (
-    <section className="w-full lg:flex-1 px-[38px] py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8">
-      <div>Content for Order History</div>
+    <section className="w-full lg:flex-1 px-[8px] py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8">
+      <RiwayatPesanan />
     </section>
   );
 }

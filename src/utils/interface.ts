@@ -50,19 +50,25 @@ export interface typeLaptopDetail {
   brand?: string;
   processor?: string;
   id: number;
+  total_price: number;
 }
 
 export interface CartType {
-  product_id: string;
-  nama_produk: string;
-  jumlah: number;
-  harga_satuan: number;
-  total_harga: number;
+  id: string;
+  brand?: string;
+  model?: string;
+  qty: number;
+  price: number;
+  total_price: number;
+  image: string;
 }
 
 export interface CartState {
   items: CartType[];
   total: number;
+  brand?: string;
+  model?: string;
+  qty?: number;
 }
 export interface MenuItem {
   id: string;

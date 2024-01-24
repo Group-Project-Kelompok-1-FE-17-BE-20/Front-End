@@ -1,18 +1,19 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Product/Header";
 import { useState } from "react";
 import { bankData } from "../utils/payment";
 import PaymentButton from "../components/PaymentButton";
 import { postPayment } from "../utils/interface";
-// import axios from "axios";
 import Swal from "sweetalert2";
-// import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Payment: FC = () => {
   const [showPayment, setShow] = useState<Boolean>(false);
   const [showPopup, setShowPopup] = useState<Boolean>(false);
-  // const navigate = useNavigate();
+  const [items, setItems] = useState([]);
+
+  const location = useLocation();
   const [pembayaran, setPembayaran] = useState<postPayment>({
     nama: "",
     alamat: "",
@@ -73,6 +74,14 @@ const Payment: FC = () => {
       }
     });
   };
+
+  useEffect(() => {
+    const finalOrder = location.state?.finalOrder;
+    if (finalOrder) {
+      setItems(finalOrder.items);
+    }
+  }, [location.state]);
+
   return (
     <>
       <Header />
@@ -90,11 +99,9 @@ const Payment: FC = () => {
             <input required onChange={handleChange} name="nama" value={pembayaran.nama} type="text" className="p-2 bg-[#F6F6F6] rounded-md" placeholder="Masukan Nama Pengguna" />
             <span className="font-semibold md:text-base text-sm">Alamat</span>
             <input required onChange={handleChange} name="alamat" value={pembayaran.alamat} type="text" className="p-2 bg-[#F6F6F6] rounded-md" placeholder="Masukan Alamat" />
-
             <div className="flex justify-between">
               <span className="font-semibold md:text-base text-sm">Metode Pembayaran</span>
             </div>
-
             {pembayaran.metode_pembayaran ? (
               <div className="lg:w-[567px] w-[90vw] h-[106px] relative bg-white rounded shadow">
                 <div className="left-[78px] top-[18.64px] absolute text-gray-600 text-[0.8rem] md:text-2xl font-bold font-Poppins leading-9">Bank Transfer Virtual Account</div>
@@ -114,19 +121,29 @@ const Payment: FC = () => {
                 <img onClick={changeShow} className="cursor-pointer w-[29px] h-[29px] right-4 md:left-[495px] top-[137px] absolute rounded" src="https://img.icons8.com/ios/50/expand-arrow--v2.png" />
               </div>
             )}
-
             {showPayment &&
               bankData.banks.map((item: any) => {
                 return <PaymentButton key={item.name} name={"bankPayment"} value={item.name} gambar={item.gambar} onSelection={() => handlePaymentSelection(item.name)} />;
               })}
 
             <span className="font-semibold md:text-base text-sm mt-5">Ringkasan Pembayaran</span>
-            <hr className="w-[80%]" />
-            <div className="flex gap-5 items-center justify-between">
-              <span className="text-sm">Total Bayar :</span>
-              <span className="font-bold text-lg text-red-500">$5000</span>
+            {items.map((item: any) => {
+              return (
+                <>
+                  <hr className="w-full" />
+                  <div className="flex gap-5 items-center justify-between ">
+                    <div className="flex justify-between items-center w-full">
+                      <span className="text-sm">{item.model}</span>
+                      <span className="font-bold text-sm">{item.qty}x</span>
+                    </div>
+                  </div>
+                </>
+              );
+            })}
+            <div>
+              <span className="text-sm font-bold">Total Bayar :</span>
+              <span className="font-bold text-lg text-red-500"> ${Math.round(location.state.total)}</span>
             </div>
-
             <button className="flex justify-center items-center" type="submit">
               <div className="flex justify-center items-center my-10 font-semibold bg-sky-600 w-full md:w-1/2 text-white py-2.5 rounded-md">Lanjutkan Pembayaran</div>
             </button>
@@ -145,6 +162,10 @@ const Payment: FC = () => {
               <p className="my-2 text-sm">Alamat: {pembayaran.alamat}</p>
               <hr />
               <p className="my-2 text-sm">Metode Pembayaran: {pembayaran.metode_pembayaran}</p>
+              <hr />
+              <p className="my-2 text-sm font-semibold">
+                Total Pembayaran: <span className="font-bold text-lg">${Math.round(location.state.total)}</span>{" "}
+              </p>
 
               {/* Div petunjuk dengan latar belakang oranye muda */}
               <div className="mb-4 bg-orange-200 p-3 rounded text-sm">

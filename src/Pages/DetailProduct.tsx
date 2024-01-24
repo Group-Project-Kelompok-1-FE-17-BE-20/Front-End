@@ -25,9 +25,10 @@ const DetailProduct: FC = () => {
   };
 
   const addCart = (data: any) => {
-    const price = data.price * number;
+    const total_price = data.price * number;
     const qty = 1 * number;
-    const updateData = { ...data, price, qty };
+    const image = `https://source.unsplash.com/random/900x700/?${detail?.brand}`;
+    const updateData = { ...data, total_price, qty, image };
     try {
       axios.post(`https://65acaf53adbd5aa31bdf714f.mockapi.io/Keranjang`, updateData).then(() => {
         Swal.fire({
@@ -36,6 +37,10 @@ const DetailProduct: FC = () => {
           icon: "success",
           confirmButtonText: "OK",
           confirmButtonColor: "rgb(3 150 199)",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            navigate("/cart");
+          }
         });
       });
     } catch (error) {

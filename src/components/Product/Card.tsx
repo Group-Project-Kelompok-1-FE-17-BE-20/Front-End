@@ -12,7 +12,9 @@ const Card: FC<productDataType> = (props: productDataType) => {
   const username = Cookies.get("username");
 
   const addCart = (data: any) => {
-    const updateData = { ...data, qty: 1 };
+    const total_price = price;
+    const image = `https://source.unsplash.com/random/900x700/?${brand}`;
+    const updateData = { ...data, total_price, image, qty: 1 };
     if (username) {
       try {
         axios.post(`https://65acaf53adbd5aa31bdf714f.mockapi.io/Keranjang`, updateData).then(() => {
@@ -22,6 +24,10 @@ const Card: FC<productDataType> = (props: productDataType) => {
             icon: "success",
             confirmButtonText: "OK",
             confirmButtonColor: "rgb(3 150 199)",
+          }).then((res) => {
+            if (res.isConfirmed) {
+              navigate("/cart");
+            }
           });
         });
       } catch (error) {

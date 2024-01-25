@@ -5,6 +5,7 @@ import axios from "axios";
 import Card from "../components/Product/Card";
 import { lapData } from "../utils/interface";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const DaftarProduct = () => {
   const navigate = useNavigate();
@@ -22,9 +23,14 @@ const DaftarProduct = () => {
   };
 
   const getProduct = async () => {
+    const authToken = Cookies.get("authToken");
     try {
-      const response = await axios.get("https://freetestapi.com/api/v1/laptops");
-      const laptopWithdata = response.data.map((item: any) => {
+      const response = await axios.get("http://34.41.81.93:8083/products", {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const laptopWithdata = response.data.data.map((item: any) => {
         if (item.price < 1000) {
           item.category = "Entry Level";
         } else if (item.price >= 1000 && item.price < 1200) {

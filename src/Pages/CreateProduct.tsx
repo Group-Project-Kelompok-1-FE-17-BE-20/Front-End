@@ -3,6 +3,7 @@ import AccordionItem from "../components/Product/AccordionItem";
 import { useState } from "react";
 import axios from "axios";
 import { MenuItem } from "../utils/interface";
+import Cookies from "js-cookie";
 
 function CreateProduct(props: any) {
   const [activeItem, setActiveItem] = useState<string>("myProducts");
@@ -189,22 +190,36 @@ function MyProducts() {
     RAM: string;
     Model: string;
     Processor: string;
+    image: string;
   }>({
     Storage: "",
     RAM: "",
     Model: "",
     Processor: "",
+    image: "",
   });
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    const token = Cookies.get("authToken");
+    console.log(token);
     try {
-      const response = await axios.post("https://virtserver.swaggerhub.com/Firlydani/Laptop/1.0.0/products", {
-        formData,
-        Variasi: variasiData,
-      });
+      const response = await axios.post(
+        "http://34.41.81.93:8083/products",
+        {
+          formData,
+          variasiData,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            // Add any other headers if needed
+          },
+        }
+      );
+
       console.log("Product added:", response.data);
+      alert("sukses");
       // Reset the form or perform any other actions on success
     } catch (error) {
       console.error("Error adding product:", error);
@@ -279,11 +294,12 @@ function MyProducts() {
                   </svg>
                 </span>
               </label>
-              <select id="Kategori" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value={formData.Kategori} onChange={handleChange}>
+              {/* <select id="Kategori" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value={formData.Kategori} onChange={handleChange}>
                 <option value="Pilih Kategori">Pilih Kategori</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-              </select>
+                <option value="1">Low End</option>
+                <option value="2">Mid End</option>
+                <option value="3">High End</option>
+              </select> */}
             </div>
           </div>
 
@@ -356,7 +372,7 @@ function MyProducts() {
                 type="text"
                 id="Ram"
                 value={variasiData.RAM}
-                onChange={(e) => handleVariasiChange(e, "Ram")}
+                onChange={(e) => handleVariasiChange(e, "RAM")}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="Ram"
               />
@@ -391,8 +407,21 @@ function MyProducts() {
             </div>
           </div>
         </AccordionItem>
-        <AccordionItem title="Media">Media</AccordionItem>
-
+        <AccordionItem title="Media">
+          <div className="mb-6">
+            <label htmlFor="image" className="block mb-2 text-sm font-medium text-[#6B7280]">
+              Gambar Produk<span className="text-[#F43F5E]">*</span>
+            </label>
+            <input
+              type="file"
+              id="image"
+              accept="image/*"
+              onChange={(e) => handleVariasiChange(e, "image")}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              required
+            />
+          </div>
+        </AccordionItem>
         <div className="flex justify-center mt-3">
           <button type="submit" className="text-white bg-[#0396C7] focus:ring-4 font-poppins font-medium rounded-lg text-base px-16 py-4 text-center">
             Tambah Produk

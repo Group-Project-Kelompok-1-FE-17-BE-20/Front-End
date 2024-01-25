@@ -13,7 +13,7 @@ const Card: FC<productDataType> = (props: productDataType) => {
 
   const addCart = (data: any) => {
     const total_price = price;
-    const image = `https://source.unsplash.com/random/900x700/?${brand}`;
+    const image = `https://source.unsplash.com/random/900x700/?${model}`;
     const updateData = { ...data, total_price, image, qty: 1 };
     if (username) {
       try {
@@ -53,7 +53,7 @@ const Card: FC<productDataType> = (props: productDataType) => {
     <>
       <div className="flex flex-col justify-center items-start shadow-md border-2  border-b-zinc-600 rounded-md md:p-5 p-2 font-Poppins gap-2">
         <img src={`https://source.unsplash.com/random/900x700/?${brand}`} alt="" className="h-full rounded-md" />
-        <span className="font-bold text-sm font-Poppins">{`${brand} ${model}`}</span>
+        <span className="font-bold text-sm font-Poppins">{`${model}`}</span>
         <span className="text-xs">{`${processor} ${ram} ${storage} `}</span>
         <p className="font-extrabold text-red-500 font-sans">${price}</p>
         <div className="flex justify-center items-center w-full md:gap-5 gap-3">

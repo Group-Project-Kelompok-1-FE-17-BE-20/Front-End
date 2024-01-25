@@ -22,6 +22,7 @@ export interface productDataType {
   price: number;
   cekProduk: () => void;
   allData: any;
+  gambar: string;
 }
 
 export interface lapData {
@@ -42,11 +43,11 @@ export interface setDataKu {
 
 export interface typeLaptopDetail {
   storage?: string;
-  price?: number;
+  price?: number | any;
   ram?: string;
   description?: string;
   model?: string;
-  gambar?: string;
+  image?: string;
   brand?: string;
   processor?: string;
   id: number;

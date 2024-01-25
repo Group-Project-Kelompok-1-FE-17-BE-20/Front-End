@@ -31,9 +31,9 @@ const DaftarProduct = () => {
         },
       });
       const laptopWithdata = response.data.data.map((item: any) => {
-        if (item.price < 1000) {
+        if (item.price < 8000000) {
           item.category = "Entry Level";
-        } else if (item.price >= 1000 && item.price < 1200) {
+        } else if (item.price >= 8000000 && item.price < 10000000) {
           item.category = "Mid Range";
         } else {
           item.category = "High End";
@@ -49,6 +49,7 @@ const DaftarProduct = () => {
   };
 
   const clickProduct = async (id: any) => {
+    console.log(id);
     if (id) {
       navigate(`/detail-product/${id}`, {
         state: {
@@ -65,6 +66,7 @@ const DaftarProduct = () => {
 
   useEffect(() => {
     getProduct();
+    console.log(laptopData);
   }, [category]);
 
   return (
@@ -96,7 +98,18 @@ const DaftarProduct = () => {
           <div className="grid lg:grid-cols-4 grid-cols-2 md:gap-8 gap-2 md:px-5  justify-center items-center w-[90vw]">
             {currentItems ? (
               currentItems.map((item: any, id: any) => (
-                <Card key={id} brand={item.brand} model={item.model} allData={item} processor={item.processor} price={item.price} ram={item.ram} storage={item.storage} cekProduk={() => clickProduct(item.id)} />
+                <Card
+                  key={id}
+                  brand={item.brand}
+                  gambar={item.image}
+                  model={item.model}
+                  allData={item}
+                  processor={item.processor}
+                  price={item.price}
+                  ram={item.ram}
+                  storage={item.storage}
+                  cekProduk={() => clickProduct((item.id = id + 1))}
+                />
               ))
             ) : (
               <div className="flex justify-center items-center text-5xl">

@@ -25,14 +25,14 @@ const DetailProduct: FC = () => {
     } catch (error) {}
   };
 
-  const addCart = (data: any) => {
+  const addCart = async (data: any) => {
     const authToken = Cookies.get("authToken");
     const total_price = data.price * number;
     const qty = 1 * number;
     const image = `${detail?.image}`;
     const updateData = { ...data, total_price, qty, image };
     try {
-      axios
+      await axios
         .post(`http://34.41.81.93:8083/shopping-cart`, updateData, {
           headers: {
             Authorization: `Bearer ${authToken}`,

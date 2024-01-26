@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
+import NumberFormatter from "../components/NumberFormatter";
 
 const DetailProduct: FC = () => {
   const username = Cookies.get("username");
@@ -17,32 +18,39 @@ const DetailProduct: FC = () => {
 
   const showDetail = async () => {
     try {
-      const response = await axios.get(`https://freetestapi.com/api/v1/laptops`);
       const id = parseInt(location.state.id);
-      const filteredData = response.data.find((item: any) => item.id === id);
+      const response = await axios.get(`http://34.41.81.93:8083/products/${id}`);
+      const filteredData = response.data.data;
       setDetail(filteredData);
     } catch (error) {}
   };
 
   const addCart = (data: any) => {
+    const authToken = Cookies.get("authToken");
     const total_price = data.price * number;
     const qty = 1 * number;
-    const image = `https://source.unsplash.com/random/900x700/?${detail?.brand}`;
+    const image = `${detail?.image}`;
     const updateData = { ...data, total_price, qty, image };
     try {
-      axios.post(`https://65acaf53adbd5aa31bdf714f.mockapi.io/Keranjang`, updateData).then(() => {
-        Swal.fire({
-          title: "Berhasil",
-          text: `Barang sudah ditambahkan ke Keranjang`,
-          icon: "success",
-          confirmButtonText: "OK",
-          confirmButtonColor: "rgb(3 150 199)",
-        }).then((res) => {
-          if (res.isConfirmed) {
-            navigate("/cart");
-          }
+      axios
+        .post(`http://34.41.81.93:8083/shopping-cart`, updateData, {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        })
+        .then(() => {
+          Swal.fire({
+            title: "Berhasil",
+            text: `Barang sudah ditambahkan ke Keranjang`,
+            icon: "success",
+            confirmButtonText: "OK",
+            confirmButtonColor: "rgb(3 150 199)",
+          }).then((res) => {
+            if (res.isConfirmed) {
+              navigate("/cart");
+            }
+          });
         });
-      });
     } catch (error) {
       console.log("error", error);
     }
@@ -79,12 +87,12 @@ const DetailProduct: FC = () => {
 
         <div className="flex justify-center items-center w-full">
           <div className="content flex flex-col md:flex-row justify-center items-center p-5 lg:p-10 mb-20 mt-40 px-3 lg:px-10 shadow-md bg-white  border-[0.5px] border-slate-200 rounded-md gap-8 font-Poppins w-10/12">
-            <div className="flex justify-center h-full md:h-[25rem] items-center w-full md:w-1/2 overflow-hidden">
-              <img src={`https://source.unsplash.com/random/900x700/?${detail?.brand}`} className="w-[90%] h-[90%]  rounded-md" />
+            <div className="flex justify-center h-full md:h-[25rem] items-center border-2 border-slate-100 rounded-md shadow-md w-full md:w-1/2 overflow-hidden">
+              <img src={`${detail?.image}`} className="w-[90%] h-[90%]  rounded-md" />
             </div>
             <div className="flex flex-col items-start p-2 lg:p-8 md:py-5 justify-start md:h-[25rem] w-full md:w-1/2 gap-5">
               <span className="md:text-3xl text-lg font-bold text-slate-400">{detail?.model}</span>
-              <span className="md:text-xl text-sm font-semibold text-red-500">{detail?.price}</span>
+              <NumberFormatter value={detail ? detail?.price : ""} />
               <span className="md:text-xl text-sm font-semibold text-slate-500 ">
                 Ram {detail?.ram} | Storage {detail?.storage}
               </span>

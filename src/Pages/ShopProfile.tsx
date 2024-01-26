@@ -5,6 +5,8 @@ import axios from "axios";
 import { ShopProfile } from "../utils/interface";
 import CreateProduct from "./CreateProduct";
 import ListProduct from "./ListProduct";
+import Cookies from "js-cookie";
+import Swal from "sweetalert2";
 
 function ProfileToko() {
   const [activeShop, setActiveShop] = useState<string>("myProfile");
@@ -120,22 +122,37 @@ function orderHistory() {
 
 function myProfile() {
   const [formData, setFormData] = useState<{
-    NamaToko: string;
-    AlamatToko: string;
+    nama_toko: string;
+    alamat_toko: string;
   }>({
-    NamaToko: "",
-    AlamatToko: "",
+    nama_toko: "",
+    alamat_toko: "",
   });
 
   const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    const authToken = Cookies.get("authToken");
     try {
-      const response = await axios.post("https://virtserver.swaggerhub.com/Firlydani/Laptop/1.0.0/products", formData);
-      console.log("Product added:", response.data);
-      // Reset the form or perform any other actions on success
+      const response = await axios.put(
+        "http://34.41.81.93:8083/stores/neymar",
+        { nama_toko: formData.nama_toko, alamat_toko: formData.alamat_toko },
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      console.log(response);
+      Swal.fire({
+        title: "Confirmation",
+        text: `Congratulations, Toko Berhasil di Set`,
+        icon: "success",
+        confirmButtonText: "OK",
+        confirmButtonColor: "rgb(3 150 199)",
+      });
+      window.location.reload();
     } catch (error) {
-      console.error("Error adding product:", error);
+      console.error("Error:", error);
     }
   };
 
@@ -189,29 +206,29 @@ function myProfile() {
         <div className="mb-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-3">
             <div>
-              <label htmlFor="NamaToko" className="block mb-2 text-sm font-medium text-[#6B7280]">
+              <label htmlFor="nama_toko" className="block mb-2 text-sm font-medium text-[#6B7280]">
                 Nama Lengkap
               </label>
               <input
                 type="text"
-                id="NamaToko"
+                id="nama_toko"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="Nama Lengkap"
-                value={formData.NamaToko}
+                value={formData.nama_toko}
                 onChange={handlePerubahan}
                 required
               />
             </div>
             <div>
-              <label htmlFor="AlamatToko" className="block mb-2 text-sm font-medium text-[#6B7280]">
+              <label htmlFor="alamat_toko" className="block mb-2 text-sm font-medium text-[#6B7280]">
                 Alamat Toko<span className="text-[#F43F5E]">*</span>
               </label>
               <textarea
-                id="AlamatToko"
+                id="alamat_toko"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="Alamat Toko"
                 required
-                value={formData.AlamatToko}
+                value={formData.alamat_toko}
                 onChange={handlePerubahan}
               ></textarea>
               <div className="font-poppins text-sm font-normal text-[#6B7280] mt-2">

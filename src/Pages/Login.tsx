@@ -29,7 +29,10 @@ const Login: FC = () => {
           email: loginState.email,
           password: loginState.password,
         });
-        if (response.data) {
+        if (response.data && response.data.data.token) {
+          const token = response.data.data.token;
+          console.log(token);
+          Cookies.set("authToken", token);
           Swal.fire({
             title: "Confirmation",
             text: `Congratulations, Hello Selamat Datang`,
@@ -40,12 +43,11 @@ const Login: FC = () => {
             if (res.isConfirmed) {
               const cekData = async () => {
                 try {
-                  const response = await axios.get("http://34.41.81.93:8083/users");
+                  const response = await axios.get("http://34.41.81.93:8083/userss");
                   const userData = response.data.data;
                   const findOut = userData.find((user: any) => user.email === loginState.email);
-                  console.log(findOut);
                   if (findOut) {
-                    const user = findOut.nama_lengkap;
+                    const user = findOut.username;
                     Cookies.set("username", user);
                     navigate("/");
                   } else {

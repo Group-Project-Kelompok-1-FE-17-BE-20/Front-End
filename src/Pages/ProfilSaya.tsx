@@ -5,6 +5,9 @@ import { MyProfile } from "../utils/interface";
 import Footer from "../components/Footer";
 import Header from "../components/Product/Header";
 import RiwayatPesanan from "./RiwayatPesanan";
+import Cookies from "js-cookie";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 function UserProfile() {
   const [activeUser, setActiveUser] = useState<string>("myProfile");
@@ -117,6 +120,7 @@ function orderHistory() {
   );
 }
 function myProfile(): JSX.Element {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<{
     fullName: string;
     username: string;
@@ -133,10 +137,50 @@ function myProfile(): JSX.Element {
 
   const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    const authToken = Cookies.get("authToken");
+    console.log(authToken);
     try {
-      const response = await axios.post(" link ", formData);
-      console.log("Perubahan di simpan", response.data);
+      const response = await axios.put("http://34.41.81.93:8083/users/neymar", formData, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      Swal.fire({
+        title: "Confirmation",
+        text: `Congratulations, Data Berhasil dirubah`,
+        icon: "success",
+        confirmButtonText: "OK",
+        confirmButtonColor: "rgb(3 150 199)",
+      });
+      const update = response.data.data.username;
+      Cookies.remove("username");
+      window.location.reload();
+      Cookies.set("username", update);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const handleHapus = async (e: any) => {
+    e.preventDefault();
+    const authToken = Cookies.get("authToken");
+    console.log(authToken);
+    try {
+      const response = await axios.delete("http://34.41.81.93:8083/users/neymar", {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      Swal.fire({
+        title: "Confirmation",
+        text: `Congratulations, Data Berhasil dihapus`,
+        icon: "success",
+        confirmButtonText: "OK",
+        confirmButtonColor: "rgb(3 150 199)",
+      });
+      Cookies.remove("username");
+      console.log(response);
+      navigate("/");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -280,7 +324,7 @@ function myProfile(): JSX.Element {
               Simpan
             </button>
 
-            <button type="submit" className="text-white bg-[#fa5151] focus:ring-4 font-poppins font-medium rounded-lg text-base px-12 py-2 text-center">
+            <button onClick={handleHapus} className="text-white bg-[#fa5151] focus:ring-4 font-poppins font-medium rounded-lg text-base px-12 py-2 text-center">
               Hapus Akun
             </button>
           </div>

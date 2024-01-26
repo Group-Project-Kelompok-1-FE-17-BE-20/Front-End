@@ -24,8 +24,9 @@ const DaftarProduct = () => {
 
   const getProduct = async () => {
     const authToken = Cookies.get("authToken");
+    console.log(authToken);
     try {
-      const response = await axios.get("http://34.41.81.93:8083/products", {
+      const response = await axios.get("http://34.41.81.93:8083/all-products", {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },

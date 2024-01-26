@@ -44,22 +44,6 @@ function UserProfile() {
         </svg>
       ),
     },
-    {
-      id: "editSetting",
-      title: "Tampilan",
-      subtitle: "Mode Gelap dan Terang, ukuran font, dll",
-      content: editSetting(),
-      svg: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path
-            d="M12 6V4M12 6C11.4696 6 10.9609 6.21071 10.5858 6.58579C10.2107 6.96086 10 7.46957 10 8C10 8.53043 10.2107 9.03914 10.5858 9.41421C10.9609 9.78929 11.4696 10 12 10M12 6C12.5304 6 13.0391 6.21071 13.4142 6.58579C13.7893 6.96086 14 7.46957 14 8C14 8.53043 13.7893 9.03914 13.4142 9.41421C13.0391 9.78929 12.5304 10 12 10M12 10V20M6 18C6.53043 18 7.03914 17.7893 7.41421 17.4142C7.78929 17.0391 8 16.5304 8 16C8 15.4696 7.78929 14.9609 7.41421 14.5858C7.03914 14.2107 6.53043 14 6 14M6 18C5.46957 18 4.96086 17.7893 4.58579 17.4142C4.21071 17.0391 4 16.5304 4 16C4 15.4696 4.21071 14.9609 4.58579 14.5858C4.96086 14.2107 5.46957 14 6 14M6 18V20M6 14V4M18 18C18.5304 18 19.0391 17.7893 19.4142 17.4142C19.7893 17.0391 20 16.5304 20 16C20 15.4696 19.7893 14.9609 19.4142 14.5858C19.0391 14.2107 18.5304 14 18 14M18 18C17.4696 18 16.9609 17.7893 16.5858 17.4142C16.2107 17.0391 16 16.5304 16 16C16 15.4696 16.2107 14.9609 16.5858 14.5858C16.9609 14.2107 17.4696 14 18 14M18 18V20M18 14V4"
-            stroke={activeUser === "editSetting" ? "#0396C7" : "white"}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      ),
-    },
   ];
 
   const handleMenuProfileClick = (userId: string) => {
@@ -104,14 +88,6 @@ function UserProfile() {
   );
 }
 
-function editSetting() {
-  return (
-    <section className="w-full lg:flex-1 px-[38px] py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8">
-      <div>Content for Mode Dark and Light</div>
-    </section>
-  );
-}
-
 function orderHistory() {
   return (
     <section className="w-full lg:flex-1 px-[8px] py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8">
@@ -139,12 +115,14 @@ function myProfile(): JSX.Element {
     e.preventDefault();
     const authToken = Cookies.get("authToken");
     console.log(authToken);
+
     try {
       const response = await axios.put("http://34.41.81.93:8083/users/neymar", formData, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
       });
+      console.log(response);
       Swal.fire({
         title: "Confirmation",
         text: `Congratulations, Data Berhasil dirubah`,
@@ -152,6 +130,7 @@ function myProfile(): JSX.Element {
         confirmButtonText: "OK",
         confirmButtonColor: "rgb(3 150 199)",
       });
+
       const update = response.data.data.username;
       Cookies.remove("username");
       window.location.reload();

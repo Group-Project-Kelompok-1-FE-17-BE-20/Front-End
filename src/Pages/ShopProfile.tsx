@@ -3,6 +3,10 @@ import bgUserCover from "../img/Rectangle 2775.png";
 import { useState } from "react";
 import axios from "axios";
 import { ShopProfile } from "../utils/interface";
+import CreateProduct from "./CreateProduct";
+import ListProduct from "./ListProduct";
+import Cookies from "js-cookie";
+import Swal from "sweetalert2";
 
 function ProfileToko() {
   const [activeShop, setActiveShop] = useState<string>("myProfile");
@@ -24,29 +28,7 @@ function ProfileToko() {
         </svg>
       ),
     },
-    {
-      id: "notifications",
-      title: "Notifikasi Toko",
-      subtitle: "Pembayaran, Pesanan, Pembaruan",
-      content: notifications(),
-      svg: (
-        <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g clipPath="url(#clip0_26_306)">
-            <path
-              d="M10 13.6429C10 14.7475 9.10457 15.6429 8 15.6429C6.89543 15.6429 6 14.7475 6 13.6429M9.19767 5.13528C9.488 4.83533 9.66667 4.42665 9.66667 3.97624C9.66667 3.05576 8.92048 2.30957 8 2.30957C7.07953 2.30957 6.33334 3.05576 6.33334 3.97624C6.33334 4.42665 6.512 4.83533 6.80233 5.13528M1.69788 6.52488C1.68832 5.55731 2.20997 4.65378 3.05269 4.17828M14.3021 6.52488C14.3117 5.55731 13.79 4.65378 12.9473 4.17828M12 8.4429C12 7.52349 11.5786 6.64173 10.8284 5.9916C10.0783 5.34147 9.06087 4.97624 8 4.97624C6.93914 4.97624 5.92172 5.34147 5.17158 5.9916C4.42143 6.64173 4 7.52349 4 8.4429C4 9.96411 3.62276 11.0766 3.15205 11.8727C2.61556 12.78 2.34732 13.2336 2.35791 13.342C2.37003 13.466 2.39235 13.5051 2.4929 13.5786C2.58078 13.6429 3.02234 13.6429 3.90546 13.6429H12.0945C12.9777 13.6429 13.4192 13.6429 13.5071 13.5786C13.6077 13.5051 13.63 13.466 13.6421 13.342C13.6527 13.2336 13.3844 12.78 12.848 11.8727C12.3772 11.0766 12 9.96411 12 8.4429Z"
-              stroke={activeShop === "notifications" ? "#0396C7" : "white"}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </g>
-          <defs>
-            <clipPath id="clip0_26_306">
-              <rect width="16" height="16" fill="white" transform="translate(0 0.976196)" />
-            </clipPath>
-          </defs>
-        </svg>
-      ),
-    },
+
     {
       id: "orderHistory",
       title: "Riwayat Pesanan",
@@ -124,46 +106,53 @@ function ProfileToko() {
 
 function MyProducts() {
   return (
-    <section className="w-full lg:flex-1 px-[38px] py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8">
-      <div>Content for My Products</div>
-    </section>
-  );
-}
-
-function notifications() {
-  return (
-    <section className="w-full lg:flex-1 px-[38px] py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8">
-      <div>Content for Notification</div>
+    <section className="w-full lg:flex-1 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none  mb-8">
+      <CreateProduct hidden={false} />
     </section>
   );
 }
 
 function orderHistory() {
   return (
-    <section className="w-full lg:flex-1 px-[38px] py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8">
-      <div>Content for Order History</div>
+    <section className="w-full lg:flex-1 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none  mb-8">
+      <ListProduct hidden={false} />
     </section>
   );
 }
 
 function myProfile() {
   const [formData, setFormData] = useState<{
-    NamaToko: string;
-    AlamatToko: string;
+    nama_toko: string;
+    alamat_toko: string;
   }>({
-    NamaToko: "",
-    AlamatToko: "",
+    nama_toko: "",
+    alamat_toko: "",
   });
 
   const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    const authToken = Cookies.get("authToken");
     try {
-      const response = await axios.post("https://virtserver.swaggerhub.com/Firlydani/Laptop/1.0.0/products", formData);
-      console.log("Product added:", response.data);
-      // Reset the form or perform any other actions on success
+      const response = await axios.put(
+        "http://34.41.81.93:8083/stores/neymar",
+        { nama_toko: formData.nama_toko, alamat_toko: formData.alamat_toko },
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      console.log(response);
+      Swal.fire({
+        title: "Confirmation",
+        text: `Congratulations, Toko Berhasil di Set`,
+        icon: "success",
+        confirmButtonText: "OK",
+        confirmButtonColor: "rgb(3 150 199)",
+      });
+      window.location.reload();
     } catch (error) {
-      console.error("Error adding product:", error);
+      console.error("Error:", error);
     }
   };
 
@@ -187,74 +176,79 @@ function myProfile() {
     <section className="w-full lg:flex-1 px-[38px] py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8">
       <h2 className="font-poppins text-2xl font-semibold text-[#111827] mb-[12px]">Edit Profil</h2>
       <form onSubmit={handleSave}>
-          
-          <div className="container w-full h-[17vh] relative">
-      <img src={bgUserCover} className="h-full w-full" alt="bgCover" />
-      <div className="GantiCover" style={{ width: 40, height: 20, position: 'absolute', top: 0, right: 0, padding: '5px', display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-start' }}>
-        <label htmlFor="uploadInput" className="Cover" style={{ width: 70, height: 15, display: 'flex', alignItems: 'center' }}>
-          <input
-            type="file"
-            id="uploadInput"
-            accept="image/*"
-            style={{ display: 'none' }}
-            onChange={handleImageUpload}
-          />
-          <div className="Camera" style={{ width: '50%', height: '50%', position: 'relative', cursor: 'pointer' }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" role="img">
-              <path d="M3.58579 7.58579C3.21071 7.96086 3 8.46957 3 9V18C3 18.5304 3.21071 19.0391 3.58579 19.4142C3.96086 19.7893 4.46957 20 5 20H19C19.5304 20 20.0391 19.7893 20.4142 19.4142C20.7893 19.0391 21 18.5304 21 18V9C21 8.46957 20.7893 7.96086 20.4142 7.58579C20.0391 7.21071 19.5304 7 19 7H18.07C17.7408 7.00005 17.4167 6.91884 17.1264 6.76359C16.8362 6.60834 16.5887 6.38383 16.406 6.11L15.594 4.89C15.4113 4.61617 15.1638 4.39166 14.8736 4.23641C14.5833 4.08116 14.2592 3.99995 13.93 4H10.07C9.74082 3.99995 9.41671 4.08116 9.12643 4.23641C8.83616 4.39166 8.5887 4.61617 8.406 4.89L7.594 6.11C7.4113 6.38383 7.16384 6.60834 6.87357 6.76359C6.58329 6.91884 6.25918 7.00005 5.93 7H5C4.46957 7 3.96086 7.21071 3.58579 7.58579Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M14.1213 15.1213C14.6839 14.5587 15 13.7956 15 13C15 12.2044 14.6839 11.4413 14.1213 10.8787C13.5587 10.3161 12.7956 10 12 10C11.2044 10 10.4413 10.3161 9.87868 10.8787C9.31607 11.4413 9 12.2044 9 13C9 13.7956 9.31607 14.5587 9.87868 15.1213C10.4413 15.6839 11.2044 16 12 16C12.7956 16 13.5587 15.6839 14.1213 15.1213Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        </label>
-      </div>
-    </div>
-
-          <div className="mb-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-3">
-              <div>
-                <label htmlFor="NamaToko" className="block mb-2 text-sm font-medium text-[#6B7280]">
-                  Nama Lengkap
-                </label>
-                <input
-                  type="text"
-                  id="NamaToko"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Nama Lengkap"
-                  value={formData.NamaToko}
-                  onChange={handlePerubahan}
-                  required
-                />
+        <div className="container w-full h-[17vh] relative">
+          <img src={bgUserCover} className="h-full w-full" alt="bgCover" />
+          <div className="GantiCover" style={{ width: 40, height: 20, position: "absolute", top: 0, right: 0, padding: "5px", display: "flex", justifyContent: "flex-end", alignItems: "flex-start" }}>
+            <label htmlFor="uploadInput" className="Cover" style={{ width: 70, height: 15, display: "flex", alignItems: "center" }}>
+              <input type="file" id="uploadInput" accept="image/*" style={{ display: "none" }} onChange={handleImageUpload} />
+              <div className="Camera" style={{ width: "50%", height: "50%", position: "relative", cursor: "pointer" }}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" role="img">
+                  <path
+                    d="M3.58579 7.58579C3.21071 7.96086 3 8.46957 3 9V18C3 18.5304 3.21071 19.0391 3.58579 19.4142C3.96086 19.7893 4.46957 20 5 20H19C19.5304 20 20.0391 19.7893 20.4142 19.4142C20.7893 19.0391 21 18.5304 21 18V9C21 8.46957 20.7893 7.96086 20.4142 7.58579C20.0391 7.21071 19.5304 7 19 7H18.07C17.7408 7.00005 17.4167 6.91884 17.1264 6.76359C16.8362 6.60834 16.5887 6.38383 16.406 6.11L15.594 4.89C15.4113 4.61617 15.1638 4.39166 14.8736 4.23641C14.5833 4.08116 14.2592 3.99995 13.93 4H10.07C9.74082 3.99995 9.41671 4.08116 9.12643 4.23641C8.83616 4.39166 8.5887 4.61617 8.406 4.89L7.594 6.11C7.4113 6.38383 7.16384 6.60834 6.87357 6.76359C6.58329 6.91884 6.25918 7.00005 5.93 7H5C4.46957 7 3.96086 7.21071 3.58579 7.58579Z"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M14.1213 15.1213C14.6839 14.5587 15 13.7956 15 13C15 12.2044 14.6839 11.4413 14.1213 10.8787C13.5587 10.3161 12.7956 10 12 10C11.2044 10 10.4413 10.3161 9.87868 10.8787C9.31607 11.4413 9 12.2044 9 13C9 13.7956 9.31607 14.5587 9.87868 15.1213C10.4413 15.6839 11.2044 16 12 16C12.7956 16 13.5587 15.6839 14.1213 15.1213Z"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
               </div>
+            </label>
+          </div>
+        </div>
+
+        <div className="mb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-3">
             <div>
-                <label htmlFor="AlamatToko" className="block mb-2 text-sm font-medium text-[#6B7280]">
-                    Alamat Toko<span className="text-[#F43F5E]">*</span>
-                </label>
-                <textarea
-                    id="AlamatToko"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    placeholder="Alamat Toko"
-                    required
-                    value={formData.AlamatToko}
-                    onChange={handlePerubahan}
-                ></textarea>
-                <div className="font-poppins text-sm font-normal text-[#6B7280] mt-2">
-                    <p>Informasikan lokasi toko Anda, seperti Nama Jalan/Gedung, Nomor Rumah, dll</p>
-                </div>
+              <label htmlFor="nama_toko" className="block mb-2 text-sm font-medium text-[#6B7280]">
+                Nama Lengkap
+              </label>
+              <input
+                type="text"
+                id="nama_toko"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder="Nama Lengkap"
+                value={formData.nama_toko}
+                onChange={handlePerubahan}
+                required
+              />
             </div>
+            <div>
+              <label htmlFor="alamat_toko" className="block mb-2 text-sm font-medium text-[#6B7280]">
+                Alamat Toko<span className="text-[#F43F5E]">*</span>
+              </label>
+              <textarea
+                id="alamat_toko"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder="Alamat Toko"
+                required
+                value={formData.alamat_toko}
+                onChange={handlePerubahan}
+              ></textarea>
+              <div className="font-poppins text-sm font-normal text-[#6B7280] mt-2">
+                <p>Informasikan lokasi toko Anda, seperti Nama Jalan/Gedung, Nomor Rumah, dll</p>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-        
-      <div className="mb-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-3">
-          <button type="submit" className="text-white bg-[#0396C7] focus:ring-4 font-poppins font-medium rounded-lg text-base px-12 py-2 text-center">
-            Simpan
-          </button>
-        
-          <button type="submit" className="text-white bg-[#fa5151] focus:ring-4 font-poppins font-medium rounded-lg text-base px-12 py-2 text-center">
-            Hapus Akun
-          </button>
+
+        <div className="mb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-3">
+            <button type="submit" className="text-white bg-[#0396C7] focus:ring-4 font-poppins font-medium rounded-lg text-base px-12 py-2 text-center">
+              Simpan
+            </button>
+
+            <button type="submit" className="text-white bg-[#fa5151] focus:ring-4 font-poppins font-medium rounded-lg text-base px-12 py-2 text-center">
+              Hapus Akun
+            </button>
+          </div>
         </div>
-      </div>
       </form>
     </section>
   );

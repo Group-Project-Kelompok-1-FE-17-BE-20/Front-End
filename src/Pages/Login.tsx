@@ -5,11 +5,9 @@ import { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
-import { setDataKu } from "../utils/interface";
 
 const Login: FC = () => {
   const navigate = useNavigate();
-  const [datas, setData] = useState<setDataKu>();
   const [loginState, setLoginState] = useState<LoginState>({
     email: "",
     password: "",
@@ -19,50 +17,74 @@ const Login: FC = () => {
     navigate("/register");
   };
 
-  const handleLogin = (e: FormEvent) => {
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
-    const cek = async () => {
-      try {
-        const response = await axios.get("https://65a7a41b94c2c5762da72973.mockapi.io//product");
-        setData(response.data);
-        const findOut = response.data.find((user: any) => user.email === loginState.email);
-        const findOut2 = response.data.find((user: any) => user.password === loginState.password);
-        const user = findOut.fullName;
 
-        if (datas || (findOut && findOut2)) {
+    if (loginState.email === "admin@gmail.com" && loginState.password === "1") {
+      navigate("/daftar-users");
+      Cookies.set("username", "admin");
+    } else {
+      try {
+        const response = await axios.post("http://34.41.81.93:8083/login", {
+          email: loginState.email,
+          password: loginState.password,
+        });
+        if (response.data && response.data.data.token) {
+          const token = response.data.data.token;
+          console.log(token);
+          Cookies.set("authToken", token);
           Swal.fire({
             title: "Confirmation",
-            text: `Congratulations, Hello ${user}`,
+            text: `Congratulations, Hello Selamat Datang`,
             icon: "success",
             confirmButtonText: "OK",
             confirmButtonColor: "rgb(3 150 199)",
           }).then((res) => {
             if (res.isConfirmed) {
-              Cookies.set("username", user);
-              navigate("/");
+              const cekData = async () => {
+                try {
+                  const response = await axios.get("http://34.41.81.93:8083/userss");
+                  const userData = response.data.data;
+                  const findOut = userData.find((user: any) => user.email === loginState.email);
+                  if (findOut) {
+                    const user = findOut.username;
+                    Cookies.set("username", user);
+                    navigate("/");
+                  } else {
+                    handleLoginError();
+                  }
+                } catch (error) {
+                  handleLoginError();
+                }
+              };
+              cekData();
             }
           });
         } else {
-          Swal.fire({
-            title: "Confirmation",
-            text: "Username and Password Was Wrong",
-            icon: "error",
-            showCancelButton: true,
-            confirmButtonText: "OK",
-            confirmButtonColor: "rgb(255 10 10)",
-          }).then(() => {
-            setLoginState({
-              email: "",
-              password: "",
-              passwordVisible: false,
-            });
-          });
+          handleLoginError();
         }
       } catch (error) {
-        console.error("Error:");
+        console.error("Login error:", error);
+        handleLoginError();
       }
-    };
-    cek();
+    }
+  };
+
+  const handleLoginError = () => {
+    Swal.fire({
+      title: "Confirmation",
+      text: "Username and Password Was Wrong",
+      icon: "error",
+      showCancelButton: true,
+      confirmButtonText: "OK",
+      confirmButtonColor: "rgb(255 10 10)",
+    }).then(() => {
+      setLoginState({
+        email: "",
+        password: "",
+        passwordVisible: false,
+      });
+    });
   };
 
   return (
@@ -77,7 +99,7 @@ const Login: FC = () => {
 
         <form onSubmit={handleLogin}>
           <div className="flex flex-col py-[8vh] h-[80vh] md:h-[60vh] lg:h-[80%] justify-center items-center gap-5">
-            <span className="font-bold text-[2.8rem] mb-5 font-['Poppins']">Sign Up</span>
+            <span className="font-bold text-[2.8rem] mb-5 font-['Poppins']">Sign In</span>
             <input
               value={loginState.email}
               onChange={(e) => setLoginState((prev) => ({ ...prev, email: e.target.value }))}

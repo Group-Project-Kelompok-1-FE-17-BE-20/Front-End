@@ -1,13 +1,13 @@
 import { FC } from "react";
+import { typePayment } from "../utils/interface";
 
-interface typePayment {
-  gambar: string;
-  value: string;
-}
+const PaymentButton: FC<typePayment> = (props: typePayment) => {
+  const { gambar, value, onSelection, name } = props;
 
-const PaymentButton: FC<typePayment> = (props) => {
-  const { gambar, value } = props;
-  console.log(gambar);
+  const handleRadioChange = (): void => {
+    onSelection(value);
+  };
+
   return (
     <div>
       <main>
@@ -15,7 +15,7 @@ const PaymentButton: FC<typePayment> = (props) => {
           <label htmlFor="bni">
             <img src={gambar} alt={value} className="w-16" />
           </label>
-          <input type="radio" id={value} />
+          <input type="radio" id={name} name={name} onChange={handleRadioChange} />
         </div>
       </main>
     </div>

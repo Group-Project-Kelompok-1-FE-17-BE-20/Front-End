@@ -47,7 +47,7 @@ const Login: FC = () => {
                   const userData = response.data.data;
                   const findOut = userData.find((user: any) => user.email === loginState.email);
                   if (findOut) {
-                    const user = findOut.nama_lengkap;
+                    const user = findOut.username;
                     Cookies.set("username", user);
                     navigate("/");
                   } else {

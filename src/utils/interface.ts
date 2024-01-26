@@ -124,11 +124,12 @@ export interface userDataType {
 }
 
 export interface typeListUsers {
-  id: string | number;
+  id?: string | number;
   nama: string;
   no_hp: number;
   email: string;
   gambar?: string;
+  username: string;
 }
 
 export interface MyProfile {

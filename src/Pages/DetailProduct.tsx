@@ -26,24 +26,31 @@ const DetailProduct: FC = () => {
   };
 
   const addCart = (data: any) => {
+    const authToken = Cookies.get("authToken");
     const total_price = data.price * number;
     const qty = 1 * number;
     const image = `${detail?.image}`;
     const updateData = { ...data, total_price, qty, image };
     try {
-      axios.post(`https://65acaf53adbd5aa31bdf714f.mockapi.io/Keranjang`, updateData).then(() => {
-        Swal.fire({
-          title: "Berhasil",
-          text: `Barang sudah ditambahkan ke Keranjang`,
-          icon: "success",
-          confirmButtonText: "OK",
-          confirmButtonColor: "rgb(3 150 199)",
-        }).then((res) => {
-          if (res.isConfirmed) {
-            navigate("/cart");
-          }
+      axios
+        .post(`http://34.41.81.93:8083/shopping-cart`, updateData, {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        })
+        .then(() => {
+          Swal.fire({
+            title: "Berhasil",
+            text: `Barang sudah ditambahkan ke Keranjang`,
+            icon: "success",
+            confirmButtonText: "OK",
+            confirmButtonColor: "rgb(3 150 199)",
+          }).then((res) => {
+            if (res.isConfirmed) {
+              navigate("/cart");
+            }
+          });
         });
-      });
     } catch (error) {
       console.log("error", error);
     }

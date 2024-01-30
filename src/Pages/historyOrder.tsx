@@ -22,7 +22,6 @@ const HistoryOrder = () => {
           <span className="md:text-3xl text-2xl font-Poppins text-center md:text-left">Riwayat Pesanan</span>
           <span className="text-[#828282] md:text-base text-xs text-center md:text-left">Lihat riwayat pesanan pembeli yang sudah selesai ataupun yang sedang berlangsung</span>
         </div>
-
         <div className="flex justify-center items-center">
           <div className="flex flex-col gap-5 mb-20 border-2 border-slate-50 md:p-5 p-2 overflow-y-scroll w-[90vw] h-[60vh]">
             <div className="md:p-3 p-1 flex w-full border-[1.5px] gap-1 md:gap-3">

@@ -1,4 +1,4 @@
-import NumberFormatter from "../NumberFormatter"; // Sesuaikan dengan path yang benar
+import NumberFormatter from "../NumberFormatter";
 import { FC } from "react";
 import keranjangIcon from "../../img/Keranjang.svg";
 import { productDataType } from "../../utils/interface";
@@ -11,8 +11,6 @@ const Card: FC<productDataType> = (props: productDataType) => {
   const { model, price, processor, ram, storage, cekProduk, allData, gambar } = props;
   const navigate = useNavigate();
   const username = Cookies.get("username");
-
-  console.log(gambar);
   const addCart = (data: any) => {
     const authToken = Cookies.get("authToken");
     const total_price = price;

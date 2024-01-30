@@ -41,8 +41,26 @@ const Register: FC = () => {
           }
         });
       }
-    } catch (error) {
-      console.error("Error:", error);
+    } catch (error: any) {
+      if (error.message === "Network Error") {
+        Swal.fire({
+          title: "Warning",
+          text: "Tidak terkoneksi ke database, Periksa Koneksi Anda",
+          icon: "error",
+          showCancelButton: true,
+          confirmButtonText: "OK",
+          confirmButtonColor: "rgb(255 10 10)",
+        });
+      } else if (error.response.data.message) {
+        Swal.fire({
+          title: "Warning",
+          text: "Email yang anda Masukan sudah ada",
+          icon: "error",
+          showCancelButton: true,
+          confirmButtonText: "OK",
+          confirmButtonColor: "rgb(255 10 10)",
+        });
+      }
     }
   };
   return (
@@ -162,8 +180,6 @@ const Register: FC = () => {
                 </div>
               </form>
             </div>
-
-            {/* ... */}
           </div>
         </div>
       </div>

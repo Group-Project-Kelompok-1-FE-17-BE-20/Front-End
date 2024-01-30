@@ -19,7 +19,6 @@ const Login: FC = () => {
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
-
     if (loginState.email === "admin@gmail.com" && loginState.password === "1") {
       navigate("/daftar-users");
       Cookies.set("username", "admin");
@@ -31,7 +30,6 @@ const Login: FC = () => {
         });
         if (response.data && response.data.data.token) {
           const token = response.data.data.token;
-          console.log(token);
           Cookies.set("authToken", token);
           Swal.fire({
             title: "Confirmation",
@@ -51,40 +49,64 @@ const Login: FC = () => {
                     Cookies.set("username", user);
                     navigate("/");
                   } else {
-                    handleLoginError();
+                    handleLoginError(!response);
                   }
                 } catch (error) {
-                  handleLoginError();
+                  handleLoginError(error);
                 }
               };
               cekData();
             }
           });
         } else {
-          handleLoginError();
+          handleLoginError(!response);
         }
       } catch (error) {
         console.error("Login error:", error);
-        handleLoginError();
+        handleLoginError(error);
       }
     }
   };
 
-  const handleLoginError = () => {
-    Swal.fire({
-      title: "Confirmation",
-      text: "Username and Password Was Wrong",
-      icon: "error",
-      showCancelButton: true,
-      confirmButtonText: "OK",
-      confirmButtonColor: "rgb(255 10 10)",
-    }).then(() => {
-      setLoginState({
-        email: "",
-        password: "",
-        passwordVisible: false,
+  const handleLoginError = (error: any) => {
+    if (error.message === "Network Error") {
+      Swal.fire({
+        title: "Warning",
+        text: "Tidak terkoneksi ke database, Periksa Koneksi Anda",
+        icon: "error",
+        showCancelButton: true,
+        confirmButtonText: "OK",
+        confirmButtonColor: "rgb(255 10 10)",
       });
-    });
+    } else if (error.response.data.message === "record not found, invalid email") {
+      Swal.fire({
+        title: "Warning",
+        text: "Anda Belum Punya akun, Anda harus registrasi dulu",
+        icon: "error",
+        showCancelButton: true,
+        confirmButtonText: "OK",
+        confirmButtonColor: "rgb(255 10 10)",
+      }).then((res: any) => {
+        if (res.isConfirmed) {
+          navigate("/register");
+        }
+      });
+    } else {
+      Swal.fire({
+        title: "Confirmation",
+        text: "Password anda Salah",
+        icon: "error",
+        showCancelButton: true,
+        confirmButtonText: "OK",
+        confirmButtonColor: "rgb(255 10 10)",
+      }).then(() => {
+        setLoginState({
+          email: "",
+          password: "",
+          passwordVisible: false,
+        });
+      });
+    }
   };
 
   return (

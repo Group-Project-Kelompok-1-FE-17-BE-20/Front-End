@@ -24,7 +24,6 @@ const DaftarProduct = () => {
 
   const getProduct = async () => {
     const authToken = Cookies.get("authToken");
-    console.log(authToken);
     try {
       const response = await axios.get("http://34.41.81.93:8083/all-products", {
         headers: {
@@ -34,7 +33,7 @@ const DaftarProduct = () => {
       const laptopWithdata = response.data.data.map((item: any) => {
         if (item.price < 8000000) {
           item.category = "Entry Level";
-        } else if (item.price >= 8000000 && item.price < 10000000) {
+        } else if (item.price >= 8000000 && item.price < 13000000) {
           item.category = "Mid Range";
         } else {
           item.category = "High End";
@@ -50,7 +49,6 @@ const DaftarProduct = () => {
   };
 
   const clickProduct = async (id: any) => {
-    console.log(id);
     if (id) {
       navigate(`/detail-product/${id}`, {
         state: {
@@ -67,7 +65,6 @@ const DaftarProduct = () => {
 
   useEffect(() => {
     getProduct();
-    console.log(laptopData);
   }, [category]);
 
   return (
@@ -143,7 +140,6 @@ const DaftarProduct = () => {
             Selanjutnya
           </button>
         </div>
-
         <Footer />
       </div>
     </>

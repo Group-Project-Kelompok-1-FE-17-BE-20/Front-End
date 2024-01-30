@@ -15,10 +15,10 @@ const DetailProduct: FC = () => {
   const location = useLocation();
   const [detail, setDetail] = useState<typeLaptopDetail>();
   const [number, setNumber] = useState(1);
+  const id = parseInt(location.state.id);
 
   const showDetail = async () => {
     try {
-      const id = parseInt(location.state.id);
       const response = await axios.get(`http://34.41.81.93:8083/products/${id}`);
       const filteredData = response.data.data;
       setDetail(filteredData);
@@ -29,13 +29,13 @@ const DetailProduct: FC = () => {
     const authToken = Cookies.get("authToken");
     const total_price = data.price * number;
     const qty = 1 * number;
-    const image = `${detail?.image}`;
-    const updateData = { ...data, total_price, qty, image };
+    const updateData = { ...data, total_price, qty };
     try {
       await axios
-        .post(`http://34.41.81.93:8083/shopping-cart`, updateData, {
+        .post(`http://34.41.81.93:8083/shopping-cart?productId=${id}`, updateData, {
           headers: {
             Authorization: `Bearer ${authToken}`,
+            "Content-Type": "multipart/form-data",
           },
         })
         .then(() => {

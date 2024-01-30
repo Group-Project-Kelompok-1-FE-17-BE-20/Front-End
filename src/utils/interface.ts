@@ -23,6 +23,7 @@ export interface productDataType {
   cekProduk: () => void;
   allData: any;
   gambar: string;
+  id: string | number;
 }
 
 export interface lapData {

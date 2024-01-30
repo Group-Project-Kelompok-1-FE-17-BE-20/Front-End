@@ -1,4 +1,4 @@
-import NumberFormatter from "../NumberFormatter";
+import NumberFormatter from "../NumberFormatter"; // Sesuaikan dengan path yang benar
 import { FC } from "react";
 import keranjangIcon from "../../img/Keranjang.svg";
 import { productDataType } from "../../utils/interface";
@@ -8,10 +8,10 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 const Card: FC<productDataType> = (props: productDataType) => {
-  const { model, price, processor, ram, storage, cekProduk, allData, gambar } = props;
+  const { model, price, processor, ram, storage, cekProduk, allData, gambar, id } = props;
   const navigate = useNavigate();
   const username = Cookies.get("username");
-  const addCart = (data: any) => {
+  const addCart = (data: any, id: any) => {
     const authToken = Cookies.get("authToken");
     const total_price = price;
     const image = gambar;
@@ -19,9 +19,10 @@ const Card: FC<productDataType> = (props: productDataType) => {
     if (username) {
       try {
         axios
-          .post(`http://34.41.81.93:8083/shopping-cart`, updateData, {
+          .post(`http://34.41.81.93:8083/shopping-cart?productId=${id}`, updateData, {
             headers: {
               Authorization: `Bearer ${authToken}`,
+              "Content-Type": "multipart/form-data",
             },
           })
           .then(() => {
@@ -68,7 +69,7 @@ const Card: FC<productDataType> = (props: productDataType) => {
           <button onClick={cekProduk} className="w-[80%] lg:text-base text-xs py-2 bg-[#0396C7] text-white rounded-md">
             Lihat Produk
           </button>
-          <button onClick={() => addCart(allData)} className="w-[20%] bg-slate-300 md:py-2 py-[3px] rounded-md flex justify-center items-center">
+          <button onClick={() => addCart(allData, id)} className="w-[20%] bg-slate-300 md:py-2 py-[3px] rounded-md flex justify-center items-center">
             <img src={keranjangIcon} className="w-10 p-1  md:w-6 md:p-[0.3px]" />
           </button>
         </div>

@@ -10,6 +10,7 @@ import HistoryOrder from "./Pages/historyOrder";
 import ListProduct from "./Pages/ListProduct";
 import ProfileToko from "./Pages/ShopProfile";
 import UserProfile from "./Pages/ProfilSaya";
+import DetailTransaksi from "./Pages/DetailTransaksi";
 
 import Cart from "./Pages/Cart";
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/profiltoko" element={<ProfileToko />}></Route>
           <Route path="/profilsaya" element={<UserProfile />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
+          <Route path="/detailtransaksi" element={<DetailTransaksi />}></Route>
         </Routes>
       </Router>
     </>

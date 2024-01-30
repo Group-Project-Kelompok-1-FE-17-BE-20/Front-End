@@ -84,7 +84,6 @@ const DetailProduct: FC = () => {
     <>
       <div className="h-screen w-screen">
         <Header />
-
         <div className="flex justify-center items-center w-full">
           <div className="content flex flex-col md:flex-row justify-center items-center p-5 lg:p-10 mb-20 mt-40 px-3 lg:px-10 shadow-md bg-white  border-[0.5px] border-slate-200 rounded-md gap-8 font-Poppins w-10/12">
             <div className="flex justify-center h-full md:h-[25rem] items-center border-2 border-slate-100 rounded-md shadow-md w-full md:w-1/2 overflow-hidden">
@@ -117,7 +116,6 @@ const DetailProduct: FC = () => {
             </div>
           </div>
         </div>
-
         <Footer />
       </div>
     </>

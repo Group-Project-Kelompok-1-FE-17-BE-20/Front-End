@@ -20,7 +20,7 @@ const ListUsers = () => {
     } else {
       const cekData = async () => {
         try {
-          const response = await axios.get("http://34.41.81.93:8083/userss");
+          const response = await axios.get("http://34.41.81.93:8083/alluser");
           setDataUser(response.data);
         } catch (error) {
           console.log(error);

@@ -144,6 +144,6 @@ export interface ShopProfile {
   id: string;
   title: string;
   subtitle: string;
-  content: JSX.Element;
-  svg: JSX.Element;
+  content: React.ReactNode;
+  svg: React.ReactNode;
 }

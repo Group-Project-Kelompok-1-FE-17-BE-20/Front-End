@@ -13,9 +13,8 @@ const Card: FC<productDataType> = (props: productDataType) => {
   const username = Cookies.get("username");
   const addCart = (data: any, id: any) => {
     const authToken = Cookies.get("authToken");
-    const total_price = price;
-    const image = gambar;
-    const updateData = { ...data, total_price, image, qty: 1 };
+    const totalPrice = price;
+    const updateData = { ...data, totalPrice, quantity: 1 };
     if (username) {
       try {
         axios

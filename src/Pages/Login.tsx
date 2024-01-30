@@ -41,7 +41,7 @@ const Login: FC = () => {
             if (res.isConfirmed) {
               const cekData = async () => {
                 try {
-                  const response = await axios.get("http://34.41.81.93:8083/userss");
+                  const response = await axios.get("http://34.41.81.93:8083/alluser");
                   const userData = response.data.data;
                   const findOut = userData.find((user: any) => user.email === loginState.email);
                   if (findOut) {

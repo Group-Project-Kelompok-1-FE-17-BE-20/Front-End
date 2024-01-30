@@ -27,9 +27,9 @@ const DetailProduct: FC = () => {
 
   const addCart = async (data: any) => {
     const authToken = Cookies.get("authToken");
-    const total_price = data.price * number;
-    const qty = 1 * number;
-    const updateData = { ...data, total_price, qty };
+    const totalPrice = data.price * number;
+    const quantity = 1 * number;
+    const updateData = { ...data, totalPrice, quantity };
     try {
       await axios
         .post(`http://34.41.81.93:8083/shopping-cart?productId=${id}`, updateData, {

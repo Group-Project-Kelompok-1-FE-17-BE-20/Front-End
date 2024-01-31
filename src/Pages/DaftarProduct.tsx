@@ -267,7 +267,7 @@ const DaftarProduct = () => {
               currentItems.map((item: any, id: any) => (
                 <Card
                   key={id}
-                  id={`productCard_${id}`} // Unique id for each Card
+                  id={item.id} // Unique id for each Card
                   brand={item.brand}
                   gambar={item.image}
                   model={item.model}

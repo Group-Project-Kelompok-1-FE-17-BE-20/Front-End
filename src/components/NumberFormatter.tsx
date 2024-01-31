@@ -1,14 +1,14 @@
-// NumberFormatter.tsx
 import React from "react";
-
-interface NumberFormatterProps {
-  value: number;
-}
+import { NumberFormatterProps } from "../utils/interface";
 
 const NumberFormatter: React.FC<NumberFormatterProps> = ({ value }) => {
   const formattedNumber = new Intl.NumberFormat().format(value);
 
-  return <span className="font-extrabold text-red-500 font-sans">Rp. {formattedNumber}</span>;
+  return (
+    <span id="formattedNumber" className="font-extrabold text-red-500 font-sans">
+      Rp. {formattedNumber}
+    </span>
+  );
 };
 
 export default NumberFormatter;

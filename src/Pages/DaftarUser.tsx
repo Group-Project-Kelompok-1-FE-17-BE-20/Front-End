@@ -20,7 +20,7 @@ const ListUsers = () => {
     } else {
       const cekData = async () => {
         try {
-          const response = await axios.get("http://34.41.81.93:8083/alluser");
+          const response = await axios.get("https://altalaptop.shop/alluser");
           setDataUser(response.data);
         } catch (error) {
           console.log(error);
@@ -33,17 +33,21 @@ const ListUsers = () => {
   return (
     <>
       <Header />
-      <div className="flex flex-col pt-44 gap-8 font-Poppins">
-        <div className="flex flex-col px-20 ">
-          <span className="md:text-3xl text-2xl md:text-left text-center font-Poppins">Daftar Users</span>
-          <span className="text-[#828282] text-xs md:text-base">Lihat informasi mengenai users</span>
+      <div id="main-container" className="flex flex-col pt-44 gap-8 font-Poppins">
+        <div id="header-info" className="flex flex-col px-20">
+          <span id="header-title" className="md:text-3xl text-2xl md:text-left text-center font-Poppins">
+            Daftar Users
+          </span>
+          <span id="header-description" className="text-[#828282] text-xs md:text-base">
+            Lihat informasi mengenai users
+          </span>
         </div>
 
-        <div className="flex justify-center items-center">
-          <div className="flex flex-col lg:h-[60vh] h-[35vh] gap-5 mb-20 border-2 border-slate-50 p-2 md:p-5 overflow-y-scroll w-[90vw]">
+        <div id="users-container" className="flex justify-center items-center">
+          <div id="users-list" className="flex flex-col lg:h-[60vh] h-[35vh] gap-5 mb-20 border-2 border-slate-50 p-2 md:p-5 overflow-y-scroll w-[90vw]">
             {dataUser.data &&
               dataUser.data.map((item: any, key: number) => {
-                return <ProfileUsers key={key} username={item.username} nama={item.nama_lengkap} email={item.email} no_hp={item.nomor_hp} />;
+                return <ProfileUsers key={key} id={`user-${key}`} username={item.username} nama={item.nama_lengkap} email={item.email} no_hp={item.nomor_hp} />;
               })}
           </div>
         </div>

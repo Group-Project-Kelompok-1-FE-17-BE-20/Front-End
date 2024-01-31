@@ -4,45 +4,79 @@ import { useNavigate } from "react-router-dom";
 const Footer: FC = () => {
   const navigate = useNavigate();
   return (
-    <div className="w-full min-h-[552px] px-3 md:px-10 py-8 bottom-0 bg-sky-50 flex justify-center items-center font-Poppins">
-      <div className="flex flex-col items-start gap-8">
-        <div className="justify-start items-start gap-[50px] 2xl:gap-[280px] md:inline-flex flex-wrap">
-          <div className="md:flex grid grid-cols-2 md:flex-wrap justify-start items-start gap-2  md:gap-8">
-            <div className="flex flex-col justify-start items-start gap-4">
-              <div className="text-gray-800 text-sm font-semibold uppercase tracking-wide">INFORMASI STOREID</div>
-              <div className="flex-col justify-start items-start gap-2 flex">
-                <div className="text-gray-500 text-sm font-medium font-poppins tracking-wide">Tentang StoreID</div>
-                <div className="text-gray-500 text-sm font-medium font-poppins tracking-wide">Kebijakan StoreID</div>
-                <div className="text-gray-500 text-sm font-medium font-poppins tracking-wide">Kebijakan Privasi</div>
-                <div className="text-gray-500 text-sm font-medium font-poppins tracking-wide">Blog Fashion</div>
+    <div id="mainContainer" className="w-full min-h-[552px] px-3 md:px-10 py-8 bottom-0 bg-sky-50 flex justify-center items-center font-Poppins">
+      <div id="mainFlexContainer" className="flex flex-col items-start gap-8">
+        <div id="infoFlexContainer" className="justify-start items-start gap-[50px] 2xl:gap-[280px] md:inline-flex flex-wrap">
+          <div id="gridContainer" className="md:flex grid grid-cols-2 md:flex-wrap justify-start items-start gap-2  md:gap-8">
+            <div id="storeInfoContainer" className="flex flex-col justify-start items-start gap-4">
+              <div id="storeInfoHeading" className="text-gray-800 text-sm font-semibold uppercase tracking-wide">
+                INFORMASI STOREID
+              </div>
+              <div id="storeInfoLinks" className="flex-col justify-start items-start gap-2 flex">
+                <div id="storeInfoLink1" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                  Tentang StoreID
+                </div>
+                <div id="storeInfoLink2" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                  Kebijakan StoreID
+                </div>
+                <div id="storeInfoLink3" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                  Kebijakan Privasi
+                </div>
+                <div id="storeInfoLink4" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                  Blog Fashion
+                </div>
               </div>
             </div>
-            <div className="flex-col justify-start items-start gap-4 inline-flex">
-              <div className="text-gray-800 text-sm font-semibold font-poppins uppercase tracking-wide">Bantuan & dukungan</div>
-              <div className="flex-col justify-start items-start gap-2 flex">
-                <div className="text-gray-500 text-sm font-medium font-poppins tracking-wide">Informasi Belanja</div>
-                <div className="text-gray-500 text-sm font-medium font-poppins tracking-wide">Pengembalian Dana</div>
-                <div className="text-gray-500 text-sm font-medium font-poppins tracking-wide">Cara Memesan</div>
-                <div className="text-gray-500 text-sm font-medium font-poppins tracking-wide">Cara Melacak</div>
-                <div className="text-gray-500 text-sm font-medium font-poppins tracking-wide">Metode Pembayaran</div>
+            <div id="helpSupportContainer" className="flex-col justify-start items-start gap-4 inline-flex">
+              <div id="helpSupportHeading" className="text-gray-800 text-sm font-semibold font-poppins uppercase tracking-wide">
+                Bantuan & dukungan
+              </div>
+              <div id="helpSupportLinks" className="flex-col justify-start items-start gap-2 flex">
+                <div id="helpSupportLink1" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                  Informasi Belanja
+                </div>
+                <div id="helpSupportLink2" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                  Pengembalian Dana
+                </div>
+                <div id="helpSupportLink3" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                  Cara Memesan
+                </div>
+                <div id="helpSupportLink4" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                  Cara Melacak
+                </div>
+                <div id="helpSupportLink5" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                  Metode Pembayaran
+                </div>
               </div>
             </div>
-            <div className="flex-col justify-start items-start gap-4 inline-flex">
-              <div className="text-gray-800 text-sm font-semibold font-poppins uppercase tracking-wide">LAYANAN PELANGGAN</div>
-              <div className="flex-col justify-start items-start gap-2 flex">
-                <div className="text-gray-500 text-sm font-medium font-poppins tracking-wide">Hubungi Kami</div>
-                <div className="text-gray-500 text-sm font-medium font-poppins tracking-wide">Pembayaran</div>
-                <div className="text-gray-500 text-sm font-medium font-poppins tracking-wide">Bonus Point</div>
-                <div className="text-gray-500 text-sm font-medium font-poppins tracking-wide">Pemberitahuan</div>
+            <div id="customerServiceContainer" className="flex-col justify-start items-start gap-4 inline-flex">
+              <div id="customerServiceHeading" className="text-gray-800 text-sm font-semibold font-poppins uppercase tracking-wide">
+                LAYANAN PELANGGAN
+              </div>
+              <div id="customerServiceLinks" className="flex-col justify-start items-start gap-2 flex">
+                <div id="customerServiceLink1" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                  Hubungi Kami
+                </div>
+                <div id="customerServiceLink2" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                  Pembayaran
+                </div>
+                <div id="customerServiceLink3" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                  Bonus Point
+                </div>
+                <div id="customerServiceLink4" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                  Pemberitahuan
+                </div>
               </div>
             </div>
           </div>
-          <div className="flex flex-wrap justify-start items-start gap-8 md:block">
-            <div className="justify-start items-start gap-[242px] inline-flex">
-              <div className="flex flex-col justify-start items-start gap-4 mt-5 xl:mt-0">
-                <div className="text-gray-800 text-sm font-semibold uppercase tracking-wide">Kontak Media</div>
-                <div className="justify-start items-start gap-4 inline-flex mb-5">
-                  <svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <div id="kontakMediaContainer" className="flex flex-wrap justify-start items-start gap-8 md:block">
+            <div id="kontakMediaFlexContainer" className="justify-start items-start gap-[242px] inline-flex">
+              <div id="kontakMediaInfoContainer" className="flex flex-col justify-start items-start gap-4 mt-5 xl:mt-0">
+                <div id="kontakMediaHeading" className="text-gray-800 text-sm font-semibold uppercase tracking-wide">
+                  Kontak Media
+                </div>
+                <div id="kontakMediaLinks" className="justify-start items-start gap-4 inline-flex mb-5">
+                  <svg id="kontakMediaIcon1" width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clipPath="url(#clip0_2_2391)">
                       <path
                         fillRule="evenodd"
@@ -57,7 +91,7 @@ const Footer: FC = () => {
                       </clipPath>
                     </defs>
                   </svg>
-                  <svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg id="kontakMediaIcon2" width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clipPath="url(#clip0_2_2393)">
                       <path
                         d="M16.5 0C7.66479 0 0.5 7.16479 0.5 16C0.5 24.8352 7.66479 32 16.5 32C25.3352 32 32.5 24.8352 32.5 16C32.5 7.16479 25.3352 0 16.5 0ZM23.8054 12.4751C23.8125 12.6326 23.8159 12.7908 23.8159 12.9497C23.8159 17.8025 20.1221 23.3984 13.3669 23.3987H13.3672H13.3669C11.293 23.3987 9.36304 22.7908 7.73779 21.749C8.02515 21.783 8.31763 21.7998 8.61377 21.7998C10.3345 21.7998 11.918 21.2129 13.175 20.2278C11.5674 20.198 10.2119 19.1362 9.74414 17.677C9.96802 17.72 10.1982 17.7434 10.4343 17.7434C10.7695 17.7434 11.0942 17.6982 11.4028 17.614C9.72241 17.2776 8.45654 15.7925 8.45654 14.0142C8.45654 13.9976 8.45654 13.9827 8.45703 13.9673C8.9519 14.2424 9.51782 14.408 10.1204 14.4265C9.13428 13.7686 8.48608 12.6438 8.48608 11.3696C8.48608 10.6968 8.66797 10.0664 8.9834 9.52368C10.7944 11.7458 13.501 13.2073 16.5532 13.3608C16.4902 13.0918 16.4578 12.8115 16.4578 12.5234C16.4578 10.4961 18.1025 8.85132 20.1306 8.85132C21.187 8.85132 22.1411 9.29785 22.8113 10.0117C23.6479 9.84668 24.4336 9.54102 25.1433 9.12036C24.8687 9.97754 24.2866 10.6968 23.5283 11.1516C24.2712 11.0627 24.9792 10.8657 25.6372 10.5732C25.1458 11.3098 24.5225 11.9568 23.8054 12.4751Z"
@@ -70,7 +104,7 @@ const Footer: FC = () => {
                       </clipPath>
                     </defs>
                   </svg>
-                  <svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg id="kontakMediaIcon3" width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       fillRule="evenodd"
                       clipRule="evenodd"
@@ -81,42 +115,62 @@ const Footer: FC = () => {
                 </div>
               </div>
             </div>
-            <div className="flex-col justify-start items-start gap-[18px] flex">
-              <div className="flex-col justify-start items-start gap-[5px] flex">
-                <div className="text-gray-800 text-sm font-medium font-poppins tracking-wide">Bergabung bersama kami untuk mengikuti perkembangan aplikasi</div>
-                <div className="justify-start items-start gap-2 inline-flex">
-                  <div className="h-[47px] px-4 py-[13px] bg-white rounded-lg border border-gray-400 justify-start items-start gap-2.5 flex">
-                    <div onClick={() => navigate("/register")} className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+            <div id="subscriptionContainer" className="flex-col justify-start items-start gap-[18px] flex">
+              <div id="subscriptionTextContainer" className="flex-col justify-start items-start gap-[5px] flex">
+                <div id="subscriptionText" className="text-gray-800 text-sm font-medium font-poppins tracking-wide">
+                  Bergabung bersama kami untuk mengikuti perkembangan aplikasi
+                </div>
+                <div id="subscriptionInputButtons" className="justify-start items-start gap-2 inline-flex">
+                  <div id="subscriptionInput" className="h-[47px] px-4 py-[13px] bg-white rounded-lg border border-gray-400 justify-start items-start gap-2.5 flex">
+                    <div onClick={() => navigate("/register")} id="subscriptionInputLabel" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
                       Masukkan emailmu...
                     </div>
                   </div>
-                  <div className="px-[30px] py-[13px] bg-sky-600 rounded-lg justify-start items-start gap-2.5 flex">
-                    <div onClick={() => navigate("/register")} className="text-white text-sm font-semibold font-poppins uppercase tracking-wide">
+                  <div id="subscriptionButton" className="px-[30px] py-[13px] bg-sky-600 rounded-lg justify-start items-start gap-2.5 flex">
+                    <div onClick={() => navigate("/register")} id="subscriptionButtonText" className="text-white text-sm font-semibold font-poppins uppercase tracking-wide">
                       Bergabung
                     </div>
                   </div>
                 </div>
               </div>
-              <div>
-                <span className="text-gray-500 text-xs font-medium font-poppins tracking-wide">Dengan mengklik tombol BERLANGGANAN, Anda menyetujui </span>
-                <span className="text-sky-900 text-xs font-medium font-poppins tracking-wide">Kebijakan Privasi & Cookie kami</span>
+              <div id="subscriptionPolicyText">
+                <span id="subscriptionPolicyText1" className="text-gray-500 text-xs font-medium font-poppins tracking-wide">
+                  Dengan mengklik tombol BERLANGGANAN, Anda menyetujui{" "}
+                </span>
+                <span id="subscriptionPolicyText2" className="text-sky-900 text-xs font-medium font-poppins tracking-wide">
+                  Kebijakan Privasi & Cookie kami
+                </span>
               </div>
             </div>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row justify-start items-start md:items-center gap-[62px] md:gap-[305px]">
-          <div className="flex flex-col justify-start items-start gap-6">
-            <div className="text-gray-500 text-sm font-medium tracking-wide">©2010-2023 StoreID All Rights Reserved</div>
-            <div className="flex-col justify-start items-start gap-4 flex">
-              <div className="grid justify-start items-center gap-[7px] md:inline-flex">
-                <div className="text-gray-500 text-xs md:text-sm font-medium font-poppins underline tracking-wide">Privacy Center</div>
-                <div className="text-gray-500 text-xs md:text-sm font-medium font-poppins underline tracking-wide">Privacy & Cookie Policy</div>
-                <div className="text-gray-500 text-xs md:text-sm font-medium font-poppins underline tracking-wide">Manage Cookies</div>
+        <div id="footerLinks" className="flex flex-col md:flex-row justify-start items-start md:items-center gap-[62px] md:gap-[305px]">
+          <div id="footerText" className="flex flex-col justify-start items-start gap-6">
+            <div id="footerCopyright" className="text-gray-500 text-sm font-medium tracking-wide">
+              ©2010-2023 StoreID All Rights Reserved
+            </div>
+            <div id="footerPolicyLinks" className="flex-col justify-start items-start gap-4 flex">
+              <div id="privacyLinks" className="grid justify-start items-center gap-[7px] md:inline-flex">
+                <div id="privacyCenter" className="text-gray-500 text-xs md:text-sm font-medium font-poppins underline tracking-wide">
+                  Privacy Center
+                </div>
+                <div id="privacyPolicy" className="text-gray-500 text-xs md:text-sm font-medium font-poppins underline tracking-wide">
+                  Privacy & Cookie Policy
+                </div>
+                <div id="manageCookies" className="text-gray-500 text-xs md:text-sm font-medium font-poppins underline tracking-wide">
+                  Manage Cookies
+                </div>
               </div>
-              <div className="justify-start items-center gap-[7px] inline-flex">
-                <div className="text-gray-500 text-xs md:text-sm font-medium font-poppins underline tracking-wide">Terms & Conditions</div>
-                <div className="text-gray-500 text-xs md:text-sm font-medium font-poppins underline tracking-wide">Copyright Notice</div>
-                <div className="text-gray-500 text-xs md:text-sm font-medium font-poppins underline tracking-wide">Imprint</div>
+              <div id="termsLinks" className="justify-start items-center gap-[7px] inline-flex">
+                <div id="termsConditions" className="text-gray-500 text-xs md:text-sm font-medium font-poppins underline tracking-wide">
+                  Terms & Conditions
+                </div>
+                <div id="copyrightNotice" className="text-gray-500 text-xs md:text-sm font-medium font-poppins underline tracking-wide">
+                  Copyright Notice
+                </div>
+                <div id="imprint" className="text-gray-500 text-xs md:text-sm font-medium font-poppins underline tracking-wide">
+                  Imprint
+                </div>
               </div>
             </div>
           </div>

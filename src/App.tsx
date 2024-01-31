@@ -13,6 +13,7 @@ import UserProfile from "./Pages/ProfilSaya";
 import DetailTransaksi from "./Pages/DetailTransaksi";
 
 import Cart from "./Pages/Cart";
+import RiwayatPesanan from "./Pages/RiwayatPesanan";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/profilsaya" element={<UserProfile />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
           <Route path="/detailtransaksi" element={<DetailTransaksi />}></Route>
+          <Route path="/riwayatpesanansaya" element={<RiwayatPesanan />}></Route>
         </Routes>
       </Router>
     </>

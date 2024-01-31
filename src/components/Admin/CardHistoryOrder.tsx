@@ -4,16 +4,18 @@ import imageProfil from "../../img/image 8.png";
 const CardHistoryOrder: FC = () => {
   return (
     <>
-      <div className="flex flex-col gap-3  bg-[#F0F8FF]">
+      <div id="orderDetails" className="flex flex-col gap-3 bg-[#F0F8FF]">
         <div className="flex flex-col">
           <div className="flex flex-col p-3">
             <div className="card">
               <div className="flex justify-between items-center p-3">
                 <div className="flex gap-3">
-                  <span>Nisya</span>
+                  <span id="userName">Nisya</span>
                 </div>
                 <div className="div">
-                  <span className="text-[#0396C7]">Terkirim</span>
+                  <span id="orderStatus" className="text-[#0396C7]">
+                    Terkirim
+                  </span>
                 </div>
               </div>
             </div>
@@ -23,10 +25,18 @@ const CardHistoryOrder: FC = () => {
                 <img src={imageProfil} alt="img" className=" md:w-auto w-[20%]" />
               </div>
               <div className="md:flex flex-col md:w-7/12 hidden">
-                <span className="font-semibold md:text-base text-sm">Asus ROG</span>
-                <span className="md:text-base text-xs">Ram : 4gb</span>
-                <span className="md:text-base text-xs">Storage : 256gb</span>
-                <span className="md:text-base text-xs text-[#0396C7]">x 1</span>
+                <span id="productName" className="font-semibold md:text-base text-sm">
+                  Asus ROG
+                </span>
+                <span id="productRam" className="md:text-base text-xs">
+                  Ram : 4gb
+                </span>
+                <span id="productStorage" className="md:text-base text-xs">
+                  Storage : 256gb
+                </span>
+                <span id="productQuantity" className="md:text-base text-xs text-[#0396C7]">
+                  x 1
+                </span>
               </div>
 
               <div className="flex md:hidden justify-around items-start">
@@ -34,10 +44,18 @@ const CardHistoryOrder: FC = () => {
                   <img src={imageProfil} alt="img" className="w-[80%]" />
                 </div>
                 <div className="flex flex-col md:w-7/12">
-                  <span className="font-semibold md:text-base text-sm">Asus ROG</span>
-                  <span className="md:text-base text-xs">Ram : 4gb</span>
-                  <span className="md:text-base text-xs">Storage : 256gb</span>
-                  <span className="md:text-base text-xs text-[#0396C7]">x 1</span>
+                  <span id="productNameMobile" className="font-semibold md:text-base text-sm">
+                    Asus ROG
+                  </span>
+                  <span id="productRamMobile" className="md:text-base text-xs">
+                    Ram : 4gb
+                  </span>
+                  <span id="productStorageMobile" className="md:text-base text-xs">
+                    Storage : 256gb
+                  </span>
+                  <span id="productQuantityMobile" className="md:text-base text-xs text-[#0396C7]">
+                    x 1
+                  </span>
                 </div>
               </div>
 
@@ -55,10 +73,14 @@ const CardHistoryOrder: FC = () => {
                         stroke-linejoin="round"
                       />
                     </svg>
-                    <span className="text-[#999999] lg:text-sm text-xs w-full">Nomor Pesanan</span>
+                    <span id="orderNumberText" className="text-[#999999] lg:text-sm text-xs w-full">
+                      Nomor Pesanan
+                    </span>
                   </div>
                   <div>
-                    <span className="text-[#0396C7] lg:text-sm text-xs">7463HFH37REH32</span>
+                    <span id="orderNumber" className="text-[#0396C7] lg:text-sm text-xs">
+                      7463HFH37REH32
+                    </span>
                   </div>
                 </div>
 
@@ -73,17 +95,20 @@ const CardHistoryOrder: FC = () => {
                         stroke-linejoin="round"
                       />
                     </svg>
-                    <span className="text-[#999999] lg:text-sm text-xs w-full">Total Pesanan</span>
+                    <span id="totalOrderText" className="text-[#999999] lg:text-sm text-xs w-full">
+                      Total Pesanan
+                    </span>
                   </div>
                   <div>
-                    <span className="text-[#0396C7] lg:text-sm text-xs">Rp 36.000.000</span>
+                    <span id="totalOrderAmount" className="text-[#0396C7] lg:text-sm text-xs">
+                      Rp 36.000.000
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
-
             <div className="line bg-[#E6E6E6] p-[1.6px]"></div>
-            <div className="flex justify-start w-full p-3 md:text-base text-xs">
+            <div id="orderDate" className="flex justify-start w-full p-3 md:text-base text-xs">
               <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M12.3491 6V12L16.3491 14M22.3491 12C22.3491 17.5228 17.872 22 12.3491 22C6.82627 22 2.34912 17.5228 2.34912 12C2.34912 6.47715 6.82627 2 12.3491 2C17.872 2 22.3491 6.47715 22.3491 12Z"

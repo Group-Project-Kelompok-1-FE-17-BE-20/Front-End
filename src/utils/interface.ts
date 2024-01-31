@@ -148,3 +148,7 @@ export interface ShopProfile {
   content: React.ReactNode;
   svg: React.ReactNode;
 }
+
+export interface NumberFormatterProps {
+  value: number;
+}

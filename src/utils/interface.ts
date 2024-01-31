@@ -152,3 +152,12 @@ export interface ShopProfile {
 export interface NumberFormatterProps {
   value: number;
 }
+
+export interface FormDataObject {
+  nama_lengkap: string;
+  username: string;
+  jenis_kelamin: string;
+  email: string;
+  nomor_hp: string;
+  password: string;
+}

@@ -11,12 +11,15 @@ const DaftarProduct = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const [category, setCategory] = useState("Semua");
+  const [hidden, setHidden] = useState<Boolean>(false);
+  const authToken = Cookies.get("authToken");
   const [laptopData, setLapData] = useState<lapData>({
     data: [],
   });
 
   const username = Cookies.get("username");
   const [showHamMenu, setShowHam] = useState<Boolean>(false);
+  const [showPagination, setShowPagination] = useState(false);
 
   const logOut = (): void => {
     Swal.fire({
@@ -52,6 +55,13 @@ const DaftarProduct = () => {
         },
       });
 
+      const userIdToko = await axios.get(`https://altalaptop.shop/stores`, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      const storeId = userIdToko.data.data[0].ID;
       const laptopWithdata = response.data.data.map((item: any) => {
         if (item.price < 8000000) {
           item.category = "Entry Level";
@@ -60,14 +70,51 @@ const DaftarProduct = () => {
         } else {
           item.category = "High End";
         }
-        return item;
+
+        if (item.store_id !== storeId) {
+          return item;
+        }
+        return null;
       });
 
-      const filteredData = category === "Semua" ? laptopWithdata : laptopWithdata.filter((item: any) => item.category === category);
+      const filteredLaptopWithdata = laptopWithdata.filter((item: any) => item !== null);
+      const filteredData = category === "Semua" ? filteredLaptopWithdata : filteredLaptopWithdata.filter((item: any) => item.category === category);
       const searchData = searchQuery ? filteredData.filter((item: any) => item.brand.toLowerCase().includes(searchQuery.toLowerCase())) : filteredData;
       setLapData((prev) => ({ ...prev, data: searchData }));
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (error.response && error.response.status === 500) {
+        const product = async () => {
+          const authToken = Cookies.get("authToken");
+          try {
+            const response = await axios.get("https://altalaptop.shop/all-products", {
+              headers: {
+                Authorization: `Bearer ${authToken}`,
+              },
+            });
+
+            const laptopWithdata = response.data.data.map((item: any) => {
+              if (item.price < 8000000) {
+                item.category = "Entry Level";
+              } else if (item.price >= 8000000 && item.price < 13000000) {
+                item.category = "Mid Range";
+              } else {
+                item.category = "High End";
+              }
+              return item;
+            });
+
+            const filteredData = category === "Semua" ? laptopWithdata : laptopWithdata.filter((item: any) => item.category === category);
+            const searchData = searchQuery ? filteredData.filter((item: any) => item.brand.toLowerCase().includes(searchQuery.toLowerCase())) : filteredData;
+            setLapData((prev) => ({ ...prev, data: searchData }));
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        product();
+      } else {
+        // Handle other errors
+        console.log(error);
+      }
     }
   };
 
@@ -81,19 +128,43 @@ const DaftarProduct = () => {
     }
   };
 
+  const call = async () => {
+    if (username) {
+      try {
+        const userIdToko = await axios.get(`https://altalaptop.shop/stores`, {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        });
+
+        const userId = await axios.get(`https://altalaptop.shop/users`, {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        });
+
+        if (userIdToko.data.data[0].UserID === userId.data.data.UserID) {
+          setHidden(true);
+        }
+      } catch {
+        console.log("nothing");
+      }
+    }
+  };
+
   const totalPages = Math.ceil(laptopData.data.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = laptopData.data.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
-    if (getProduct.length > 1) {
+    if (!username) {
       Swal.fire({
         title: "Confirmation",
-        text: "Anda harus login dulu",
+        text: "Anda Harus Login dulu",
         icon: "warning",
         confirmButtonText: "OK",
-        confirmButtonColor: "rgb(3 150 199)",
+        confirmButtonColor: "rgb(255 10 10)",
       }).then((res) => {
         if (res.isConfirmed) {
           navigate("/login");
@@ -102,7 +173,19 @@ const DaftarProduct = () => {
     } else {
       getProduct();
     }
-  }, [category, searchQuery]);
+  }, [searchQuery, laptopData, category]);
+
+  useEffect(() => {
+    call();
+  }, []);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setShowPagination(true);
+    }, 2000);
+
+    return () => clearTimeout(timeoutId);
+  }, []);
 
   return (
     <>
@@ -177,18 +260,33 @@ const DaftarProduct = () => {
                         </svg>
                         Profil Saya
                       </button>
-                      <button onClick={() => navigate("/profiltoko")} className="text-[#828282] hover:text-[#0396C7] flex  items-center gap-3 w-full">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M13 19V13.6C13 13.0399 13 12.7599 12.891 12.546C12.7951 12.3578 12.6422 12.2049 12.454 12.109C12.2401 12 11.9601 12 11.4 12H8.6C8.03995 12 7.75992 12 7.54601 12.109C7.35785 12.2049 7.20487 12.3578 7.10899 12.546C7 12.7599 7 13.0399 7 13.6V19M1 5C1 6.65685 2.34315 8 4 8C5.65685 8 7 6.65685 7 5C7 6.65685 8.34315 8 10 8C11.6569 8 13 6.65685 13 5C13 6.65685 14.3431 8 16 8C17.6569 8 19 6.65685 19 5M4.2 19H15.8C16.9201 19 17.4802 19 17.908 18.782C18.2843 18.5903 18.5903 18.2843 18.782 17.908C19 17.4802 19 16.9201 19 15.8V4.2C19 3.0799 19 2.51984 18.782 2.09202C18.5903 1.71569 18.2843 1.40973 17.908 1.21799C17.4802 1 16.9201 1 15.8 1H4.2C3.0799 1 2.51984 1 2.09202 1.21799C1.71569 1.40973 1.40973 1.71569 1.21799 2.09202C1 2.51984 1 3.07989 1 4.2V15.8C1 16.9201 1 17.4802 1.21799 17.908C1.40973 18.2843 1.71569 18.5903 2.09202 18.782C2.51984 19 3.07989 19 4.2 19Z"
-                            stroke="#272D2F"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                        Toko Saya
-                      </button>
+                      {!hidden ? (
+                        <button id="profilTokoBtn" onClick={() => navigate("/buattoko")} className="text-[#828282] hover:text-[#0396C7] flex items-center gap-3 w-full">
+                          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M13 19V13.6C13 13.0399 13 12.7599 12.891 12.546C12.7951 12.3578 12.6422 12.2049 12.454 12.109C12.2401 12 11.9601 12 11.4 12H8.6C8.03995 12 7.75992 12 7.54601 12.109C7.35785 12.2049 7.20487 12.3578 7.10899 12.546C7 12.7599 7 13.0399 7 13.6V19M1 5C1 6.65685 2.34315 8 4 8C5.65685 8 7 6.65685 7 5C7 6.65685 8.34315 8 10 8C11.6569 8 13 6.65685 13 5C13 6.65685 14.3431 8 16 8C17.6569 8 19 6.65685 19 5M4.2 19H15.8C16.9201 19 17.4802 19 17.908 18.782C18.2843 18.5903 18.5903 18.2843 18.782 17.908C19 17.4802 19 16.9201 19 15.8V4.2C19 3.0799 19 2.51984 18.782 2.09202C18.5903 1.71569 18.2843 1.40973 17.908 1.21799C17.4802 1 16.9201 1 15.8 1H4.2C3.0799 1 2.51984 1 2.09202 1.21799C1.71569 1.40973 1.40973 1.71569 1.21799 2.09202C1 2.51984 1 3.07989 1 4.2V15.8C1 16.9201 1 17.4802 1.21799 17.908C1.40973 18.2843 1.71569 18.5903 2.09202 18.782C2.51984 19 3.07989 19 4.2 19Z"
+                              stroke="#272D2F"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                          Buat Toko Saya
+                        </button>
+                      ) : (
+                        <button id="profilTokoBtn" onClick={() => navigate("/profiltoko")} className="text-[#828282] hover:text-[#0396C7] flex items-center gap-3 w-full">
+                          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M13 19V13.6C13 13.0399 13 12.7599 12.891 12.546C12.7951 12.3578 12.6422 12.2049 12.454 12.109C12.2401 12 11.9601 12 11.4 12H8.6C8.03995 12 7.75992 12 7.54601 12.109C7.35785 12.2049 7.20487 12.3578 7.10899 12.546C7 12.7599 7 13.0399 7 13.6V19M1 5C1 6.65685 2.34315 8 4 8C5.65685 8 7 6.65685 7 5C7 6.65685 8.34315 8 10 8C11.6569 8 13 6.65685 13 5C13 6.65685 14.3431 8 16 8C17.6569 8 19 6.65685 19 5M4.2 19H15.8C16.9201 19 17.4802 19 17.908 18.782C18.2843 18.5903 18.5903 18.2843 18.782 17.908C19 17.4802 19 16.9201 19 15.8V4.2C19 3.0799 19 2.51984 18.782 2.09202C18.5903 1.71569 18.2843 1.40973 17.908 1.21799C17.4802 1 16.9201 1 15.8 1H4.2C3.0799 1 2.51984 1 2.09202 1.21799C1.71569 1.40973 1.40973 1.71569 1.21799 2.09202C1 2.51984 1 3.07989 1 4.2V15.8C1 16.9201 1 17.4802 1.21799 17.908C1.40973 18.2843 1.71569 18.5903 2.09202 18.782C2.51984 19 3.07989 19 4.2 19Z"
+                              stroke="#272D2F"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                          Toko Saya
+                        </button>
+                      )}
                       <button onClick={logOut} className="text-[#828282] hover:text-[#0396C7] flex  items-center gap-3 w-full">
                         <svg width="20" height="20" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path
@@ -263,55 +361,61 @@ const DaftarProduct = () => {
 
         <div id="produkContent" className="content md:my-16 mt-2 pb-10 md:pb-0 flex flex-col justify-center items-center">
           <div className="grid lg:grid-cols-4 grid-cols-2 md:gap-8 gap-2 md:px-5  justify-center items-center w-[90vw]">
-            {currentItems ? (
-              currentItems.map((item: any, id: any) => (
-                <Card
-                  key={id}
-                  id={item.id} // Unique id for each Card
-                  brand={item.brand}
-                  gambar={item.image}
-                  model={item.model}
-                  allData={item}
-                  processor={item.processor}
-                  price={item.price}
-                  ram={item.ram}
-                  storage={item.storage}
-                  cekProduk={() => clickProduct(item.id)}
-                />
-              ))
-            ) : (
-              <div id="dataNotFound" className="flex justify-center items-center text-5xl">
-                <h1>Data Tidak ditemukan</h1>
+            {currentItems
+              ? currentItems.map((item: any, id: any) => (
+                  <Card
+                    key={id}
+                    id={item.id} // Unique id for each Card
+                    brand={item.brand}
+                    gambar={item.image}
+                    model={item.model}
+                    allData={item}
+                    processor={item.processor}
+                    price={item.price}
+                    ram={item.ram}
+                    storage={item.storage}
+                    cekProduk={() => clickProduct(item.id)}
+                  />
+                ))
+              : ""}
+          </div>
+          <div id="dataNotFound" className="flex justify-center w-screen items-center">
+            {laptopData.data.length === 0 && showPagination && (
+              <div className="flex items-center w-full justify-center h-[20vh] md:h-40">
+                <p className="text-2xl text-gray-500">Tidak ada data yang cocok.</p>
               </div>
             )}
           </div>
         </div>
 
-        <div id="pagination" className="flex justify-center my-4 gap-8">
-          <button
-            id="prevPageBtn"
-            className={currentPage === 1 ? `rounded-full px-3 py-2 md:text-base text-sm md:p-3 border-2 border-slate-400` : `bg-[#0396C7] text-xs md:text-base text-white rounded-full px-3 py-2 md:p-3 border-2 border-slate-400`}
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-          >
-            Sebelumnya
-          </button>
-
-          {Array.from({ length: totalPages }, (_, index) => (
-            <button key={`pageBtn_${index}`} onClick={() => setCurrentPage(index + 1)} disabled={currentPage === index + 1}>
-              {index + 1}
+        {laptopData.data.length !== 0 && (
+          <div id="pagination" className="flex justify-center my-4 gap-8">
+            <button
+              id="prevPageBtn"
+              className={currentPage === 1 ? `rounded-full px-3 py-2 md:text-base text-sm md:p-3 border-2 border-slate-400` : `bg-[#0396C7] text-xs md:text-base text-white rounded-full px-3 py-2 md:p-3 border-2 border-slate-400`}
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+            >
+              Sebelumnya
             </button>
-          ))}
 
-          <button
-            id="nextPageBtn"
-            className={currentPage === totalPages ? ` rounded-full px-3 py-2 md:text-base text-sm md:p-3 border-2 border-slate-400` : `bg-[#0396C7] text-xs md:text-base text-white rounded-full px-3 py-2 md:p-3 border-2 border-slate-400`}
-            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-            disabled={currentPage === totalPages}
-          >
-            Selanjutnya
-          </button>
-        </div>
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button key={`pageBtn_${index}`} onClick={() => setCurrentPage(index + 1)} disabled={currentPage === index + 1}>
+                {index + 1}
+              </button>
+            ))}
+
+            <button
+              id="nextPageBtn"
+              className={currentPage === totalPages ? ` rounded-full px-3 py-2 md:text-base text-sm md:p-3 border-2 border-slate-400` : `bg-[#0396C7] text-xs md:text-base text-white rounded-full px-3 py-2 md:p-3 border-2 border-slate-400`}
+              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
+            >
+              Selanjutnya
+            </button>
+          </div>
+        )}
+
         <Footer />
       </div>
     </>

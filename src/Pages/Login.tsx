@@ -17,8 +17,23 @@ const Login: FC = () => {
     navigate("/register");
   };
 
+  const isEmailValid = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.(com)$/i;
+    return emailRegex.test(email);
+  };
+
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
+    if (!isEmailValid(loginState.email)) {
+      Swal.fire({
+        title: "Warning",
+        text: "Format email tidak valid",
+        icon: "error",
+        confirmButtonText: "OK",
+        confirmButtonColor: "rgb(255 10 10)",
+      });
+      return;
+    }
     if (loginState.email === "admin@gmail.com" && loginState.password === "1") {
       navigate("/daftar-users");
       Cookies.set("username", "admin");

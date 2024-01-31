@@ -51,8 +51,10 @@ export interface typeLaptopDetail {
   image?: string;
   brand?: string;
   processor?: string;
-  id: number;
-  total_price: number;
+  id?: number;
+  total_price?: number;
+  stock?: number;
+  data?: any;
 }
 
 export interface CartType {
@@ -160,4 +162,16 @@ export interface FormDataObject {
   email: string;
   nomor_hp: string;
   password: string;
+}
+
+export interface FormDataProduct {
+  brand: string;
+  price: string;
+  categories: string;
+  description: string;
+  stock: string;
+  storage: string;
+  ram: string;
+  model: string;
+  processor: string;
 }

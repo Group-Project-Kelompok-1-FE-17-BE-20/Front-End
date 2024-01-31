@@ -8,13 +8,14 @@ import ListProduct from "./ListProduct";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import RiwayatPesanan from "./RiwayatPesanan";
 
 const ProfileToko: React.FC = () => {
   const [activeShop, setActiveShop] = useState<string>("MyProfile");
   const renderActiveShopContent = (activeShop: string, shopProfiles: ShopProfile[]) => {
-  const activeShopContent = shopProfiles.find((user: ShopProfile) => user.id === activeShop)?.content;
+    const activeShopContent = shopProfiles.find((user: ShopProfile) => user.id === activeShop)?.content;
 
-  return <div>{activeShopContent}</div>;
+    return <div>{activeShopContent}</div>;
   };
   const shopProfiles: ShopProfile[] = [
     {
@@ -44,6 +45,22 @@ const ProfileToko: React.FC = () => {
           <path
             d="M13.6353 9.57145C13.4501 11.3114 12.4643 12.9419 10.8329 13.8837C8.12262 15.4485 4.65694 14.5199 3.09214 11.8096L2.92547 11.5209M2.36395 8.38099C2.54915 6.64106 3.53501 5.01057 5.16633 4.06873C7.87666 2.50392 11.3423 3.43255 12.9071 6.14287L13.0738 6.43155M2.32861 13.0202L2.81665 11.1988L4.63801 11.6869M11.3613 6.26556L13.1827 6.75359L13.6707 4.93222M7.99967 5.97621V8.97621L9.66633 9.97621"
             stroke={activeShop === "OrderHistory" ? "#0396C7" : "white"}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      ),
+    },
+    {
+      id: "ListProduct",
+      title: "Produk Saya",
+      subtitle: "Lihat Produk Saya",
+      content: <ListProducts />,
+      svg: (
+        <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M13.6353 9.57145C13.4501 11.3114 12.4643 12.9419 10.8329 13.8837C8.12262 15.4485 4.65694 14.5199 3.09214 11.8096L2.92547 11.5209M2.36395 8.38099C2.54915 6.64106 3.53501 5.01057 5.16633 4.06873C7.87666 2.50392 11.3423 3.43255 12.9071 6.14287L13.0738 6.43155M2.32861 13.0202L2.81665 11.1988L4.63801 11.6869M11.3613 6.26556L13.1827 6.75359L13.6707 4.93222M7.99967 5.97621V8.97621L9.66633 9.97621"
+            stroke={activeShop === "ListProduct" ? "#0396C7" : "white"}
             strokeLinecap="round"
             strokeLinejoin="round"
           />
@@ -81,9 +98,7 @@ const ProfileToko: React.FC = () => {
           <nav className="flex mb-4 font-poppins " aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-3">
               <li className="inline-flex items-center">
-                <a className="inline-flex items-center text-xl font-medium text-gray-500 hover:text-gray-700">
-                  Kelola informasi profil toko Anda
-                </a>
+                <a className="inline-flex items-center text-xl font-medium text-gray-500 hover:text-gray-700">Kelola informasi profil toko Anda</a>
               </li>
             </ol>
           </nav>
@@ -93,7 +108,7 @@ const ProfileToko: React.FC = () => {
                 {shopProfiles.map(({ svg, title, subtitle, id }) => (
                   <li key={id} className={`${activeShop === id ? "bg-[#0396C7]" : "bg-[#D0E9FEB2]"} rounded-md flex px-3 py-2 items-center gap-3 cursor-pointer`} onClick={() => handleShopProfileClick(id)}>
                     <div className={`${activeShop === id ? "bg-white" : "bg-[#0396C7]"} p-2 rounded-full`}>{svg}</div>
-                      <div className="flex flex-col">
+                    <div className="flex flex-col">
                       <h4 className={`${activeShop === id ? "text-white" : "text-[#0396C7]"} font-poppins font-medium text-sm`}>{title}</h4>
                       <p className={`${activeShop === id ? "text-white" : "text-[#0396C7]"} font-poppins font-normal text-[10px]`}>{subtitle}</p>
                     </div>
@@ -101,7 +116,7 @@ const ProfileToko: React.FC = () => {
                 ))}
               </ul>
             </aside>
-              {renderActiveShopContent(activeShop, shopProfiles)}
+            {renderActiveShopContent(activeShop, shopProfiles)}
           </div>
         </div>
       </div>
@@ -109,23 +124,29 @@ const ProfileToko: React.FC = () => {
   );
 };
 
-
-
 const MyProducts: React.FC = () => {
   return (
     <section className="w-full lg:flex-1 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none  mb-8">
       <CreateProduct hidden={false} />
     </section>
   );
-}
+};
+
+const ListProducts: React.FC = () => {
+  return (
+    <section className="lg:w-[60vw] lg:flex-1 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none  mb-8">
+      <ListProduct />
+    </section>
+  );
+};
 
 const OrderHistory: React.FC = () => {
   return (
     <section className="w-full lg:flex-1 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none  mb-8">
-      <ListProduct hidden={false} />
+      <RiwayatPesanan hidden={false} />
     </section>
   );
-}
+};
 
 const MyProfile: React.FC = () => {
   const navigate = useNavigate();
@@ -140,8 +161,7 @@ const MyProfile: React.FC = () => {
     try {
       const response = await axios.put(
         "http://34.41.81.93:8083/stores/neymar",
-        { nama_toko: formData.nama_toko, 
-          alamat_toko: formData.alamat_toko },
+        { nama_toko: formData.nama_toko, alamat_toko: formData.alamat_toko },
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -165,7 +185,7 @@ const MyProfile: React.FC = () => {
   const handleHapus = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     const authToken = Cookies.get("authToken");
-    
+
     try {
       const response = await axios.delete("http://34.41.81.93:8083/users/neymar", {
         headers: {

@@ -95,13 +95,9 @@ const Card: FC<productDataType> = (props: productDataType) => {
             Lihat Produk
           </button>
 
-          {!hidden ? (
-            <button onClick={() => addCart(allData, id)} id={`add-to-cart-${id}`} className={!hidden ? "" : `w-[20%] bg-slate-300 md:py-2 py-[3px] rounded-md flex justify-center items-center`}>
-              <img src={keranjangIcon} className="w-10 p-1  md:w-6 md:p-[0.3px]" />
-            </button>
-          ) : (
-            ""
-          )}
+          <button onClick={() => addCart(allData, id)} id={`add-to-cart-${id}`} className={!hidden ? "" : `w-[20%] bg-slate-300 md:py-2 py-[3px] rounded-md flex justify-center items-center`}>
+            <img src={keranjangIcon} className="w-10 p-1  md:w-6 md:p-[0.3px]" />
+          </button>
         </div>
       </div>
     </>

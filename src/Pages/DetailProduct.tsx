@@ -16,7 +16,6 @@ const DetailProduct: FC = () => {
   const [detail, setDetail] = useState<typeLaptopDetail>();
   const [number, setNumber] = useState(1);
   const id = parseInt(location.state.id);
-  const [hidden, setHidden] = useState(false);
   const authToken = Cookies.get("authToken");
 
   const showDetail = async () => {
@@ -35,16 +34,12 @@ const DetailProduct: FC = () => {
 
       if (username) {
         try {
-          await axios.post(
-            `https://altalaptop.shop/shopping-cart?productId=${data.id}`, // assuming data has an 'id' property
-            updateData,
-            {
-              headers: {
-                Authorization: `Bearer ${authToken}`,
-                "Content-Type": "multipart/form-data",
-              },
-            }
-          );
+          await axios.post(`https://altalaptop.shop/shopping-cart?productId=${data.id}`, updateData, {
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+              "Content-Type": "multipart/form-data",
+            },
+          });
           Swal.fire({
             title: "Berhasil",
             text: `Barang sudah ditambahkan ke Keranjang`,
@@ -100,27 +95,6 @@ const DetailProduct: FC = () => {
   };
 
   useEffect(() => {
-    const call = async () => {
-      if (username) {
-        const userIdToko = await axios.get(`https://altalaptop.shop/stores`, {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        });
-
-        const userId = await axios.get(`https://altalaptop.shop/users`, {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        });
-
-        if (userIdToko && userIdToko.data.data[0].UserID === userId.data.data.UserID) {
-          setHidden(true);
-        }
-      }
-    };
-
-    call();
     showDetail();
   }, []);
 
@@ -149,29 +123,22 @@ const DetailProduct: FC = () => {
               </span>
               <div id="separator" className="p-[0.5px] bg-slate-400 w-1/2 "></div>
               <div id="quantity-controls" className="flex gap-5">
-                {hidden ? (
-                  ""
-                ) : (
-                  <div id="quantity-selector" className="flex justify-center items-center  bg-slate-400 p-2 md:p-3 gap-8 rounded-md text-white">
-                    <span className="font-bold text-slate-50 text-xs lg:text-base cursor-pointer" onClick={() => setNumber(number - 1)}>
-                      -
-                    </span>
-                    <span id="quantity-display" className="font-bold text-slate-50 text-xs lg:text-base">
-                      {number}
-                    </span>
-                    <span className="font-bold text-slate-50 text-xs lg:text-base cursor-pointer" onClick={() => setNumber(number + 1)}>
-                      +
-                    </span>
-                  </div>
-                )}
+                <div id="quantity-selector" className="flex justify-center items-center  bg-slate-400 p-2 md:p-3 gap-8 rounded-md text-white">
+                  <span className="font-bold text-slate-50 text-xs lg:text-base cursor-pointer" onClick={() => setNumber((prev) => Math.max(prev - 1, 1))}>
+                    -
+                  </span>
+                  <span id="quantity-display" className="font-bold text-slate-50 text-xs lg:text-base">
+                    {number}
+                  </span>
+                  <span className="font-bold text-slate-50 text-xs lg:text-base cursor-pointer" onClick={() => setNumber((prev) => prev + 1)}>
+                    {" "}
+                    +
+                  </span>
+                </div>
 
-                {hidden ? (
-                  ""
-                ) : (
-                  <button id="add-to-cart" onClick={clickProduct} className="lg:px-16 px-8 text-xs lg:text-base py-2 rounded-lg bg-[#0396C7] text-white w-f">
-                    Masukan Keranjang
-                  </button>
-                )}
+                <button id="add-to-cart" onClick={clickProduct} className="lg:px-16 px-8 text-xs lg:text-base py-2 rounded-lg bg-[#0396C7] text-white w-f">
+                  Masukan Keranjang
+                </button>
               </div>
             </div>
           </div>

@@ -1,8 +1,10 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Footer: FC = () => {
   const navigate = useNavigate();
+  const username = Cookies.get("username");
   return (
     <div id="mainContainer" className="w-full min-h-[552px] px-3 md:px-10 py-8 bottom-0 bg-sky-50 flex justify-center items-center font-Poppins">
       <div id="mainFlexContainer" className="flex flex-col items-start gap-8">
@@ -115,33 +117,38 @@ const Footer: FC = () => {
                 </div>
               </div>
             </div>
-            <div id="subscriptionContainer" className="flex-col justify-start items-start gap-[18px] flex">
-              <div id="subscriptionTextContainer" className="flex-col justify-start items-start gap-[5px] flex">
-                <div id="subscriptionText" className="text-gray-800 text-sm font-medium font-poppins tracking-wide">
-                  Bergabung bersama kami untuk mengikuti perkembangan aplikasi
-                </div>
-                <div id="subscriptionInputButtons" className="justify-start items-start gap-2 inline-flex">
-                  <div id="subscriptionInput" className="h-[47px] px-4 py-[13px] bg-white rounded-lg border border-gray-400 justify-start items-start gap-2.5 flex">
-                    <div onClick={() => navigate("/register")} id="subscriptionInputLabel" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
-                      Masukkan emailmu...
+            {username ? (
+              ""
+            ) : (
+              <div id="subscriptionContainer" className="flex-col justify-start items-start gap-[18px] flex">
+                <div id="subscriptionTextContainer" className="flex-col justify-start items-start gap-[5px] flex">
+                  <div id="subscriptionText" className="text-gray-800 text-sm font-medium font-poppins tracking-wide">
+                    Bergabung bersama kami untuk mengikuti perkembangan aplikasi
+                  </div>
+                  <div id="subscriptionInputButtons" className="justify-start items-start gap-2 inline-flex">
+                    <div id="subscriptionInput" className="h-[47px] px-4 py-[13px] bg-white rounded-lg border border-gray-400 justify-start items-start gap-2.5 flex">
+                      <div onClick={() => navigate("/register")} id="subscriptionInputLabel" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                        Masukkan emailmu...
+                      </div>
+                    </div>
+                    <div id="subscriptionButton" className="px-[30px] py-[13px] bg-sky-600 rounded-lg justify-start items-start gap-2.5 flex">
+                      <div onClick={() => navigate("/register")} id="subscriptionButtonText" className="text-white text-sm font-semibold font-poppins uppercase tracking-wide">
+                        Bergabung
+                      </div>
                     </div>
                   </div>
-                  <div id="subscriptionButton" className="px-[30px] py-[13px] bg-sky-600 rounded-lg justify-start items-start gap-2.5 flex">
-                    <div onClick={() => navigate("/register")} id="subscriptionButtonText" className="text-white text-sm font-semibold font-poppins uppercase tracking-wide">
-                      Bergabung
-                    </div>
-                  </div>
+                </div>
+
+                <div id="subscriptionPolicyText">
+                  <span id="subscriptionPolicyText1" className="text-gray-500 text-xs font-medium font-poppins tracking-wide">
+                    Dengan mengklik tombol BERLANGGANAN, Anda menyetujui{" "}
+                  </span>
+                  <span id="subscriptionPolicyText2" className="text-sky-900 text-xs font-medium font-poppins tracking-wide">
+                    Kebijakan Privasi & Cookie kami
+                  </span>
                 </div>
               </div>
-              <div id="subscriptionPolicyText">
-                <span id="subscriptionPolicyText1" className="text-gray-500 text-xs font-medium font-poppins tracking-wide">
-                  Dengan mengklik tombol BERLANGGANAN, Anda menyetujui{" "}
-                </span>
-                <span id="subscriptionPolicyText2" className="text-sky-900 text-xs font-medium font-poppins tracking-wide">
-                  Kebijakan Privasi & Cookie kami
-                </span>
-              </div>
-            </div>
+            )}
           </div>
         </div>
         <div id="footerLinks" className="flex flex-col md:flex-row justify-start items-start md:items-center gap-[62px] md:gap-[305px]">

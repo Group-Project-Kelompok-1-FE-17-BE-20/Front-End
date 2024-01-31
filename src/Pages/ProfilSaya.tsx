@@ -8,9 +8,11 @@ import RiwayatPesanan from "./RiwayatPesanan";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { FormDataObject } from "../utils/interface";
 
 function UserProfile() {
   const [activeUser, setActiveUser] = useState<string>("myProfile");
+
   const myProfiles: MyProfile[] = [
     {
       id: "myProfile",
@@ -96,36 +98,52 @@ function orderHistory() {
   );
 }
 function myProfile(): JSX.Element {
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
   const navigate = useNavigate();
-  const [formData, setFormData] = useState<{
-    fullName: string;
-    username: string;
-    gender: string;
-    email: string;
-    phoneNumber: string;
-  }>({
-    fullName: "",
+  const [formData, setformData] = useState<FormDataObject>({
+    nama_lengkap: "",
     username: "",
-    gender: "Pilih Jenis Kelamin",
+    jenis_kelamin: "Pilih Jenis Kelamin",
     email: "",
-    phoneNumber: "",
+    nomor_hp: "",
+    password: "",
   });
+  console.log(uploadedImageUrl);
 
   const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
+    const nama_lengkap = formData.nama_lengkap;
+    const username = formData.username;
+    const jenis_kelamin = formData.jenis_kelamin;
+    const email = formData.email;
+    const nomor_hp = formData.nomor_hp;
+    const password = formData.password;
+
     e.preventDefault();
     const authToken = Cookies.get("authToken");
-    console.log(authToken);
-
     try {
-      const response = await axios.put("http://34.41.81.93:8083/users/neymar", formData, {
+      const formData = new FormData();
+      if (selectedImage) {
+        formData.append("image_profil", selectedImage);
+        formData.append("nama_lengkap", nama_lengkap);
+        formData.append("username", username);
+        formData.append("jenis_kelamin", jenis_kelamin);
+        formData.append("email", email);
+        formData.append("nomor_hp", nomor_hp);
+        formData.append("password", password);
+      }
+
+      const response = await axios.put("https://altalaptop.shop/users", formData, {
         headers: {
           Authorization: `Bearer ${authToken}`,
+          "Content-Type": "multipart/form-data",
         },
       });
-      console.log(response);
+
+      setUploadedImageUrl(response.data.data.image_url);
       Swal.fire({
         title: "Confirmation",
-        text: `Congratulations, Data Berhasil dirubah`,
+        text: "Congratulations, Data Berhasil dirubah",
         icon: "success",
         confirmButtonText: "OK",
         confirmButtonColor: "rgb(3 150 199)",
@@ -145,11 +163,12 @@ function myProfile(): JSX.Element {
     const authToken = Cookies.get("authToken");
     console.log(authToken);
     try {
-      const response = await axios.delete("http://34.41.81.93:8083/users/neymar", {
+      const response = await axios.delete("https://altalaptop.shop/users", {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
       });
+
       Swal.fire({
         title: "Confirmation",
         text: `Congratulations, Data Berhasil dihapus`,
@@ -162,23 +181,30 @@ function myProfile(): JSX.Element {
       navigate("/");
     } catch (error) {
       console.error("Error:", error);
+      Swal.fire({
+        title: "Error",
+        text: "Terjadi kesalahan saat menghapus akun",
+        icon: "error",
+        confirmButtonText: "OK",
+        confirmButtonColor: "rgb(3 150 199)",
+      });
     }
   };
 
   const handlePerubahan = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { id, value } = e.target;
-    setFormData({
+    setformData({
       ...formData,
       [id]: value,
     });
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.currentTarget;
-    setFormData({
-      ...formData,
-      [id]: value,
-    });
+    const file = e.currentTarget.files?.[0];
+
+    if (file) {
+      setSelectedImage(file);
+    }
   };
 
   return (
@@ -187,28 +213,36 @@ function myProfile(): JSX.Element {
       <form onSubmit={handleSave}>
         <div className="container w-full h-[17vh] relative">
           <img src={bgUserCover} className="h-full w-full" alt="bgCover" />
+
+          <button className="bg-blue-300 p-1 w-14 h-14 rounded-full overflow-hidden absolute top-[2rem] ml-3" onClick={() => document.getElementById("uploadInput")?.click()}>
+            {selectedImage && (
+              <div>
+                <img className="w-[50px] h-[50px]  top-5" src={URL.createObjectURL(selectedImage)} alt="Selected" />
+              </div>
+            )}
+          </button>
+          <div className="Camera" style={{ width: "50%", height: "50%", position: "absolute", cursor: "pointer" }}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" role="img">
+              {/* You can keep the camera icon if you want, or remove it since the input will handle the upload */}
+              <path
+                d="M3.58579 7.58579C3.21071 7.96086 3 8.46957 3 9V18C3 18.5304 3.21071 19.0391 3.58579 19.4142C3.96086 19.7893 4.46957 20 5 20H19C19.5304 20 20.0391 19.7893 20.4142 19.4142C20.7893 19.0391 21 18.5304 21 18V9C21 8.46957 20.7893 7.96086 20.4142 7.58579C20.0391 7.21071 19.5304 7 19 7H18.07C17.7408 7.00005 17.4167 6.91884 17.1264 6.76359C16.8362 6.60834 16.5887 6.38383 16.406 6.11L15.594 4.89C15.4113 4.61617 15.1638 4.39166 14.8736 4.23641C14.5833 4.08116 14.2592 3.99995 13.93 4H10.07C9.74082 3.99995 9.41671 4.08116 9.12643 4.23641C8.83616 4.39166 8.5887 4.61617 8.406 4.89L7.594 6.11C7.4113 6.38383 7.16384 6.60834 6.87357 6.76359C6.58329 6.91884 6.25918 7.00005 5.93 7H5C4.46957 7 3.96086 7.21071 3.58579 7.58579Z"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M14.1213 15.1213C14.6839 14.5587 15 13.7956 15 13C15 12.2044 14.6839 11.4413 14.1213 10.8787C13.5587 10.3161 12.7956 10 12 10C11.2044 10 10.4413 10.3161 9.87868 10.8787C9.31607 11.4413 9 12.2044 9 13C9 13.7956 9.31607 14.5587 9.87868 15.1213C10.4413 15.6839 11.2044 16 12 16C12.7956 16 13.5587 15.6839 14.1213 15.1213Z"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
           <div className="GantiCover" style={{ width: 40, height: 20, position: "absolute", top: 0, right: 0, padding: "5px", display: "flex", justifyContent: "flex-end", alignItems: "flex-start" }}>
             <label htmlFor="uploadInput" className="Cover" style={{ width: 70, height: 15, display: "flex", alignItems: "center" }}>
               <input type="file" id="uploadInput" accept="image/*" style={{ display: "none" }} onChange={handleImageUpload} />
-              <div className="Camera" style={{ width: "50%", height: "50%", position: "relative", cursor: "pointer" }}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" role="img">
-                  {/* You can keep the camera icon if you want, or remove it since the input will handle the upload */}
-                  <path
-                    d="M3.58579 7.58579C3.21071 7.96086 3 8.46957 3 9V18C3 18.5304 3.21071 19.0391 3.58579 19.4142C3.96086 19.7893 4.46957 20 5 20H19C19.5304 20 20.0391 19.7893 20.4142 19.4142C20.7893 19.0391 21 18.5304 21 18V9C21 8.46957 20.7893 7.96086 20.4142 7.58579C20.0391 7.21071 19.5304 7 19 7H18.07C17.7408 7.00005 17.4167 6.91884 17.1264 6.76359C16.8362 6.60834 16.5887 6.38383 16.406 6.11L15.594 4.89C15.4113 4.61617 15.1638 4.39166 14.8736 4.23641C14.5833 4.08116 14.2592 3.99995 13.93 4H10.07C9.74082 3.99995 9.41671 4.08116 9.12643 4.23641C8.83616 4.39166 8.5887 4.61617 8.406 4.89L7.594 6.11C7.4113 6.38383 7.16384 6.60834 6.87357 6.76359C6.58329 6.91884 6.25918 7.00005 5.93 7H5C4.46957 7 3.96086 7.21071 3.58579 7.58579Z"
-                    stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M14.1213 15.1213C14.6839 14.5587 15 13.7956 15 13C15 12.2044 14.6839 11.4413 14.1213 10.8787C13.5587 10.3161 12.7956 10 12 10C11.2044 10 10.4413 10.3161 9.87868 10.8787C9.31607 11.4413 9 12.2044 9 13C9 13.7956 9.31607 14.5587 9.87868 15.1213C10.4413 15.6839 11.2044 16 12 16C12.7956 16 13.5587 15.6839 14.1213 15.1213Z"
-                    stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
             </label>
           </div>
         </div>
@@ -216,22 +250,22 @@ function myProfile(): JSX.Element {
         <div className="mb-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-3">
             <div>
-              <label htmlFor="fullName" className="block mb-2 text-sm font-medium text-[#6B7280]">
+              <label htmlFor="nama_lengkap" className="block mb-2 text-sm font-medium text-[#6B7280]">
                 Nama Lengkap
               </label>
               <input
                 type="text"
-                id="fullName"
+                id="nama_lengkap"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="Nama Lengkap"
-                value={formData.fullName}
+                value={formData.nama_lengkap}
                 onChange={handlePerubahan}
                 required
               />
             </div>
             <div>
               <label htmlFor="username" className="block mb-2 text-sm font-medium text-[#6B7280]">
-                Username
+                username
               </label>
               <input
                 type="text"
@@ -248,7 +282,7 @@ function myProfile(): JSX.Element {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="mb-6">
-            <label htmlFor="gender" className="mb-2 text-sm font-medium text-[#6B7280] flex items-center gap-2">
+            <label htmlFor="jenis_kelamin" className="mb-2 text-sm font-medium text-[#6B7280] flex items-center gap-2">
               Jenis Kelamin
               <span>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -258,7 +292,7 @@ function myProfile(): JSX.Element {
                 </svg>
               </span>
             </label>
-            <select id="gender" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value={formData.gender} onChange={handlePerubahan}>
+            <select id="jenis_kelamin" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value={formData.jenis_kelamin} onChange={handlePerubahan}>
               <option value="Pilih Jenis Kelamin">Pilih Jenis Kelamin</option>
               <option value="1">Laki-laki</option>
               <option value="2">Perempuan</option>
@@ -282,17 +316,31 @@ function myProfile(): JSX.Element {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="phoneNumber" className="block mb-2 text-sm font-medium text-[#6B7280]">
+            <label htmlFor="nomor_hp" className="block mb-2 text-sm font-medium text-[#6B7280]">
               Nomor Handphone
             </label>
             <input
               type="text"
-              id="phoneNumber"
-              value={formData.phoneNumber}
+              id="nomor_hp"
+              value={formData.nomor_hp}
               onChange={handlePerubahan}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="08123456789"
               required
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="block mb-2 text-sm font-medium text-[#6B7280]">
+              Password
+            </label>
+            <input
+              type="text"
+              id="password"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              placeholder="password"
+              required
+              value={formData.password}
+              onChange={handlePerubahan}
             />
           </div>
         </div>

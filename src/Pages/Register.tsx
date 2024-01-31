@@ -19,6 +19,18 @@ const Register: FC = () => {
 
   const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.(com)$/i;
+    if (!emailRegex.test(registerState.email)) {
+      Swal.fire({
+        title: "Warning",
+        text: "Format email tidak valid",
+        icon: "error",
+        showCancelButton: true,
+        confirmButtonText: "OK",
+        confirmButtonColor: "rgb(255 10 10)",
+      });
+      return;
+    }
     try {
       const response = await axios.post("https://altalaptop.shop/users", {
         nama_lengkap: registerState.nama_lengkap,

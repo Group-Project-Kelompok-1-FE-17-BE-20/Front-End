@@ -4,6 +4,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import ProfileProduct from "../components/Admin/ProfileProduct";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const ListProduct = () => {
   const authToken = Cookies.get("authToken");
@@ -24,16 +25,34 @@ const ListProduct = () => {
   };
 
   const hapusData = (id: any) => {
-    axios
-      .delete(`http://altalaptop.shop/products/${id}`, {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      })
-      .then(() => {
-        alert("Berhasil di hapus");
-        window.location.reload();
-      });
+    Swal.fire({
+      title: "Confirmation",
+      text: "Apakah anda yakin mau menghapus data",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "OK",
+      cancelButtonText: "NO",
+      confirmButtonColor: "rgb(255 10 10)",
+    }).then((res) => {
+      if (res.isConfirmed) {
+        axios
+          .delete(`http://altalaptop.shop/products/${id}`, {
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+            },
+          })
+          .then(() => {
+            Swal.fire({
+              title: "Confirmation",
+              text: "Data Berhasil di hapus",
+              icon: "question",
+              confirmButtonText: "OK",
+              confirmButtonColor: "rgb(255 10 10)",
+            });
+            window.location.reload();
+          });
+      }
+    });
   };
 
   const cekData = async () => {

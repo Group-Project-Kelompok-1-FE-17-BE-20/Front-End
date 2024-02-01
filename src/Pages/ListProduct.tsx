@@ -1,30 +1,31 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { typeLaptopDetail } from "../utils/interface";
 import axios from "axios";
 import Cookies from "js-cookie";
 import ProfileProduct from "../components/Admin/ProfileProduct";
 
-const ListUsers = () => {
+const ListProduct = () => {
   const authToken = Cookies.get("authToken");
   const [dataUser, setDataUser] = useState<typeLaptopDetail>({
     data: [],
   });
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const cekData = async () => {
-      try {
-        const response = await axios.get("https://altalaptop.shop/my-products", {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        });
-        setDataUser(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    cekData();
-  }, []);
+  const cekData = async () => {
+    try {
+      const response = await axios.get("https://altalaptop.shop/my-products", {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      setDataUser(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setError("Error fetching data. Please try again later.");
+    }
+  };
+
+  cekData();
 
   return (
     <>
@@ -41,11 +42,23 @@ const ListUsers = () => {
         <div id="users-container" className="flex justify-center items-center">
           <div id="users-list" className="flex flex-col lg:h-[60vh] h-[35vh] gap-5 mb-20 border-2 border-slate-50 p-2 md:p-5 overflow-y-scroll w-[90vw]">
             {dataUser &&
-              dataUser.data.map((item: typeLaptopDetail, key: number) => {
-                return (
-                  <ProfileProduct key={key} storage={item.storage} price={item.price} ram={item.ram} description={item.description} model={item.model} image={item.image} brand={item.brand} processor={item.processor} stock={item.stock} />
-                );
-              })}
+              dataUser.data &&
+              dataUser.data.length > 0 &&
+              dataUser.data.map((item: typeLaptopDetail, key: number) => (
+                <ProfileProduct key={key} storage={item.storage} price={item.price} ram={item.ram} description={item.description} model={item.model} gambar={item.gambar} brand={item.brand} processor={item.processor} stock={item.stock} />
+              ))}
+
+            {(!dataUser || !dataUser.data || dataUser.data.length === 0) && (
+              <div className="flex items-center w-full justify-center h-[20vh] md:h-40">
+                <p className="text-2xl text-gray-500">Tidak ada data.</p>
+              </div>
+            )}
+
+            {error && (
+              <div className="flex items-center w-full justify-center h-[20vh] md:h-40">
+                <p className="text-2xl text-red-500">{error}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -53,4 +66,4 @@ const ListUsers = () => {
   );
 };
 
-export default ListUsers;
+export default ListProduct;

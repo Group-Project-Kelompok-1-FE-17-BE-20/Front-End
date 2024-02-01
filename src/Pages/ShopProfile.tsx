@@ -160,7 +160,7 @@ const MyProfile: React.FC = () => {
     const authToken = Cookies.get("authToken");
     try {
       const response = await axios.put(
-        "http://altalaptop.shop/stores/1",
+        "https://altalaptop.shop/stores/1",
         { nama_toko: formData.nama_toko, alamat_toko: formData.alamat_toko },
         {
           headers: {

@@ -28,14 +28,14 @@ function Cart() {
           },
         }
       );
-
-      console.log(response.data);
-      navigate(`/payment/`, {
-        state: {
-          finalOrder: finalOrder,
-          total: `${finalOrder.total}`,
-        },
-      });
+      if (response) {
+        navigate(`/payment/`, {
+          state: {
+            finalOrder: finalOrder,
+            total: `${finalOrder.total}`,
+          },
+        });
+      }
     } catch (error: any) {
       if (error.response && error.response.status === 401) {
         console.log("Unauthorized: Pastikan token otorisasi valid.");
@@ -235,7 +235,7 @@ function Cart() {
 
   useEffect(() => {
     getCartItem();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>

@@ -84,7 +84,7 @@ const MyProfile: React.FC = () => {
     const authToken = Cookies.get("authToken");
     try {
       const response = await axios.post(
-        "http://altalaptop.shop/stores",
+        "https://altalaptop.shop/stores",
         { nama_toko: formData.nama_toko, alamat_toko: formData.alamat_toko },
         {
           headers: {

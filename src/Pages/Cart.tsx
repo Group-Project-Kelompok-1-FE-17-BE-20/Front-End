@@ -9,21 +9,40 @@ import Cookies from "js-cookie";
 
 function Cart() {
   const navigate = useNavigate();
+  const authToken = Cookies.get("authToken");
   const [cartItems, setCartItems] = useState<CartType[]>([]);
   const [finalOrder, setFinalOrder] = useState<CartState>({
     items: [],
     total: 0,
   });
   const [checkedItems, setCheckedItems] = useState<Set<string>>(new Set());
-  const authToken = Cookies.get("authToken");
 
-  const clickProduct = () => {
-    navigate(`/payment/`, {
-      state: {
-        finalOrder: finalOrder,
-        total: `${finalOrder.total}`,
-      },
-    });
+  const clickProduct = async () => {
+    try {
+      const response = await axios.post(
+        "https://altalaptop.shop/orders",
+        { id: 1 },
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+
+      console.log(response.data);
+      navigate(`/payment/`, {
+        state: {
+          finalOrder: finalOrder,
+          total: `${finalOrder.total}`,
+        },
+      });
+    } catch (error: any) {
+      if (error.response && error.response.status === 401) {
+        console.log("Unauthorized: Pastikan token otorisasi valid.");
+      } else {
+        console.error("Error:", error.message);
+      }
+    }
   };
 
   const editCartItem = async (productId: string, jumlah: number) => {
@@ -332,15 +351,10 @@ function Cart() {
                     <div className="text-right text-zinc-800 text-2xl font-semibold font-poppins">Rp {formatToIDR(finalOrder.total)}</div>
                   </div>
                 </div>
-
-                {finalOrder.total < 10000 ? (
-                  ""
-                ) : (
-                  <div onClick={clickProduct} className="self-stretch h-[60px] px-[54px] py-4 bg-sky-600 rounded-lg justify-center items-center gap-3 inline-flex">
-                    <div className="text-white text-base font-medium font-poppins">Lanjut Ke Pembayaran</div>
-                    <div className="w-6 h-6 relative origin-top-left -rotate-90" />
-                  </div>
-                )}
+                <div onClick={clickProduct} className="self-stretch h-[60px] px-[54px] py-4 bg-sky-600 rounded-lg justify-center items-center gap-3 inline-flex">
+                  <div className="text-white text-base font-medium font-poppins">Lanjut Ke Pembayaran</div>
+                  <div className="w-6 h-6 relative origin-top-left -rotate-90" />
+                </div>
               </div>
             </div>
           </>

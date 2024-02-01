@@ -61,9 +61,7 @@ function UserProfile() {
           <nav className="flex mb-4 font-poppins " aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-3">
               <li className="inline-flex items-center">
-                <a className="inline-flex items-center text-xl font-medium text-gray-500 hover:text-gray-700">
-                  Kelola informasi profil Anda untuk mengontrol, melindungi dan mengamankan akun
-                </a>
+                <a className="inline-flex items-center text-xl font-medium text-gray-500 hover:text-gray-700">Kelola informasi profil Anda untuk mengontrol, melindungi dan mengamankan akun</a>
               </li>
             </ol>
           </nav>
@@ -221,8 +219,7 @@ function myProfile(): JSX.Element {
               </div>
             )}
           </button>
-
-          <div className="Camera" style={{ width: "50%", height: "50%", position: "absolute", cursor: "pointer" }}>
+          <div className="Camera top-20 ml-10" style={{ width: "50%", height: "50%", position: "absolute", cursor: "pointer" }}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" role="img">
               {/* You can keep the camera icon if you want, or remove it since the input will handle the upload */}
               <path
@@ -241,7 +238,6 @@ function myProfile(): JSX.Element {
               />
             </svg>
           </div>
-          
           <div className="GantiCover" style={{ width: 40, height: 20, position: "absolute", top: 0, right: 0, padding: "5px", display: "flex", justifyContent: "flex-end", alignItems: "flex-start" }}>
             <label htmlFor="uploadInput" className="Cover" style={{ width: 70, height: 15, display: "flex", alignItems: "center" }}>
               <input type="file" id="uploadInput" accept="image/*" style={{ display: "none" }} onChange={handleImageUpload} />

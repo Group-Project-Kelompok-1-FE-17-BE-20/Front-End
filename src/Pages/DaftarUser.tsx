@@ -47,7 +47,7 @@ const ListUsers = () => {
           <div id="users-list" className="flex flex-col lg:h-[60vh] h-[35vh] gap-5 mb-20 border-2 border-slate-50 p-2 md:p-5 overflow-y-scroll w-[90vw]">
             {dataUser.data &&
               dataUser.data.map((item: any, key: number) => {
-                return <ProfileUsers key={key} id={`user-${key}`} username={item.username} nama={item.nama_lengkap} email={item.email} no_hp={item.nomor_hp} />;
+                return <ProfileUsers key={key} id={`user-${key}`} gambar={item.image_profil} username={item.username} nama={item.nama_lengkap} email={item.email} no_hp={item.nomor_hp} />;
               })}
           </div>
         </div>

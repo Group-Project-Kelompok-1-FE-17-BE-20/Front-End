@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 const Card: FC<productDataType> = (props: productDataType) => {
-  const { model, price, processor, ram, storage, cekProduk, allData, gambar, id } = props;
+  const { model, price, processor, ram, storage, cekProduk, allData, gambar, id, brand } = props;
   const navigate = useNavigate();
   const username = Cookies.get("username");
   const [hidden, setHidden] = useState(false);
@@ -86,8 +86,8 @@ const Card: FC<productDataType> = (props: productDataType) => {
   return (
     <>
       <div id={`card-${id}`} className="flex flex-col justify-center items-start shadow-md border-2  border-b-zinc-600 rounded-md md:p-5 p-2 font-Poppins gap-2">
-        <img id={`image-${id}`} src={`${gambar}`} alt="" className="h-full rounded-md" />
-        <span id={`model-${id}`} className="font-bold text-sm font-Poppins">{`${model}`}</span>
+        <img id={`image-${id}`} src={`${gambar ? gambar : `https://via.placeholder.com/250`}`} alt="" className="h-full rounded-md" />
+        <span id={`model-${id}`} className="font-bold text-sm font-Poppins">{`${brand} ${model}`}</span>
         <span id={`details-${id}`} className="text-xs">{`${processor} ${ram} ${storage} `}</span>
         <NumberFormatter value={price} />
         <div className="flex justify-center items-center w-full md:gap-5 gap-3">

@@ -61,6 +61,8 @@ const Login: FC = () => {
                   const findOut = userData.find((user: any) => user.email === loginState.email);
                   if (findOut) {
                     const user = findOut.username;
+                    const image = findOut.image_profil;
+                    Cookies.set("gambar", image);
                     Cookies.set("username", user);
                     navigate("/");
                   } else {

@@ -12,6 +12,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const Payment: FC = () => {
+  const username = Cookies.get("username");
   const [showPayment, setShow] = useState<Boolean>(false);
   const [showPopup, setShowPopup] = useState<Boolean>(false);
   const [items, setItems] = useState([]);
@@ -62,7 +63,7 @@ const Payment: FC = () => {
     }).then((res: any) => {
       if (res.isConfirmed) {
         axios
-          .post("http://altalaptop.shop/payments", pembayaran, {
+          .post("https://altalaptop.shop/payments", pembayaran, {
             headers: {
               Authorization: `Bearer ${authToken}`,
             },
@@ -104,7 +105,15 @@ const Payment: FC = () => {
         <div className="flex justify-center items-center gap-3 h-auto my-20 font-Poppins">
           <div className="flex flex-col justify-center gap-3">
             <span className="font-semibold md:text-base text-sm">Pengguna</span>
-            <input required onChange={handleChange} name="nama_lengkap" value={pembayaran.nama_lengkap} type="text" className="p-2 bg-[#F6F6F6] rounded-md" placeholder="Masukan Nama Pengguna" />
+            <input
+              required
+              onChange={pembayaran.nama_lengkap ? handleChange : () => setPembayaran((prev) => ({ ...prev, nama_lengkap: `${username}` }))}
+              name="nama_lengkap"
+              value={pembayaran.nama_lengkap}
+              type="text"
+              className="p-2 bg-[#F6F6F6] rounded-md"
+              placeholder="Masukan Nama Pengguna"
+            />
             <span className="font-semibold md:text-base text-sm">Alamat</span>
             <input required onChange={handleChange} name="alamat" value={pembayaran.alamat} type="text" className="p-2 bg-[#F6F6F6] rounded-md" placeholder="Masukan Alamat" />
             <div className="flex justify-between">

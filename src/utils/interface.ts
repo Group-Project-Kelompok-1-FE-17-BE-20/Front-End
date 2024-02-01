@@ -48,7 +48,7 @@ export interface typeLaptopDetail {
   ram?: string;
   description?: string;
   model?: string;
-  image?: string;
+  gambar?: string;
   brand?: string;
   processor?: string;
   id?: number;

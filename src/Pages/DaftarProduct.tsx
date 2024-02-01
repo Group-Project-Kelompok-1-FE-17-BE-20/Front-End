@@ -146,9 +146,7 @@ const DaftarProduct = () => {
         if (userIdToko.data.data[0].UserID === userId.data.data.UserID) {
           setHidden(true);
         }
-      } catch {
-        console.log("nothing");
-      }
+      } catch (error: any) {}
     }
   };
 
@@ -367,7 +365,7 @@ const DaftarProduct = () => {
                     key={id}
                     id={item.id} // Unique id for each Card
                     brand={item.brand}
-                    gambar={item.image}
+                    gambar={item.gambar}
                     model={item.model}
                     allData={item}
                     processor={item.processor}

@@ -221,7 +221,7 @@ function myProfile(): JSX.Element {
               </div>
             )}
           </button>
-          <div className="Camera" style={{ width: "50%", height: "50%", position: "absolute", cursor: "pointer" }}>
+          <div className="Camera top-20 ml-10" style={{ width: "50%", height: "50%", position: "absolute", cursor: "pointer" }}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" role="img">
               {/* You can keep the camera icon if you want, or remove it since the input will handle the upload */}
               <path

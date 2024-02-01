@@ -121,9 +121,9 @@ export interface typePayment {
 }
 
 export interface postPayment {
-  nama: string;
+  nama_lengkap: string;
   alamat: string;
-  metode_pembayaran: string;
+  bank_account: string;
 }
 
 export interface userDataType {
@@ -183,4 +183,11 @@ export interface FormDataProduct {
 export interface FormDataShop {
   nama_toko: string;
   alamat_toko: string;
+}
+
+export interface showPayment {
+  nama_lengkap: string;
+  alamat: string;
+  bank_account: string;
+  va_number: string;
 }

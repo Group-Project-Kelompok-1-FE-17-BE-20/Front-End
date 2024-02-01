@@ -4,27 +4,31 @@ import Header from "../components/Product/Header";
 import { useState } from "react";
 import { bankData } from "../utils/payment";
 import PaymentButton from "../components/PaymentButton";
-import { postPayment } from "../utils/interface";
+import { postPayment, showPayment } from "../utils/interface";
 import Swal from "sweetalert2";
 import NumberFormatter from "../components/NumberFormatter";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const Payment: FC = () => {
   const [showPayment, setShow] = useState<Boolean>(false);
   const [showPopup, setShowPopup] = useState<Boolean>(false);
   const [items, setItems] = useState([]);
+  const authToken = Cookies.get("authToken");
+  const [showData, setShowData] = useState<showPayment>({
+    nama_lengkap: "",
+    alamat: "",
+    bank_account: "",
+    va_number: "",
+  });
 
   const location = useLocation();
   const [pembayaran, setPembayaran] = useState<postPayment>({
-    nama: "",
+    nama_lengkap: "",
     alamat: "",
-    metode_pembayaran: "",
+    bank_account: "",
   });
-
-  const generateRandomCode = () => {
-    const randomCode = Math.floor(1000 + Math.random() * 9000);
-    return randomCode;
-  };
 
   const changeShow = () => {
     setShow(!showPayment);
@@ -41,7 +45,7 @@ const Payment: FC = () => {
   const handlePaymentSelection = (selectedPayment: string) => {
     setPembayaran((prevData) => ({
       ...prevData,
-      metode_pembayaran: selectedPayment,
+      bank_account: selectedPayment,
     }));
   };
 
@@ -57,21 +61,24 @@ const Payment: FC = () => {
       confirmButtonColor: "rgb(3 150 199)",
     }).then((res: any) => {
       if (res.isConfirmed) {
-        setShowPopup(!showPopup);
-        //   axios
-        //     .post("https://65aca190adbd5aa31bdf60dc.mockapi.io/Pembayaran", pembayaran)
-        //     .then((response) => {
-        //       console.log("Sukses:", response.data);
-
-        //       setPembayaran({
-        //         nama: "",
-        //         alamat: "",
-        //         metode_pembayaran: "",
-        //       });
-        //     })
-        //     .catch((error) => {
-        //       console.error("Error:", error);
-        //     });
+        axios
+          .post("http://altalaptop.shop/payments", pembayaran, {
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+            },
+          })
+          .then((response) => {
+            setShowData({
+              nama_lengkap: response.data.data.nama_lengkap,
+              alamat: response.data.data.alamat,
+              bank_account: response.data.data.bank_account,
+              va_number: response.data.data.va_number,
+            });
+            setShowPopup(!showPopup);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
       }
     });
   };
@@ -81,7 +88,7 @@ const Payment: FC = () => {
     if (finalOrder) {
       setItems(finalOrder.items);
     }
-  }, [location.state]);
+  }, [location.state, showData]);
 
   return (
     <>
@@ -97,13 +104,13 @@ const Payment: FC = () => {
         <div className="flex justify-center items-center gap-3 h-auto my-20 font-Poppins">
           <div className="flex flex-col justify-center gap-3">
             <span className="font-semibold md:text-base text-sm">Pengguna</span>
-            <input required onChange={handleChange} name="nama" value={pembayaran.nama} type="text" className="p-2 bg-[#F6F6F6] rounded-md" placeholder="Masukan Nama Pengguna" />
+            <input required onChange={handleChange} name="nama_lengkap" value={pembayaran.nama_lengkap} type="text" className="p-2 bg-[#F6F6F6] rounded-md" placeholder="Masukan Nama Pengguna" />
             <span className="font-semibold md:text-base text-sm">Alamat</span>
             <input required onChange={handleChange} name="alamat" value={pembayaran.alamat} type="text" className="p-2 bg-[#F6F6F6] rounded-md" placeholder="Masukan Alamat" />
             <div className="flex justify-between">
               <span className="font-semibold md:text-base text-sm">Metode Pembayaran</span>
             </div>
-            {pembayaran.metode_pembayaran ? (
+            {pembayaran.bank_account ? (
               <div className="lg:w-[567px] w-[90vw] h-[106px] relative bg-white rounded shadow">
                 <div className="left-[78px] top-[18.64px] absolute text-gray-600 text-[0.8rem] md:text-2xl font-bold font-Poppins leading-9">Bank Transfer Virtual Account</div>
                 <div className="left-[78px] top-[50.81px] absolute text-neutral-300 text-xs md:text-base font-normal font-['Inter'] leading-relaxed">Proses otomatis dan lebih cepat</div>
@@ -160,24 +167,19 @@ const Payment: FC = () => {
           <div className="fixed inset-0 flex items-center justify-center z-50 font-Poppins">
             <div className="bg-white w-96 p-8 rounded shadow-lg">
               <p className="my-2 text-2xl font-semibold text-blue-700">Detail Pembayaran</p>
-              <p className="my-2 text-sm">Nama: {pembayaran.nama}</p>
+              <p className="my-2 text-sm">Nama: {showData.nama_lengkap}</p>
               <hr />
-              <p className="my-2 text-sm">Alamat: {pembayaran.alamat}</p>
+              <p className="my-2 text-sm">Alamat: {showData.alamat}</p>
               <hr />
-              <p className="my-2 text-sm">Metode Pembayaran: {pembayaran.metode_pembayaran}</p>
+              <p className="my-2 text-sm">Metode Pembayaran: {showData.bank_account}</p>
               <hr />
               <p className="my-2 text-sm font-semibold">
                 Total Pembayaran:{" "}
                 <span className="font-bold text-lg">
                   <NumberFormatter value={location.state.total} />
-                </span>{" "}
+                </span>
               </p>
-
-              {/* Div petunjuk dengan latar belakang oranye muda */}
-              <div className="mb-4 bg-orange-200 p-3 rounded text-sm">
-                Petunjuk untuk bertransaksi menggunakan {pembayaran.metode_pembayaran}: Masukkan kode berikut - {generateRandomCode()}
-              </div>
-
+              <div className="mb-4 bg-orange-200 p-3 rounded text-lg font-bold">kode VA : {showData.va_number}</div>
               <div className="flex gap-3">
                 <button className="bg-gray-500 text-white px-4 py-2 mt-5 rounded hover:bg-gray-600" onClick={() => setShowPopup(false)}>
                   Tutup

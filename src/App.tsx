@@ -14,6 +14,7 @@ import DetailTransaksi from "./Pages/DetailTransaksi";
 import Cart from "./Pages/Cart";
 import RiwayatPesanan from "./Pages/RiwayatPesanan";
 import BuatToko from "./Pages/BuatToko";
+import EditProduct from "./Pages/EditProduct";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/detailtransaksi" element={<DetailTransaksi />}></Route>
           <Route path="/riwayatpesanansaya" element={<RiwayatPesanan />}></Route>
           <Route path="/buattoko" element={<BuatToko />}></Route>
+          <Route path="/editproduk/:id" element={<EditProduct />}></Route>
         </Routes>
       </Router>
     </>

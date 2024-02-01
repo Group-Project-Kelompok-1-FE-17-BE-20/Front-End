@@ -135,7 +135,7 @@ const Payment: FC = () => {
                   <div className="flex gap-5 items-center justify-between ">
                     <div className="flex justify-between items-center w-full">
                       <span className="text-sm">{item.model}</span>
-                      <span className="font-bold text-sm">{item.qty}x</span>
+                      <span className="font-bold text-sm">{item.quantity}x</span>
                     </div>
                   </div>
                 </>

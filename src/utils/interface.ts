@@ -62,7 +62,7 @@ export interface typeLaptopDetail {
 }
 
 export interface CartType {
-  id: string;
+  productId: string;
   brand?: string;
   model?: string;
   quantity: number;

@@ -2,7 +2,7 @@ import Header from "../components/Product/Header";
 import bgUserCover from "../img/Rectangle 2775.png";
 import React, { useState } from "react";
 import axios from "axios";
-import { ShopProfile } from "../utils/interface";
+import { FormDataShop, ShopProfile } from "../utils/interface";
 import CreateProduct from "./CreateProduct";
 import ListProduct from "./ListProduct";
 import Cookies from "js-cookie";
@@ -94,11 +94,12 @@ const ProfileToko: React.FC = () => {
       <Header />
       <div>
         <div className="px-3 md:px-24 sm:pt-40">
-          <h2 className="font-poppins text-3xl font-semibold leading-4 mb-4">Profil Saya</h2>
+          <h2 className="font-poppins text-3xl font-semibold leading-4 mb-4">Profil Toko Saya</h2>
           <nav className="flex mb-4 font-poppins " aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-3">
               <li className="inline-flex items-center">
-                <a className="inline-flex items-center text-xl font-medium text-gray-500 hover:text-gray-700">Kelola informasi profil toko Anda</a>
+                <a className="inline-flex items-center text-xl font-medium text-gray-500 hover:text-gray-700">
+                  Kelola informasi profil toko Anda</a>
               </li>
             </ol>
           </nav>
@@ -149,19 +150,30 @@ const OrderHistory: React.FC = () => {
 };
 
 const MyProfile: React.FC = () => {
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormDataShop>({
     nama_toko: "",
     alamat_toko: "",
   });
+  console.log(uploadedImageUrl);
 
   const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
+    const nama_toko = formData.nama_toko;
+    const alamat_toko = formData.alamat_toko;
+    
     e.preventDefault();
     const authToken = Cookies.get("authToken");
     try {
+      const formData = new FormData();
+      if (selectedImage) {
+        formData.append("image_profil", selectedImage);
+        formData.append("nama_toko", nama_toko);
+        formData.append("alamat_toko", alamat_toko);
+      }
       const response = await axios.put(
-        "https://altalaptop.shop/stores/1",
-        { nama_toko: formData.nama_toko, alamat_toko: formData.alamat_toko },
+        "https://altalaptop.shop/stores/1", formData ,
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -169,7 +181,7 @@ const MyProfile: React.FC = () => {
           },
         }
       );
-      console.log(response);
+      setUploadedImageUrl(response.data.data.image_url);
       Swal.fire({
         title: "Confirmation",
         text: `Berhasil Di Simpan`,
@@ -177,18 +189,21 @@ const MyProfile: React.FC = () => {
         confirmButtonText: "OK",
         confirmButtonColor: "rgb(3 150 199)",
       });
+      const update = response.data.data.nama_toko;
+      Cookies.remove("nama_toko");
       window.location.reload();
+      Cookies.set("nama_toko", update);
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error: ", error);
     }
   };
 
   const handleHapus = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     const authToken = Cookies.get("authToken");
-
+    console.log(authToken);
     try {
-      const response = await axios.delete("https://altalaptop.shop/stores/2", {
+      const response = await axios.delete("https://altalaptop.shop/stores/1", {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -200,7 +215,7 @@ const MyProfile: React.FC = () => {
         confirmButtonText: "OK",
         confirmButtonColor: "rgb(3 150 199)",
       });
-      Cookies.remove("username");
+      Cookies.remove("nama_toko");
       console.log(response);
       navigate("/");
     } catch (error) {
@@ -217,11 +232,10 @@ const MyProfile: React.FC = () => {
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.currentTarget;
-    setFormData({
-      ...formData,
-      [id]: value,
-    });
+    const file = e.currentTarget.files?.[0];
+    if (file) {
+      setSelectedImage(file);
+    }
   };
 
   return (
@@ -230,10 +244,16 @@ const MyProfile: React.FC = () => {
       <form onSubmit={handleSave}>
         <div className="container w-full h-[17vh] relative">
           <img src={bgUserCover} className="h-full w-full" alt="bgCover" />
-          <div className="GantiCover" style={{ width: 40, height: 20, position: "absolute", top: 0, right: 0, padding: "5px", display: "flex", justifyContent: "flex-end", alignItems: "flex-start" }}>
-            <label htmlFor="uploadInput" className="Cover" style={{ width: 70, height: 15, display: "flex", alignItems: "center" }}>
-              <input type="file" id="uploadInput" accept="image/*" style={{ display: "none" }} onChange={handleImageUpload} />
-              <div className="Camera" style={{ width: "50%", height: "50%", position: "relative", cursor: "pointer" }}>
+          
+          <button className="bg-blue-300 p-1 w-14 h-14 rounded-full overflow-hidden absolute top-[2rem] ml-3" onClick={() => document.getElementById("uploadInput")?.click()}>
+            {selectedImage && (
+              <div>
+                <img className="w-[50px] h-[50px]  top-5" src={URL.createObjectURL(selectedImage)} alt="Selected" />
+              </div>
+            )}
+          </button>
+
+          <div className="Camera" style={{ width: "50%", height: "50%", position: "relative", cursor: "pointer" }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" role="img">
                   <path
                     d="M3.58579 7.58579C3.21071 7.96086 3 8.46957 3 9V18C3 18.5304 3.21071 19.0391 3.58579 19.4142C3.96086 19.7893 4.46957 20 5 20H19C19.5304 20 20.0391 19.7893 20.4142 19.4142C20.7893 19.0391 21 18.5304 21 18V9C21 8.46957 20.7893 7.96086 20.4142 7.58579C20.0391 7.21071 19.5304 7 19 7H18.07C17.7408 7.00005 17.4167 6.91884 17.1264 6.76359C16.8362 6.60834 16.5887 6.38383 16.406 6.11L15.594 4.89C15.4113 4.61617 15.1638 4.39166 14.8736 4.23641C14.5833 4.08116 14.2592 3.99995 13.93 4H10.07C9.74082 3.99995 9.41671 4.08116 9.12643 4.23641C8.83616 4.39166 8.5887 4.61617 8.406 4.89L7.594 6.11C7.4113 6.38383 7.16384 6.60834 6.87357 6.76359C6.58329 6.91884 6.25918 7.00005 5.93 7H5C4.46957 7 3.96086 7.21071 3.58579 7.58579Z"
@@ -250,7 +270,11 @@ const MyProfile: React.FC = () => {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </div>
+          </div>
+
+          <div className="GantiCover" style={{ width: 40, height: 20, position: "absolute", top: 0, right: 0, padding: "5px", display: "flex", justifyContent: "flex-end", alignItems: "flex-start" }}>
+            <label htmlFor="uploadInput" className="Cover" style={{ width: 70, height: 15, display: "flex", alignItems: "center" }}>
+              <input type="file" id="uploadInput" accept="image/*" style={{ display: "none" }} onChange={handleImageUpload} />
             </label>
           </div>
         </div>
@@ -259,13 +283,13 @@ const MyProfile: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-3">
             <div>
               <label htmlFor="nama_toko" className="block mb-2 text-sm font-medium text-[#6B7280]">
-                Nama Lengkap
+                Nama Toko
               </label>
               <input
                 type="text"
                 id="nama_toko"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                placeholder="Nama Lengkap"
+                placeholder="Nama Toko"
                 value={formData.nama_toko}
                 onChange={handlePerubahan}
                 required

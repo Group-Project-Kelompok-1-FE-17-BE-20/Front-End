@@ -1,5 +1,3 @@
-import React from "react";
-
 export interface LoginState {
   email: string;
   password: string;
@@ -50,25 +48,23 @@ export interface typeLaptopDetail {
   ram?: string;
   description?: string;
   model?: string;
-  gambar?: string;
+  image?: string;
   brand?: string;
   processor?: string;
   id?: number;
   total_price?: number;
   stock?: number;
   data?: any;
-  ubah?: () => void;
-  hapus?: () => void;
 }
 
 export interface CartType {
-  productId: string;
+  id: string;
   brand?: string;
   model?: string;
-  quantity: number;
+  qty: number;
   price: number;
-  totalPrice: number;
-  gambar: string;
+  total_price: number;
+  image: string;
 }
 
 export interface CartState {
@@ -166,6 +162,11 @@ export interface FormDataObject {
   email: string;
   nomor_hp: string;
   password: string;
+}
+
+export interface FormDataShop {
+  nama_toko: string;
+  alamat_toko: string;
 }
 
 export interface FormDataProduct {

@@ -48,7 +48,8 @@ function Cart() {
   const editCartItem = async (productId: string, jumlah: number) => {
     try {
       await axios.put(
-        `http://altalaptop.shop/shopping-cart?productId=${productId}`,
+        `https
+        ://altalaptop.shop/shopping-cart?productId=${productId}`,
         {
           jumlah: jumlah,
         },
@@ -59,8 +60,6 @@ function Cart() {
         }
       );
 
-      // No need to filter cartItems here since it's handled after successful API call
-      // Remove the item from the final order if it exists
       if (checkedItems.has(productId)) {
         removeFromFinalOrder(productId);
       }
@@ -141,7 +140,7 @@ function Cart() {
   const deleteCartItem = (productId: string) => {
     try {
       axios
-        .delete(`http://altalaptop.shop/shopping-cart?productId=${productId}`, {
+        .delete(`https://altalaptop.shop/shopping-cart?productId=${productId}`, {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },

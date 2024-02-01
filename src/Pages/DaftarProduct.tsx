@@ -17,7 +17,6 @@ const DaftarProduct = () => {
   const [laptopData, setLapData] = useState<lapData>({
     data: [],
   });
-
   const username = Cookies.get("username");
   const [showHamMenu, setShowHam] = useState<Boolean>(false);
   const [showPagination, setShowPagination] = useState(false);
@@ -55,7 +54,6 @@ const DaftarProduct = () => {
           Authorization: `Bearer ${authToken}`,
         },
       });
-
       const userIdToko = await axios.get(`https://altalaptop.shop/stores`, {
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -71,7 +69,6 @@ const DaftarProduct = () => {
         } else {
           item.category = "High End";
         }
-
         if (item.store_id !== storeId) {
           return item;
         }
@@ -80,7 +77,7 @@ const DaftarProduct = () => {
 
       const filteredLaptopWithdata = laptopWithdata.filter((item: any) => item !== null);
       const filteredData = category === "Semua" ? filteredLaptopWithdata : filteredLaptopWithdata.filter((item: any) => item.category === category);
-      const searchData = searchQuery ? filteredData.filter((item: any) => item.brand.toLowerCase().includes(searchQuery.toLowerCase()) || item.model.toLowerCase().includes(searchQuery.toLowerCase())) : filteredData;
+      const searchData = searchQuery ? filteredData.filter((item: any) => item.model.toLowerCase().includes(searchQuery.toLowerCase()) || item.brand.toLowerCase().includes(searchQuery.toLowerCase())) : filteredData;
       setLapData((prev) => ({ ...prev, data: searchData }));
     } catch (error: any) {
       if (error.response && error.response.status === 500) {
@@ -105,7 +102,7 @@ const DaftarProduct = () => {
             });
 
             const filteredData = category === "Semua" ? laptopWithdata : laptopWithdata.filter((item: any) => item.category === category);
-            const searchData = searchQuery ? filteredData.filter((item: any) => item.brand.toLowerCase().includes(searchQuery.toLowerCase())) : filteredData;
+            const searchData = searchQuery ? filteredData.filter((item: any) => item.model.toLowerCase().includes(searchQuery.toLowerCase()) || item.brand.toLowerCase().includes(searchQuery.toLowerCase())) : filteredData;
             setLapData((prev) => ({ ...prev, data: searchData }));
           } catch (error) {
             console.log(error);
@@ -113,7 +110,6 @@ const DaftarProduct = () => {
         };
         product();
       } else {
-        // Handle other errors
         console.log(error);
       }
     }

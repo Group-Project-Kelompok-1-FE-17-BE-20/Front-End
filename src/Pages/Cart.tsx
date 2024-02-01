@@ -29,7 +29,7 @@ function Cart() {
   const editCartItem = async (productId: string, jumlah: number) => {
     try {
       await axios.put(
-        `http://34.41.81.93:8083/shopping-cart?productId=${productId}`,
+        `http://altalaptop.shop/shopping-cart?productId=${productId}`,
         {
           jumlah: jumlah,
         },
@@ -52,24 +52,24 @@ function Cart() {
   };
 
   const incrementQuantity = async (itemId: string) => {
-    // find qty from cartItems with id
+    // find quantity from cartItems with id
     const product = cartItems.find((item) => item.id === itemId);
-    const newQty = product ? product.qty + 1 : 1; // If product not found, default to 1
+    const newquantity = product ? product.quantity + 1 : 1; // If product not found, default to 1
 
     setCartItems((prevItems) =>
       prevItems.map((item) =>
         item.id === itemId
           ? {
               ...item,
-              qty: newQty,
-              total_price: newQty * item.price,
+              quantity: newquantity,
+              totalPrice: newquantity * item.price,
             }
           : item
       )
     );
 
     try {
-      await editCartItem(itemId, newQty); // Pass the updated quantity to editCartItem
+      await editCartItem(itemId, newquantity); // Pass the updated quantity to editCartItem
     } catch (error) {
       // Handle error if needed
       console.error("Error incrementing quantity:", error);
@@ -78,22 +78,22 @@ function Cart() {
 
   const decrementQuantity = async (itemId: string) => {
     const product = cartItems.find((item) => item.id === itemId);
-    const newQty = product ? Math.max(product.qty - 1, 1) : 1; // Ensure quantity doesn't go below 1
+    const newquantity = product ? Math.max(product.quantity - 1, 1) : 1; // Ensure quantity doesn't go below 1
 
     setCartItems((prevItems) =>
       prevItems.map((item) =>
         item.id === itemId
           ? {
               ...item,
-              qty: newQty,
-              total_price: newQty * item.price,
+              quantity: newquantity,
+              totalPrice: newquantity * item.price,
             }
           : item
       )
     );
 
     try {
-      await editCartItem(itemId, newQty);
+      await editCartItem(itemId, newquantity);
     } catch (error) {
       console.error("Error decrementing quantity:", error);
     }
@@ -107,7 +107,7 @@ function Cart() {
     if (product) {
       setFinalOrder((prevOrder) => {
         // Calculate the total price for this product
-        const productTotalPrice = product.total_price;
+        const productTotalPrice = product.totalPrice;
 
         return {
           items: [...prevOrder.items, product],
@@ -122,16 +122,13 @@ function Cart() {
   const deleteCartItem = (productId: string) => {
     try {
       axios
-        .delete(`http://34.41.81.93:8083/shopping-cart?productId=${productId}`, {
+        .delete(`http://altalaptop.shop/shopping-cart?productId=${productId}`, {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },
         })
         .then(() => {
-          // If the delete request is successful, update the local state
           setCartItems((prevItems) => prevItems.filter((item) => item.id !== productId));
-
-          // Remove the item from the final order
           if (checkedItems.has(productId)) {
             removeFromFinalOrder(productId);
           }
@@ -147,7 +144,7 @@ function Cart() {
   const removeFromFinalOrder = (itemId: string) => {
     setFinalOrder((prevOrder) => {
       const updatedItems = prevOrder.items.filter((item) => item.id !== itemId);
-      const updatedTotal = updatedItems.reduce((acc, item) => acc + item.total_price, 0);
+      const updatedTotal = updatedItems.reduce((acc, item) => acc + item.totalPrice, 0);
 
       return {
         items: updatedItems,
@@ -189,22 +186,22 @@ function Cart() {
     // Also update the final order to include all items by default
     setFinalOrder({
       items: [...cartItems],
-      total: cartItems.reduce((acc, item) => acc + item.total_price, 0),
+      total: cartItems.reduce((acc, item) => acc + item.totalPrice, 0),
     });
   }, [cartItems]);
 
   const getCartItem = () => {
     try {
       axios
-        .get("http://34.41.81.93:8083/shopping-cart", {
+        .get("https://altalaptop.shop/shopping-cart", {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },
         })
         .then((response) => {
           response.data.data.forEach((item: any) => {
-            if (item.qty === 0) {
-              item.qty = 1;
+            if (item.quantity === 0) {
+              item.quantity = 1;
             }
           });
           setCartItems(response.data.data);
@@ -246,7 +243,7 @@ function Cart() {
           </ol>
         </nav>
       </div>
-      <section className="py-10 w-full mx-auto lg:flex-1 px-[38px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[1404px] mb-10 mt-52">
+      <section className="py-[5rem] w-full mx-auto lg:flex-1 px-[38px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[1404px] mb-10 ">
         {cartItems.length > 0 ? (
           <>
             <div className="flex-col justify-start items-center gap-[30px] flex">
@@ -254,11 +251,11 @@ function Cart() {
             </div>
             <div className="flex gap-7 w-full mt-10 flex-wrap lg:flex-nowrap">
               <div className="w-full min-w-0 xl:min-w-[715px] space-y-6">
-                {cartItems.map(({ id, total_price, qty, model, price, brand, image }, i) => (
+                {cartItems.map(({ id, totalPrice, quantity, model, price, brand, gambar }, i) => (
                   <div key={i} className="w-full h-[188px] px-6 py-5 bg-white rounded-[20px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex-col justify-start items-start gap-6 inline-flex ">
                     <div className="self-stretch justify-start items-center gap-4 inline-flex">
                       <div className="w-[124px] h-[124px] overflow-hidden bg-zinc-100 rounded-lg justify-center items-center flex">
-                        <img className="w-full h-full" src={image} />
+                        <img className="w-full h-full" src={gambar} />
                       </div>
                       <div className="grow shrink basis-0 h-[124px] justify-between items-center flex">
                         <div className="h-[118px] flex-col justify-between items-start inline-flex">
@@ -272,7 +269,7 @@ function Cart() {
                               </div>
                             </div>
                           </div>
-                          <div className="text-orange-400 text-2xl font-semibold font-poppins">Rp {formatToIDR(total_price)}</div>
+                          <div className="text-orange-400 text-2xl font-semibold font-poppins">Rp {formatToIDR(totalPrice)}</div>
                         </div>
                         <div className="w-[225px] h-[124px] flex-col justify-between items-end inline-flex">
                           <div className="h-6 justify-start items-start gap-4 inline-flex">
@@ -293,7 +290,7 @@ function Cart() {
                                 fill="black"
                               />
                             </svg>
-                            <div className="text-black text-sm font-medium font-poppins">{qty}</div>
+                            <div className="text-black text-sm font-medium font-poppins">{quantity}</div>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={() => incrementQuantity(id)} className="cursor-pointer">
                               <path
                                 d="M17.8125 10C17.8125 10.2486 17.7137 10.4871 17.5379 10.6629C17.3621 10.8387 17.1236 10.9375 16.875 10.9375H10.9375V16.875C10.9375 17.1236 10.8387 17.3621 10.6629 17.5379C10.4871 17.7137 10.2486 17.8125 10 17.8125C9.75136 17.8125 9.5129 17.7137 9.33709 17.5379C9.16127 17.3621 9.0625 17.1236 9.0625 16.875V10.9375H3.125C2.87636 10.9375 2.6379 10.8387 2.46209 10.6629C2.28627 10.4871 2.1875 10.2486 2.1875 10C2.1875 9.75136 2.28627 9.5129 2.46209 9.33709C2.6379 9.16127 2.87636 9.0625 3.125 9.0625H9.0625V3.125C9.0625 2.87636 9.16127 2.6379 9.33709 2.46209C9.5129 2.28627 9.75136 2.1875 10 2.1875C10.2486 2.1875 10.4871 2.28627 10.6629 2.46209C10.8387 2.6379 10.9375 2.87636 10.9375 3.125V9.0625H16.875C17.1236 9.0625 17.3621 9.16127 17.5379 9.33709C17.7137 9.5129 17.8125 9.75136 17.8125 10Z"
@@ -311,11 +308,13 @@ function Cart() {
               <div className="w-full min-w-0 xl:min-w-[505px] px-6 py-5 bg-white rounded-[20px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex-col justify-start items-start gap-6 inline-flex h-min">
                 <div className="text-black text-2xl font-semibold font-poppins">Ringkasan Pesanan</div>
                 <div className="self-stretch  flex-col justify-start items-start gap-5 flex">
-                  {finalOrder.items.map(({ id, total_price, model, qty }) => (
+                  {finalOrder.items.map(({ id, totalPrice, model, brand, quantity }) => (
                     <div key={id} className="self-stretch justify-between items-center inline-flex">
-                      <div className="text-black text-opacity-60 text-xl font-normal font-poppins">{model}</div>
-                      <div className="text-black text-opacity-60 text-xl font-normal font-poppins">x{qty}</div>
-                      <div className="text-right text-zinc-800 text-xl font-semibold font-poppins">Rp {formatToIDR(total_price)}</div>
+                      <div className="text-black text-opacity-60 text-xl font-normal font-poppins">
+                        {brand} {model}
+                      </div>
+                      <div className="text-black text-opacity-60 text-xl font-normal font-poppins">x{quantity}</div>
+                      <div className="text-right text-zinc-800 text-xl font-semibold font-poppins">Rp {formatToIDR(totalPrice)}</div>
                     </div>
                   ))}
                   <div className="self-stretch" />
@@ -325,10 +324,15 @@ function Cart() {
                     <div className="text-right text-zinc-800 text-2xl font-semibold font-poppins">Rp {formatToIDR(finalOrder.total)}</div>
                   </div>
                 </div>
-                <div onClick={clickProduct} className="self-stretch h-[60px] px-[54px] py-4 bg-sky-600 rounded-lg justify-center items-center gap-3 inline-flex">
-                  <div className="text-white text-base font-medium font-poppins">Lanjut Ke Pembayaran</div>
-                  <div className="w-6 h-6 relative origin-top-left -rotate-90" />
-                </div>
+
+                {finalOrder.total < 10000 ? (
+                  ""
+                ) : (
+                  <div onClick={clickProduct} className="self-stretch h-[60px] px-[54px] py-4 bg-sky-600 rounded-lg justify-center items-center gap-3 inline-flex">
+                    <div className="text-white text-base font-medium font-poppins">Lanjut Ke Pembayaran</div>
+                    <div className="w-6 h-6 relative origin-top-left -rotate-90" />
+                  </div>
+                )}
               </div>
             </div>
           </>

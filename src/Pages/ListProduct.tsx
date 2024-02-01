@@ -3,13 +3,38 @@ import { typeLaptopDetail } from "../utils/interface";
 import axios from "axios";
 import Cookies from "js-cookie";
 import ProfileProduct from "../components/Admin/ProfileProduct";
+import { useNavigate } from "react-router-dom";
 
 const ListProduct = () => {
   const authToken = Cookies.get("authToken");
+  const navigate = useNavigate();
   const [dataUser, setDataUser] = useState<typeLaptopDetail>({
     data: [],
   });
   const [error, setError] = useState<string | null>(null);
+
+  const ubahData = (id: any) => {
+    if (id) {
+      navigate(`/editproduk/${id}`, {
+        state: {
+          id: `${id}`,
+        },
+      });
+    }
+  };
+
+  const hapusData = (id: any) => {
+    axios
+      .delete(`http://altalaptop.shop/products/${id}`, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      })
+      .then(() => {
+        alert("Berhasil di hapus");
+        window.location.reload();
+      });
+  };
 
   const cekData = async () => {
     try {
@@ -45,7 +70,20 @@ const ListProduct = () => {
               dataUser.data &&
               dataUser.data.length > 0 &&
               dataUser.data.map((item: typeLaptopDetail, key: number) => (
-                <ProfileProduct key={key} storage={item.storage} price={item.price} ram={item.ram} description={item.description} model={item.model} gambar={item.gambar} brand={item.brand} processor={item.processor} stock={item.stock} />
+                <ProfileProduct
+                  key={key}
+                  storage={item.storage}
+                  ubah={() => ubahData(item.id)}
+                  price={item.price}
+                  ram={item.ram}
+                  description={item.description}
+                  model={item.model}
+                  gambar={item.gambar}
+                  brand={item.brand}
+                  processor={item.processor}
+                  stock={item.stock}
+                  hapus={() => hapusData(item.id)}
+                />
               ))}
 
             {(!dataUser || !dataUser.data || dataUser.data.length === 0) && (

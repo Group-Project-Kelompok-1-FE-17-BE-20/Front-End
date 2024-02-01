@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface LoginState {
   email: string;
   password: string;
@@ -55,16 +57,18 @@ export interface typeLaptopDetail {
   total_price?: number;
   stock?: number;
   data?: any;
+  ubah?: () => void;
+  hapus?: () => void;
 }
 
 export interface CartType {
   id: string;
   brand?: string;
   model?: string;
-  qty: number;
+  quantity: number;
   price: number;
-  total_price: number;
-  image: string;
+  totalPrice: number;
+  gambar: string;
 }
 
 export interface CartState {

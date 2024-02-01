@@ -160,11 +160,12 @@ const MyProfile: React.FC = () => {
     const authToken = Cookies.get("authToken");
     try {
       const response = await axios.put(
-        "http://34.41.81.93:8083/stores/neymar",
+        "http://altalaptop.shop/stores/1",
         { nama_toko: formData.nama_toko, alamat_toko: formData.alamat_toko },
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -187,7 +188,7 @@ const MyProfile: React.FC = () => {
     const authToken = Cookies.get("authToken");
 
     try {
-      const response = await axios.delete("http://34.41.81.93:8083/users/neymar", {
+      const response = await axios.delete("https://altalaptop.shop/stores/2", {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },

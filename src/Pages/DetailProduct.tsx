@@ -51,8 +51,8 @@ const DetailProduct: FC = () => {
               navigate("/cart");
             }
           });
-        } catch (error) {
-          console.log("error", error);
+        } catch (error: any) {
+          console.log("Kesalahan Axios Lengkap:", error.response);
         }
       } else {
         Swal.fire({

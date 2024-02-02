@@ -1,5 +1,5 @@
 import bgUserCover from "../img/Rectangle 2775.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { FormDataProduct, MyProfile } from "../utils/interface";
 import Footer from "../components/Footer";
@@ -182,6 +182,37 @@ function myProfile(): JSX.Element {
     }
   };
 
+  const getProfile = async () => {
+    const authToken = Cookies.get("authToken");
+    try {
+      const response = await axios.get("https://altalaptop.shop/products/4", {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data = response.data.data;
+      console.log(data);
+      setformData({
+        brand: data.brand,
+        price: data.price,
+        categories: data.categories,
+        description: data.description,
+        stock: data.stock,
+        storage: data.storage,
+        ram: data.ram,
+        model: data.model,
+        processor: data.processor,
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    getProfile();
+    console.log(formData);
+  }, []);
+
   const handlePerubahan = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setformData({
@@ -229,8 +260,6 @@ function myProfile(): JSX.Element {
                 stroke-linejoin="round"
               />
             </svg>
-            <span className="text-red text-xs">*</span>
-            <span>Gambar wajib diisi</span>
           </div>
           <div className="GantiCover" style={{ width: 40, height: 20, position: "absolute", top: 0, right: 0, padding: "5px", display: "flex", justifyContent: "flex-end", alignItems: "flex-start" }}>
             <label htmlFor="uploadInput" className="Cover" style={{ width: 70, height: 15, display: "flex", alignItems: "center" }}>
@@ -245,14 +274,7 @@ function myProfile(): JSX.Element {
               <label htmlFor="brand" className="block mb-2 text-sm font-medium text-[#6B7280]">
                 Brand
               </label>
-              <input
-                type="text"
-                id="brand"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                value={formData.brand}
-                onChange={handlePerubahan}
-                placeholder="brand"
-              />
+              <input type="text" id="brand" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value={formData.brand} onChange={handlePerubahan} />
             </div>
             <div>
               <label htmlFor="model" className="block mb-2 text-sm font-medium text-[#6B7280]">
@@ -330,8 +352,6 @@ function myProfile(): JSX.Element {
               value={formData.stock}
               onChange={handlePerubahan}
             />
-            <span className="text-red-500 text-xs">*</span>
-            <span>stock wajib diisi</span>
           </div>
         </div>
 

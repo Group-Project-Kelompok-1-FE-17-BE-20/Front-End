@@ -350,10 +350,13 @@ function Cart() {
                     <div className="text-right text-zinc-800 text-2xl font-semibold font-poppins">Rp {formatToIDR(finalOrder.total)}</div>
                   </div>
                 </div>
-                <div onClick={clickProduct} className="self-stretch h-[60px] px-[54px] py-4 bg-sky-600 rounded-lg justify-center items-center gap-3 inline-flex">
-                  <div className="text-white text-base font-medium font-poppins">Lanjut Ke Pembayaran</div>
-                  <div className="w-6 h-6 relative origin-top-left -rotate-90" />
-                </div>
+
+                {finalOrder.total !== 0 && (
+                  <div onClick={clickProduct} className="self-stretch h-[60px] px-[54px] py-4 bg-sky-600 rounded-lg justify-center items-center gap-3 inline-flex">
+                    <div className="text-white text-base font-medium font-poppins">Lanjut Ke Pembayaran</div>
+                    <div className="w-6 h-6 relative origin-top-left -rotate-90" />
+                  </div>
+                )}
               </div>
             </div>
           </>

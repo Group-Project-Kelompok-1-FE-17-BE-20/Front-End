@@ -191,3 +191,13 @@ export interface showPayment {
   bank_account: string;
   va_number: string;
 }
+
+export interface orders {
+  brand?: string;
+  ram?: string;
+  storage?: string;
+  jumlah?: string;
+  totalAmount: number;
+  data?: any;
+  orderId: string;
+}

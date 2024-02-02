@@ -16,6 +16,7 @@ const Payment: FC = () => {
   const [showPayment, setShow] = useState<Boolean>(false);
   const [showPopup, setShowPopup] = useState<Boolean>(false);
   const [items, setItems] = useState([]);
+  const [popupTimer, setPopupTimer] = useState<NodeJS.Timeout | null>(null);
   const authToken = Cookies.get("authToken");
   const [showData, setShowData] = useState<showPayment>({
     nama_lengkap: "",
@@ -81,8 +82,28 @@ const Payment: FC = () => {
             console.error("Error:", error);
           });
       }
+      if (popupTimer) {
+        clearTimeout(popupTimer);
+      }
     });
   };
+
+  useEffect(() => {
+    // Start the timer when the component mounts
+    const timer = setTimeout(() => {
+      setShowPopup(false);
+    }, 2 * 60 * 60 * 1000); // 2 hours in milliseconds
+
+    // Save the timer in state to clear it later
+    setPopupTimer(timer);
+
+    // Clear the timer when the component unmounts
+    return () => {
+      if (popupTimer) {
+        clearTimeout(popupTimer);
+      }
+    };
+  }, [showPopup]); // Rerun the effect when showPopup changes
 
   useEffect(() => {
     const finalOrder = location.state?.finalOrder;

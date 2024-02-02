@@ -12,7 +12,6 @@ const ListProduct = () => {
   const [dataUser, setDataUser] = useState<typeLaptopDetail>({
     data: [],
   });
-  const [error, setError] = useState<string | null>(null);
 
   const ubahData = (id: any) => {
     if (id) {
@@ -65,7 +64,6 @@ const ListProduct = () => {
       setDataUser(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
-      setError("Error fetching data. Please try again later.");
     }
   };
 
@@ -108,12 +106,6 @@ const ListProduct = () => {
             {(!dataUser || !dataUser.data || dataUser.data.length === 0) && (
               <div className="flex items-center w-full justify-center h-[20vh] md:h-40">
                 <p className="text-2xl text-gray-500">Tidak ada data.</p>
-              </div>
-            )}
-
-            {error && (
-              <div className="flex items-center w-full justify-center h-[20vh] md:h-40">
-                <p className="text-2xl text-red-500">{error}</p>
               </div>
             )}
           </div>

@@ -61,9 +61,7 @@ function UserProfile() {
           <nav className="flex mb-4 font-poppins " aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-3">
               <li className="inline-flex items-center">
-                <a className="inline-flex items-center text-xl font-medium text-gray-500 hover:text-gray-700">
-                  Kelola informasi profil Anda untuk mengontrol, melindungi dan mengamankan akun
-                </a>
+                <a className="inline-flex items-center text-xl font-medium text-gray-500 hover:text-gray-700">Kelola informasi profil Anda untuk mengontrol, melindungi dan mengamankan akun</a>
               </li>
             </ol>
           </nav>
@@ -111,11 +109,10 @@ function myProfile(): JSX.Element {
   });
   console.log(uploadedImageUrl);
 
-
   const getProfile = async () => {
-    const authToken = Cookies.get('authToken');
+    const authToken = Cookies.get("authToken");
     try {
-      const response = await axios.get('https://altalaptop.shop/users', {
+      const response = await axios.get("https://altalaptop.shop/users", {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -134,14 +131,13 @@ function myProfile(): JSX.Element {
         setUploadedImageUrl(data.image_profil);
       }
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
 
   useEffect(() => {
     getProfile();
   }, []);
-
 
   const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     const nama_lengkap = formData.nama_lengkap;
@@ -200,17 +196,21 @@ function myProfile(): JSX.Element {
           Authorization: `Bearer ${authToken}`,
         },
       });
-
       Swal.fire({
         title: "Confirmation",
-        text: `Hapus Akun Berhasil`,
-        icon: "success",
+        text: "Apakah anda yakin mau menghapus data",
+        icon: "question",
+        showCancelButton: true,
         confirmButtonText: "OK",
-        confirmButtonColor: "rgb(3 150 199)",
+        cancelButtonText: "NO",
+        confirmButtonColor: "rgb(255 10 10)",
+      }).then((res) => {
+        if (res) {
+          Cookies.remove("username");
+          console.log(response);
+          navigate("/");
+        }
       });
-      Cookies.remove("username");
-      console.log(response);
-      navigate("/");
     } catch (error) {
       console.error("Error: ", error);
       Swal.fire({

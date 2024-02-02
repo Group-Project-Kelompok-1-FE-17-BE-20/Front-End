@@ -5,7 +5,7 @@ import NumberFormatter from "../NumberFormatter";
 const ProfileHistory: FC<orders> = (props: orders) => {
   const { storage, orderId, jumlah, totalAmount, ram, brand } = props;
   return (
-    <div id="profileInfo" className="flex gap-5 bg-[#E5F3FF] md:p-8 p-2 rounded-md">
+    <div id="profileInfo" className="flex gap-5 bg-[#E5F3FF] md:p-8 p-2 rounded-md w-[60vw]">
       <div className="flex flex-col w-full gap-1">
         <span id="profileName" className="font-semibold">
           Order: {orderId}

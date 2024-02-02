@@ -27,7 +27,7 @@ const RiwayatPesanan = () => {
 
   return (
     <>
-      <div id="main-container" className=" w-[60vw] flex flex-col pt-12 gap-8 font-Poppins">
+      <div id="main-container" className="  flex flex-col pt-12 gap-8 font-Poppins">
         <div id="header-info" className="flex flex-col px-20">
           <span id="header-title" className="md:text-3xl text-2xl md:text-left text-center font-Poppins">
             Riwayat Pesanan
@@ -38,7 +38,7 @@ const RiwayatPesanan = () => {
         </div>
 
         <div id="users-container" className="flex justify-center items-center">
-          <div id="users-list" className="flex flex-col lg:h-[60vh] h-[35vh] gap-5 mb-20 border-2 border-slate-50 p-2 md:p-5 overflow-y-scroll w-[90vw]">
+          <div id="users-list" className="flex flex-col lg:h-[60vh] h-[35vh] gap-5 mb-20 border-2 border-slate-50 p-2 md:p-5 overflow-y-scroll w-full">
             {dataUser &&
               dataUser.data &&
               dataUser.data.length > 0 &&

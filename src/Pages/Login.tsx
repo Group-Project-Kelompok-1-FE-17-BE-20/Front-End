@@ -5,7 +5,8 @@ import { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
-
+import { isEmailValid } from "../utils/functions";
+import { infoAlertFC } from "../utils/functions";
 const Login: FC = () => {
   const navigate = useNavigate();
   const [loginState, setLoginState] = useState<LoginState>({
@@ -17,21 +18,10 @@ const Login: FC = () => {
     navigate("/register");
   };
 
-  const isEmailValid = (email: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.(com)$/i;
-    return emailRegex.test(email);
-  };
-
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     if (!isEmailValid(loginState.email)) {
-      Swal.fire({
-        title: "Warning",
-        text: "Format email tidak valid",
-        icon: "error",
-        confirmButtonText: "OK",
-        confirmButtonColor: "rgb(255 10 10)",
-      });
+      infoAlertFC("Warning", "Format email tidak valid", "error");
       return;
     }
     if (loginState.email === "admin@gmail.com" && loginState.password === "1") {
@@ -48,7 +38,7 @@ const Login: FC = () => {
           Cookies.set("authToken", token);
           Swal.fire({
             title: "Confirmation",
-            text: `Congratulations, Hello Selamat Datang`,
+            text: `Hello Selamat Datang`,
             icon: "success",
             confirmButtonText: "OK",
             confirmButtonColor: "rgb(3 150 199)",

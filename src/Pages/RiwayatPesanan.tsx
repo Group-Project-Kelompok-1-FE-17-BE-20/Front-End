@@ -28,7 +28,7 @@ const RiwayatPesanan = () => {
   return (
     <>
       <div id="main-container" className="  flex flex-col pt-12 gap-8 font-Poppins">
-        <div id="header-info" className="flex flex-col px-20">
+        <div id="header-info" className="flex flex-col md:px-20 px-5">
           <span id="header-title" className="md:text-3xl text-2xl md:text-left text-center font-Poppins">
             Riwayat Pesanan
           </span>

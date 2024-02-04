@@ -65,15 +65,13 @@ function Cart() {
       }
     } catch (error) {
       console.error("Error editing item:", error);
-      throw error; // Rethrow the error to handle it elsewhere if needed
+      throw error;
     }
   };
 
   const incrementQuantity = async (itemId: string) => {
-    // find quantity from cartItems with id
     const product = cartItems.find((item) => item.productId === itemId);
-    const newquantity = product ? product.quantity + 1 : 1; // If product not found, default to 1
-
+    const newquantity = product ? product.quantity + 1 : 1;
     setCartItems((prevItems) =>
       prevItems.map((item) =>
         item.productId === itemId
@@ -87,17 +85,15 @@ function Cart() {
     );
 
     try {
-      await editCartItem(itemId, newquantity); // Pass the updated quantity to editCartItem
+      await editCartItem(itemId, newquantity);
     } catch (error) {
-      // Handle error if needed
       console.error("Error incrementing quantity:", error);
     }
   };
 
   const decrementQuantity = async (itemId: string) => {
     const product = cartItems.find((item) => item.productId === itemId);
-    const newquantity = product ? Math.max(product.quantity - 1, 1) : 1; // Ensure quantity doesn't go below 1
-
+    const newquantity = product ? Math.max(product.quantity - 1, 1) : 1;
     setCartItems((prevItems) =>
       prevItems.map((item) =>
         item.productId === itemId
@@ -118,15 +114,10 @@ function Cart() {
   };
 
   const handleFinalOrder = (itemId: string) => {
-    // Find the product with the given ID
     const product = cartItems.find((item) => item.productId === itemId);
-
-    // Check if the product is not undefined
     if (product) {
       setFinalOrder((prevOrder) => {
-        // Calculate the total price for this product
         const productTotalPrice = product.totalPrice;
-
         return {
           items: [...prevOrder.items, product],
           total: prevOrder.total + productTotalPrice,
@@ -174,15 +165,13 @@ function Cart() {
   const toggleCheckbox = (itemId: string) => {
     setCheckedItems((prevCheckedItems) => {
       const newCheckedItems = new Set(prevCheckedItems);
-
       if (newCheckedItems.has(itemId)) {
         newCheckedItems.delete(itemId);
-        removeFromFinalOrder(itemId); // New function to handle removal
+        removeFromFinalOrder(itemId);
       } else {
         newCheckedItems.add(itemId);
-        handleFinalOrder(itemId); // Existing function to handle addition
+        handleFinalOrder(itemId);
       }
-
       return newCheckedItems;
     });
   };
@@ -191,17 +180,14 @@ function Cart() {
     const formattedPrice = new Intl.NumberFormat("id-ID", {
       style: "currency",
       currency: "IDR",
-      minimumFractionDigits: 0, // Adjust this value based on your requirements for showing decimal places
+      minimumFractionDigits: 0,
     }).format(price);
-
-    return formattedPrice.replace(/^Rp\s?/, ""); // Remove the Rp symbol
+    return formattedPrice.replace(/^Rp\s?/, "");
   }
 
   useEffect(() => {
     const newItemIds = new Set(cartItems.map((item) => item.productId));
     setCheckedItems(newItemIds);
-
-    // Also update the final order to include all items by default
     setFinalOrder({
       items: [...cartItems],
       total: cartItems.reduce((acc, item) => acc + item.totalPrice, 0),
@@ -261,23 +247,23 @@ function Cart() {
           </ol>
         </nav>
       </div>
-      <section className="py-[5rem] w-full mx-auto lg:flex-1 px-[38px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[1404px] mb-10 ">
+      <section className="py-[5rem] w-full mx-auto lg:flex-1 px-5 md:px-[38px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[1404px] mb-10 ">
         {cartItems.length > 0 ? (
           <>
             <div className="flex-col justify-start items-center gap-[30px] flex">
-              <div className="text-center text-zinc-700 text-[46px] font-semibold font-poppins">Keranjang Kamu</div>
+              <div className="text-center text-zinc-700 text-3xl lg:text-[46px] font-semibold font-poppins">Keranjang Kamu</div>
             </div>
             <div className="flex gap-7 w-full mt-10 flex-wrap lg:flex-nowrap">
-              <div className="w-full min-w-0 xl:min-w-[715px] space-y-6">
+              <div className="md:w-full w-[80vw] min-w-0 xl:min-w-[715px] space-y-6">
                 {cartItems.map(({ productId, totalPrice, quantity, model, price, brand, gambar }, i) => (
-                  <div key={i} className="w-full h-[188px] px-6 py-5 bg-white rounded-[20px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex-col justify-start items-start gap-6 inline-flex ">
-                    <div className="self-stretch justify-start items-center gap-4 inline-flex">
-                      <div className="w-[124px] h-[124px] overflow-hidden bg-zinc-100 rounded-lg justify-center items-center flex">
-                        <img className="w-full h-full" src={gambar} />
+                  <div key={i} className="md:w-full w-[90vw]  grid h-[188px] md:px-6 md:py-5 px-2 py-2 bg-white rounded-[20px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex-col justify-start items-start gap-6 lg:inline-flex ">
+                    <div className="self-stretch  justify-start items-center gap-4 inline-flex">
+                      <div className="md:w-[124px] md:h-[124px] border-2 border-slate-300 overflow-hidden bg-zinc-100 rounded-lg justify-center items-center flex">
+                        <img className="md:w-full h-full" src={gambar} />
                       </div>
                       <div className="grow shrink basis-0 h-[124px] justify-between items-center flex">
                         <div className="h-[118px] flex-col justify-between items-start inline-flex">
-                          <div className="flex-col justify-start items-start gap-0.5 flex">
+                          <div className="flex-col w-[40vw] justify-start items-start gap-0.5 flex">
                             <div className="text-zinc-800 text-sm font-medium font-poppins truncate w-52">{brand}</div>
                             <div className="text-zinc-800 text-xl font-semibold font-poppins">{model}</div>
                             <div className="flex-col justify-start items-start gap-1 flex">
@@ -287,9 +273,9 @@ function Cart() {
                               </div>
                             </div>
                           </div>
-                          <div className="text-orange-400 text-2xl font-semibold font-poppins">Rp {formatToIDR(totalPrice)}</div>
+                          <div className="text-orange-400 text-md md:text-2xl font-semibold  font-poppins">Rp {formatToIDR(totalPrice)}</div>
                         </div>
-                        <div className="w-[225px] h-[124px] flex-col justify-between items-end inline-flex">
+                        <div className="md:w-[225px] w-full gap-5 md:h-[124px] flex-col justify-between items-end inline-flex">
                           <div className="h-6 justify-start items-start gap-4 inline-flex">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={() => deleteCartItem(productId)} className="cursor-pointer">
                               <path
@@ -309,7 +295,7 @@ function Cart() {
                               <path d="M19 3.5C19.5304 3.5 20.0391 3.71071 20.4142 4.08579C20.7893 4.46086 21 4.96957 21 5.5V19.5C21 20.0304 20.7893 20.5391 20.4142 20.9142C20.0391 21.2893 19.5304 21.5 19 21.5H5C4.46957 21.5 3.96086 21.2893 3.58579 20.9142C3.21071 20.5391 3 20.0304 3 19.5V5.5C3 4.96957 3.21071 4.46086 3.58579 4.08579C3.96086 3.71071 4.46957 3.5 5 3.5H19ZM16.7 9.85C16.92 9.64 16.92 9.29 16.7 9.08L15.42 7.8C15.3703 7.7479 15.3106 7.70643 15.2444 7.6781C15.1782 7.64976 15.107 7.63515 15.035 7.63515C14.963 7.63515 14.8918 7.64976 14.8256 7.6781C14.7594 7.70643 14.6997 7.7479 14.65 7.8L13.65 8.8L15.7 10.85L16.7 9.85ZM7 15.44V17.5H9.06L15.12 11.44L13.06 9.38L7 15.44Z" />
                             </svg>
                           </div>
-                          <div className="px-5 py-3 bg-zinc-100 rounded-lg justify-center items-center gap-5 inline-flex">
+                          <div className="lg:px-5 px-2 py-1 lg:py-3 bg-zinc-100 rounded-lg justify-center items-center gap-2 inline-flex">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={() => decrementQuantity(productId)} className="cursor-pointer">
                               <path
                                 d="M17.8125 10C17.8125 10.2486 17.7137 10.4871 17.5379 10.6629C17.3621 10.8387 17.1236 10.9375 16.875 10.9375H3.125C2.87636 10.9375 2.6379 10.8387 2.46209 10.6629C2.28627 10.4871 2.1875 10.2486 2.1875 10C2.1875 9.75136 2.28627 9.5129 2.46209 9.33709C2.6379 9.16127 2.87636 9.0625 3.125 9.0625H16.875C17.1236 9.0625 17.3621 9.16127 17.5379 9.33709C17.7137 9.5129 17.8125 9.75136 17.8125 10Z"
@@ -332,29 +318,28 @@ function Cart() {
                 ))}
               </div>
               <div className="w-full min-w-0 xl:min-w-[505px] px-6 py-5 bg-white rounded-[20px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex-col justify-start items-start gap-6 inline-flex h-min">
-                <div className="text-black text-2xl font-semibold font-poppins">Ringkasan Pesanan</div>
+                <div className="text-black text-md md:text-2xl font-semibold font-poppins">Ringkasan Pesanan</div>
                 <div className="self-stretch  flex-col justify-start items-start gap-5 flex">
                   {finalOrder.items.map(({ productId, totalPrice, model, brand, quantity }) => (
                     <div key={productId} className="self-stretch justify-between items-center inline-flex">
-                      <div className="text-black text-opacity-60 text-xl font-normal font-poppins">
+                      <div className="text-black text-opacity-60 text-sm md:text-xl font-normal font-poppins">
                         {brand} {model}
                       </div>
-                      <div className="text-black text-opacity-60 text-xl font-normal font-poppins">x{quantity}</div>
-                      <div className="text-right text-zinc-800 text-xl font-semibold font-poppins">Rp {formatToIDR(totalPrice)}</div>
+                      <div className="text-black text-opacity-60 text-sm md:text-xl font-normal font-poppins">x{quantity}</div>
+                      <div className="text-right text-zinc-800 md:text-xl font-semibold font-poppins text-sm">Rp {formatToIDR(totalPrice)}</div>
                     </div>
                   ))}
                   <div className="self-stretch" />
                   <div className="self-stretch h-[0px] border border-black border-opacity-10"></div>
                   <div className="self-stretch justify-between items-center inline-flex">
-                    <div className="text-black text-xl font-normal font-poppins">Total</div>
-                    <div className="text-right text-zinc-800 text-2xl font-semibold font-poppins">Rp {formatToIDR(finalOrder.total)}</div>
+                    <div className="text-black md:text-xl text-md font-normal font-poppins">Total</div>
+                    <div className="text-right text-zinc-800 text-lg md:text-2xl font-semibold font-poppins">Rp {formatToIDR(finalOrder.total)}</div>
                   </div>
                 </div>
 
                 {finalOrder.total !== 0 && (
-                  <div onClick={clickProduct} className="self-stretch h-[60px] px-[54px] py-4 bg-sky-600 rounded-lg justify-center items-center gap-3 inline-flex">
-                    <div className="text-white text-base font-medium font-poppins">Lanjut Ke Pembayaran</div>
-                    <div className="w-6 h-6 relative origin-top-left -rotate-90" />
+                  <div onClick={clickProduct} className="self-stretch h-[60px] md:px-[54px] px-3 text-center bg-sky-600 rounded-lg justify-center items-center gap-3 inline-flex">
+                    <div className="text-white text-sm md:text-base font-medium font-poppins">Lanjut Ke Pembayaran</div>
                   </div>
                 )}
               </div>
@@ -362,7 +347,7 @@ function Cart() {
           </>
         ) : (
           <div className="flex-col justify-start items-center gap-[30px] flex">
-            <div className="text-center text-zinc-700 text-[46px] font-semibold font-poppins">Keranjang Kamu Kosong</div>
+            <div className="text-center text-zinc-700 md:text-[46px] font-semibold font-poppins text-2xl">Keranjang Kamu Kosong</div>
           </div>
         )}
       </section>

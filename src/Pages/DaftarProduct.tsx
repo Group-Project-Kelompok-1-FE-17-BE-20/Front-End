@@ -33,7 +33,6 @@ const DaftarProduct = () => {
     }).then((res) => {
       if (res.isConfirmed) {
         Cookies.remove("username");
-        window.location.reload();
       }
     });
   };
@@ -185,7 +184,7 @@ const DaftarProduct = () => {
   return (
     <>
       <div id="main" className="main h-screen w-screen bg-white overflow-y-scroll">
-        <div id="header" className="flex justify-between fixed z-10 w-screen items-center px-4 md:px-28 py-2 md:py-0 bg-white shadow-sm h-[13vh] md:h-[20vh]">
+        <div className="bg-white ease-in duration-1000 transition-all p-4 absolute md:top-[20vh] top-[12vh] right-[0rem] border-[1.2px] shadow-md w-[45vw] md:w-[20vw]">
           <h2 id="storeTitle" className="text-2xl md:block hidden md:text-4xl font-bold text-[#0396C7]">
             StoreID
           </h2>
@@ -204,7 +203,7 @@ const DaftarProduct = () => {
               </div>
 
               {username === "admin" && showHamMenu && (
-                <div id="adminMenu" className="bg-white ease-in duration-1000 transition-all p-4 absolute top-[20vh] right-[7rem] border-[1.2px] shadow-md w-[18vw]">
+                <div className="bg-white ease-in duration-1000 transition-all p-4 absolute md:top-[20vh] top-[12vh] right-[0rem] border-[1.2px] shadow-md w-[45vw] md:w-[20vw]">
                   <div className="flex flex-col items-center justify-center">
                     <div className="flex flex-col justify-center items-start w-full gap-3">
                       <button id="userListBtn" className="text-[#828282] hover:text-[#0396C7] flex  items-center gap-3 w-full">
@@ -240,7 +239,7 @@ const DaftarProduct = () => {
               )}
 
               {username !== "admin" && showHamMenu && (
-                <div className="bg-white ease-in duration-1000 transition-all p-4 absolute top-[20vh] right-[7rem] border-[1.2px] shadow-md w-[15vw]">
+                <div className="bg-white ease-in duration-1000 transition-all p-4 absolute md:top-[20vh] top-[12vh] right-[0rem] border-[1.2px] shadow-md w-[45vw] md:w-[20vw]">
                   <div className="flex flex-col items-center justify-center">
                     <div className="flex flex-col justify-center items-start w-full gap-3">
                       <button onClick={() => navigate("/profilsaya")} className="text-[#828282] hover:text-[#0396C7] flex  items-center gap-3 w-full">
@@ -343,9 +342,9 @@ const DaftarProduct = () => {
           </div>
         </div>
 
-        <div id="daftarProdukSection" className="flex flex-col justify-center items-center gap-3 lg:pt-[30vh] md:pt-[10vh] pt-[18vh] lg:h-[45vh] h-[40vh]">
+        <div id="daftarProdukSection" className="flex flex-col justify-center items-center gap-3 lg:pt-[30vh] md:pt-[10vh] pt-[13vh] lg:h-[45vh] h-[40vh]">
           <span className="font-semibold text-[#484848] text-2xl md:text-4xl font-Poppins">Daftar Produk</span>
-          <p className="tracking-wide md:w-[50vw] w-[100vw] px-3 text-center text-xs md:text-sm font-Poppins  text-[#8A8A8A]">
+          <p className="tracking-wide md:w-[50vw] w-[100vw] px-[30px] md:px-3 text-center text-xs md:text-sm font-Poppins  text-[#8A8A8A]">
             Menemukan pengalaman komputasi terbaik dengan koleksi laptop terbaru kami. Performa canggih dan desain yang elegan
           </p>
           <div className="lg:w-[50vw] md:[60vw] w-[90vw] grid grid-cols-4 mt-3 justify-center items-center md:gap-4 gap-2 text-[#828282]">

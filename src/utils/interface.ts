@@ -166,6 +166,7 @@ export interface FormDataObject {
   email: string;
   nomor_hp: string;
   password: string;
+  gambar?: string;
 }
 
 export interface FormDataProduct {
@@ -178,6 +179,7 @@ export interface FormDataProduct {
   ram: string;
   model: string;
   processor: string;
+  gambar?: string;
 }
 
 export interface FormDataShop {

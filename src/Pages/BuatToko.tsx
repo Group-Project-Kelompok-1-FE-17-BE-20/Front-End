@@ -41,12 +41,12 @@ const BuatToko: React.FC = () => {
     <div>
       <Header />
       <div>
-        <div className="px-3 md:px-24 sm:pt-40">
-          <h2 className="font-poppins text-3xl font-semibold leading-4 mb-4">Profil Saya</h2>
+        <div className="md:px-24 px-8 pt-40">
+          <h2 className="font-poppins md:text-3xl text-2xl font-semibold leading-4 mb-4">Profil Saya</h2>
           <nav className="flex mb-4 font-poppins " aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-3">
               <li className="inline-flex items-center">
-                <a className="inline-flex items-center text-xl font-medium text-gray-500 hover:text-gray-700">Kelola informasi profil toko Anda</a>
+                <a className="inline-flex items-center md:text-xl text-sm font-medium text-gray-500 hover:text-gray-700">Kelola informasi profil toko Anda</a>
               </li>
             </ol>
           </nav>

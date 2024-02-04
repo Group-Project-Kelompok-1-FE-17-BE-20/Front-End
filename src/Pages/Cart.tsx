@@ -262,8 +262,9 @@ function Cart() {
                         <img className="md:w-full h-full" src={gambar} />
                       </div>
                       <div className="grow shrink basis-0 h-[124px] justify-between items-center flex">
-                        <div className="h-[118px] flex-col justify-between items-start inline-flex">
-                          <div className="flex-col w-[40vw] justify-start items-start gap-0.5 flex">
+                        <div className="h-[118px]  flex-col justify-between items-start inline-flex">
+                          <div className="flex-col w-[40vw] md:w-[15vw] justify-start items-start gap-0.5 flex">
+                
                             <div className="text-zinc-800 text-sm font-medium font-poppins truncate w-52">{brand}</div>
                             <div className="text-zinc-800 text-xl font-semibold font-poppins">{model}</div>
                             <div className="flex-col justify-start items-start gap-1 flex">
@@ -275,6 +276,7 @@ function Cart() {
                           </div>
                           <div className="text-orange-400 text-md md:text-2xl font-semibold  font-poppins">Rp {formatToIDR(totalPrice)}</div>
                         </div>
+
                         <div className="md:w-[225px] w-full gap-5 md:h-[124px] flex-col justify-between items-end inline-flex">
                           <div className="h-6 justify-start items-start gap-4 inline-flex">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={() => deleteCartItem(productId)} className="cursor-pointer">

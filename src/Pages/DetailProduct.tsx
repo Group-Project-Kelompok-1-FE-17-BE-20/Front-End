@@ -23,7 +23,15 @@ const DetailProduct: FC = () => {
       const response = await axios.get(`https://altalaptop.shop/products/${id}`);
       const filteredData = response.data.data;
       setDetail(filteredData);
-    } catch (error) {}
+    } catch (error) {
+      Swal.fire({
+        title: "Gagal",
+        text: `Tidak ada data`,
+        icon: "error",
+        confirmButtonText: "OK",
+        confirmButtonColor: "rgb(3 150 199)",
+      });
+    }
   };
 
   const addCart = async (data: any) => {
@@ -94,6 +102,24 @@ const DetailProduct: FC = () => {
     }
   };
 
+  const addValue = () => {
+    setNumber((prev) => prev + 1);
+    setTimeout(() => {
+      if (number === detail?.stock) {
+        Swal.fire({
+          title: "Konfirmasi",
+          text: `Stock hanya segini`,
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "OK",
+          cancelButtonText: "No",
+          confirmButtonColor: "rgb(255 15 19)",
+        });
+        setNumber(detail.stock);
+      }
+    }, 0);
+  };
+
   useEffect(() => {
     showDetail();
   }, []);
@@ -116,27 +142,26 @@ const DetailProduct: FC = () => {
                 Ram {detail?.ram} | Storage {detail?.storage}
               </span>
               <span id="product-description" className="md:text-sm text-xs font-sans">
-                {detail?.description} with processor{" "}
+                {detail?.description} with processor
                 <span id="processor" className="font-semibold">
                   {detail?.processor}
                 </span>
               </span>
               <div id="separator" className="p-[0.5px] bg-slate-400 w-1/2 "></div>
               <div id="quantity-controls" className="flex gap-5">
-                <div id="quantity-selector" className="flex justify-center items-center  bg-slate-400 p-2 md:p-3 gap-8 rounded-md text-white">
+                <div id="quantity-selector" className="flex justify-center items-center p-3  bg-slate-400 md:p-3 gap-8 rounded-md text-white">
                   <span className="font-bold text-slate-50 text-xs lg:text-base cursor-pointer" onClick={() => setNumber((prev) => Math.max(prev - 1, 1))}>
                     -
                   </span>
                   <span id="quantity-display" className="font-bold text-slate-50 text-xs lg:text-base">
                     {number}
                   </span>
-                  <span className="font-bold text-slate-50 text-xs lg:text-base cursor-pointer" onClick={() => setNumber((prev) => prev + 1)}>
-                    {" "}
+                  <span className="font-bold text-slate-50 text-xs lg:text-base cursor-pointer" onClick={addValue}>
                     +
                   </span>
                 </div>
 
-                <button id="add-to-cart" onClick={clickProduct} className="lg:px-16 px-8 text-xs lg:text-base py-2 rounded-lg bg-[#0396C7] text-white w-f">
+                <button id="add-to-cart" onClick={clickProduct} className="lg:px-16 px-5 text-xs lg:text-base py-2 rounded-lg bg-[#0396C7] text-white w-f">
                   Masukan Keranjang
                 </button>
               </div>

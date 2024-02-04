@@ -59,7 +59,10 @@ const Header: FC = () => {
 
   return (
     <div className="flex justify-between  fixed z-10 w-screen items-center px-12 md:px-28 py-2 md:py-0 bg-white shadow-sm h-[12vh] md:h-[20vh]">
-      <h2 className="text-2xl md:text-4xl font-bold text-[#0396C7]">StoreID</h2>
+      <h2 onClick={() => navigate("/")} className="cursor-pointer text-2xl md:text-4xl font-bold text-[#0396C7]">
+        StoreID
+      </h2>
+
 
       <div className="flex items-center gap-2 md:gap-10">
         <div className="items-center justify-end gap-5 flex">
@@ -69,7 +72,7 @@ const Header: FC = () => {
             </p>
           )}
 
-          {username === "admin" ? (
+          {username === "admin" || username ? (
             ""
           ) : username ? (
             <svg onClick={() => navigate("/cart")} className="cursor-pointer" width="28" height="26" viewBox="0 0 28 26" fill="none" xmlns="http://www.w3.org/2000/svg">

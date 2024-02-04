@@ -184,8 +184,8 @@ const DaftarProduct = () => {
   return (
     <>
       <div id="main" className="main h-screen w-screen bg-white overflow-y-scroll">
-        <div className="bg-white ease-in duration-1000 transition-all p-4 absolute md:top-[20vh] top-[12vh] right-[0rem] border-[1.2px] shadow-md w-[45vw] md:w-[20vw]">
-          <h2 id="storeTitle" className="text-2xl md:block hidden md:text-4xl font-bold text-[#0396C7]">
+        <div id="header" className="flex justify-between fixed z-10 w-screen items-center px-4 md:px-28 py-2 md:py-0 bg-white shadow-sm h-[13vh] md:h-[20vh]">
+          <h2 onClick={() => navigate("/")} id="storeTitle" className="cursor-pointer text-2xl md:block hidden md:text-4xl font-bold text-[#0396C7]">
             StoreID
           </h2>
           <div id="menu" className="items-center justify-between gap-5 flex">
@@ -203,7 +203,7 @@ const DaftarProduct = () => {
               </div>
 
               {username === "admin" && showHamMenu && (
-                <div className="bg-white ease-in duration-1000 transition-all p-4 absolute md:top-[20vh] top-[12vh] right-[0rem] border-[1.2px] shadow-md w-[45vw] md:w-[20vw]">
+                <div className="bg-white ease-in duration-1000 transition-all p-4 absolute md:top-[20vh] top-[13vh] right-[0rem] border-[1.2px] shadow-md w-[45vw] md:w-[20vw]">
                   <div className="flex flex-col items-center justify-center">
                     <div className="flex flex-col justify-center items-start w-full gap-3">
                       <button id="userListBtn" className="text-[#828282] hover:text-[#0396C7] flex  items-center gap-3 w-full">
@@ -239,7 +239,7 @@ const DaftarProduct = () => {
               )}
 
               {username !== "admin" && showHamMenu && (
-                <div className="bg-white ease-in duration-1000 transition-all p-4 absolute md:top-[20vh] top-[12vh] right-[0rem] border-[1.2px] shadow-md w-[45vw] md:w-[20vw]">
+                <div className="bg-white ease-in duration-1000 transition-all p-4 absolute md:top-[20vh] top-[13vh] right-[0rem] border-[1.2px] shadow-md w-[45vw] md:w-[20vw]">
                   <div className="flex flex-col items-center justify-center">
                     <div className="flex flex-col justify-center items-start w-full gap-3">
                       <button onClick={() => navigate("/profilsaya")} className="text-[#828282] hover:text-[#0396C7] flex  items-center gap-3 w-full">
@@ -306,7 +306,7 @@ const DaftarProduct = () => {
             </div>
 
             {username ? (
-              <svg id="cartIcon" onClick={() => navigate("/cart")} width="28" height="26" viewBox="0 0 28 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg id="cartIcon" className="cursor-pointer" onClick={() => navigate("/cart")} width="28" height="26" viewBox="0 0 28 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M11.7188 23.3125C11.7188 23.7761 11.5813 24.2292 11.3238 24.6146C11.0662 25 10.7002 25.3004 10.2719 25.4778C9.84365 25.6552 9.3724 25.7017 8.91776 25.6112C8.46311 25.5208 8.0455 25.2976 7.71772 24.9698C7.38994 24.642 7.16672 24.2244 7.07628 23.7697C6.98585 23.3151 7.03226 22.8438 7.20966 22.4156C7.38705 21.9873 7.68746 21.6213 8.07288 21.3637C8.45831 21.1062 8.91145 20.9688 9.375 20.9688C9.9966 20.9688 10.5927 21.2157 11.0323 21.6552C11.4718 22.0948 11.7188 22.6909 11.7188 23.3125ZM21.5625 20.9688C21.0989 20.9688 20.6458 21.1062 20.2604 21.3637C19.875 21.6213 19.5746 21.9873 19.3972 22.4156C19.2198 22.8438 19.1733 23.3151 19.2638 23.7697C19.3542 24.2244 19.5774 24.642 19.9052 24.9698C20.233 25.2976 20.6506 25.5208 21.1053 25.6112C21.5599 25.7017 22.0312 25.6552 22.4594 25.4778C22.8877 25.3004 23.2537 25 23.5113 24.6146C23.7688 24.2292 23.9062 23.7761 23.9062 23.3125C23.9062 22.6909 23.6593 22.0948 23.2198 21.6552C22.7802 21.2157 22.1841 20.9688 21.5625 20.9688ZM27.5941 6.85117L24.3961 17.2457C24.1919 17.9179 23.7764 18.5064 23.2113 18.9237C22.6462 19.3411 21.9615 19.5651 21.259 19.5625H9.71836C9.00575 19.5602 8.31308 19.327 7.74413 18.8979C7.17518 18.4688 6.7606 17.8669 6.5625 17.1824L2.55586 3.15625H1.40625C1.03329 3.15625 0.675604 3.00809 0.411881 2.74437C0.148158 2.48065 0 2.12296 0 1.75C0 1.37704 0.148158 1.01935 0.411881 0.755631C0.675604 0.491908 1.03329 0.34375 1.40625 0.34375H2.90859C3.41759 0.345322 3.91235 0.511893 4.31866 0.818474C4.72497 1.12506 5.02092 1.55512 5.16211 2.04414L6.01641 5.03125H26.25C26.4701 5.03123 26.6871 5.08287 26.8836 5.18201C27.0801 5.28115 27.2505 5.42502 27.3813 5.60205C27.512 5.77908 27.5994 5.98432 27.6364 6.20128C27.6733 6.41823 27.6589 6.64083 27.5941 6.85117ZM24.3457 7.84375H6.81914L9.26719 16.4102C9.29522 16.5082 9.35442 16.5943 9.43584 16.6557C9.51725 16.717 9.61643 16.7501 9.71836 16.75H21.259C21.3593 16.7502 21.4571 16.7182 21.5379 16.6587C21.6186 16.5992 21.6782 16.5154 21.7078 16.4195L24.3457 7.84375Z"
                   fill="#0396C7"
@@ -342,7 +342,7 @@ const DaftarProduct = () => {
           </div>
         </div>
 
-        <div id="daftarProdukSection" className="flex flex-col justify-center items-center gap-3 lg:pt-[30vh] md:pt-[10vh] pt-[13vh] lg:h-[45vh] h-[40vh]">
+        <div id="daftarProdukSection" className="flex flex-col justify-center items-center gap-3 lg:pt-[30vh] md:pt-[10vh] pt-[20vh] lg:h-[45vh] h-[30vh]">
           <span className="font-semibold text-[#484848] text-2xl md:text-4xl font-Poppins">Daftar Produk</span>
           <p className="tracking-wide md:w-[50vw] w-[100vw] px-[30px] md:px-3 text-center text-xs md:text-sm font-Poppins  text-[#8A8A8A]">
             Menemukan pengalaman komputasi terbaik dengan koleksi laptop terbaru kami. Performa canggih dan desain yang elegan
@@ -363,7 +363,7 @@ const DaftarProduct = () => {
           </div>
         </div>
 
-        <div id="produkContent" className="content md:my-16 mt-2 pb-10 md:pb-0 flex flex-col justify-center items-center">
+        <div id="produkContent" className="content md:my-16 mt-14 pb-10 md:pb-0 flex flex-col justify-center items-center">
           <div className="grid lg:grid-cols-4 grid-cols-2 md:gap-8 gap-2 md:px-5  justify-center items-center w-[90vw]">
             {currentItems
               ? currentItems.map((item: any, id: any) => (

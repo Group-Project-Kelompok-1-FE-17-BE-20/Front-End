@@ -246,7 +246,7 @@ function myProfile(): JSX.Element {
   };
 
   return (
-    <section className="w-full lg:flex-1 px-[38px] py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8">
+    <section className="w-full lg:flex-1 px-3 py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8">
       <h2 className="font-poppins text-2xl font-semibold text-[#111827] mb-[12px]">Edit Profil</h2>
       <form onSubmit={handleSave}>
         <div className="container w-full h-[17vh] relative">
@@ -268,7 +268,6 @@ function myProfile(): JSX.Element {
                   }
                   alt="Selected"
                 />
-
               </div>
             )}
           </button>

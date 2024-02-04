@@ -247,16 +247,16 @@ function Cart() {
           </ol>
         </nav>
       </div>
-      <section className="py-[5rem] w-full mx-auto lg:flex-1 px-5 md:px-[38px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[1404px] mb-10 ">
+      <section className="py-[5rem] w-full mx-auto lg:flex-1 px-3 md:px-[38px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[1404px] mb-10 ">
         {cartItems.length > 0 ? (
           <>
             <div className="flex-col justify-start items-center gap-[30px] flex">
               <div className="text-center text-zinc-700 text-3xl lg:text-[46px] font-semibold font-poppins">Keranjang Kamu</div>
             </div>
             <div className="flex gap-7 w-full mt-10 flex-wrap lg:flex-nowrap">
-              <div className="md:w-full w-[80vw] min-w-0 xl:min-w-[715px] space-y-6">
+              <div className="md:w-full w-[100vw] min-w-0 xl:min-w-[715px] space-y-6">
                 {cartItems.map(({ productId, totalPrice, quantity, model, price, brand, gambar }, i) => (
-                  <div key={i} className="md:w-full w-[90vw]  grid h-[188px] md:px-6 md:py-5 px-2 py-2 bg-white rounded-[20px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex-col justify-start items-start gap-6 lg:inline-flex ">
+                  <div key={i} className="md:w-full w-full  grid h-[188px] md:px-6 md:py-5 px-2 py-2 bg-white rounded-[20px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex-col justify-start items-start gap-6 lg:inline-flex ">
                     <div className="self-stretch  justify-start items-center gap-4 inline-flex">
                       <div className="md:w-[124px] md:h-[124px] border-2 border-slate-300 overflow-hidden bg-zinc-100 rounded-lg justify-center items-center flex">
                         <img className="md:w-full h-full" src={gambar} />
@@ -264,13 +264,12 @@ function Cart() {
                       <div className="grow shrink basis-0 h-[124px] justify-between items-center flex">
                         <div className="h-[118px]  flex-col justify-between items-start inline-flex">
                           <div className="flex-col w-[40vw] md:w-[15vw] justify-start items-start gap-0.5 flex">
-                
                             <div className="text-zinc-800 text-sm font-medium font-poppins truncate w-52">{brand}</div>
                             <div className="text-zinc-800 text-xl font-semibold font-poppins">{model}</div>
                             <div className="flex-col justify-start items-start gap-1 flex">
                               <div>
-                                <span className="text-black text-sm font-normal font-poppins">Harga Satuan : </span>
-                                <span className="text-black text-opacity-60 text-sm font-normal font-poppins">Rp {formatToIDR(price)}</span>
+                                <span className="text-black text-sm font-normal font-poppins">Satuan : </span>
+                                <span className="text-black text-opacity-60 text-xs font-normal font-poppins">Rp {formatToIDR(price)}</span>
                               </div>
                             </div>
                           </div>

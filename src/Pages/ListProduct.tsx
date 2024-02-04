@@ -71,7 +71,7 @@ const ListProduct = () => {
   return (
     <>
       <div id="main-container" className="flex flex-col pt-12 gap-8 font-Poppins">
-        <div id="header-info" className="flex flex-col px-10 md:px-20">
+        <div id="header-info" className="flex flex-col px-6 md:px-20">
           <span id="header-title" className="md:text-3xl text-2xl md:text-left text-center font-Poppins">
             Produk Toko Saya
           </span>

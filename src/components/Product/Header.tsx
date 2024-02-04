@@ -58,7 +58,7 @@ const Header: FC = () => {
   }, []);
 
   return (
-    <div className="flex justify-between  fixed z-10 w-screen items-center px-12 md:px-28 py-2 md:py-0 bg-white shadow-sm h-[20vh]">
+    <div className="flex justify-between  fixed z-10 w-screen items-center px-12 md:px-28 py-2 md:py-0 bg-white shadow-sm h-[12vh] md:h-[20vh]">
       <h2 className="text-2xl md:text-4xl font-bold text-[#0396C7]">StoreID</h2>
 
       <div className="flex items-center gap-2 md:gap-10">
@@ -86,7 +86,7 @@ const Header: FC = () => {
         </div>
 
         {username === "admin" && showHamMenu && (
-          <div className="bg-white ease-in duration-1000 transition-all p-4 absolute top-[20vh] right-[7rem] border-[1.2px] shadow-md w-[18vw]">
+          <div className="bg-white ease-in duration-1000 transition-all p-4 absolute md:top-[20vh] top-[12vh] right-[0rem] border-[1.2px] shadow-md w-[45vw] md:w-[20vw]">
             <div className="flex flex-col items-center justify-center">
               <div className="flex flex-col justify-center items-start w-full gap-3">
                 <button onClick={() => navigate("/daftar-users")} className="text-[#828282] hover:text-[#0396C7] flex  items-center gap-3 w-full">
@@ -128,7 +128,7 @@ const Header: FC = () => {
         )}
 
         {username !== "admin" && showHamMenu && (
-          <div className="bg-white ease-in duration-1000 transition-all p-4 absolute top-[20vh] right-[7rem] border-[1.2px] shadow-md w-[15vw]">
+          <div className="bg-white ease-in duration-1000 transition-all p-4 absolute md:top-[20vh] top-[12vh] right-[0rem] border-[1.2px] shadow-md w-[45vw] md:w-[20vw]">
             <div className="flex flex-col items-center justify-center">
               <div className="flex flex-col justify-center items-start w-full gap-3">
                 <button onClick={() => navigate("/profilsaya")} className="text-[#828282] hover:text-[#0396C7] flex  items-center gap-3 w-full">

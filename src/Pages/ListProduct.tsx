@@ -48,7 +48,6 @@ const ListProduct = () => {
               confirmButtonText: "OK",
               confirmButtonColor: "rgb(255 10 10)",
             });
-            window.location.reload();
           });
       }
     });
@@ -72,11 +71,11 @@ const ListProduct = () => {
   return (
     <>
       <div id="main-container" className="flex flex-col pt-12 gap-8 font-Poppins">
-        <div id="header-info" className="flex flex-col px-20">
+        <div id="header-info" className="flex flex-col px-10 md:px-20">
           <span id="header-title" className="md:text-3xl text-2xl md:text-left text-center font-Poppins">
-            Produk Toko Saya{" "}
+            Produk Toko Saya
           </span>
-          <span id="header-description" className="text-[#828282] text-xs md:text-base">
+          <span id="header-description" className="text-[#828282] text-xs md:text-base md:text-left text-center">
             Lihat informasi mengenai produk saya
           </span>
         </div>

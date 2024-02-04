@@ -56,12 +56,12 @@ function UserProfile() {
     <div>
       <Header />
       <div>
-        <div className="px-3 md:px-24 sm:pt-40">
-          <h2 className="font-poppins text-3xl font-semibold leading-4 mb-4">Profil Saya</h2>
+        <div className=" md:px-24 px-8 pt-40">
+          <h2 className="font-poppins text-2xl md:text-3xl font-semibold leading-4 mb-4">Profil Saya</h2>
           <nav className="flex mb-4 font-poppins " aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-3">
               <li className="inline-flex items-center">
-                <a className="inline-flex items-center text-xl font-medium text-gray-500 hover:text-gray-700">Kelola informasi profil Anda untuk mengontrol, melindungi dan mengamankan akun</a>
+                <a className="inline-flex items-center text-sm md:text-xl font-medium text-gray-500 hover:text-gray-700 md:w-auto w-10/12">Kelola informasi profil Anda untuk mengontrol, melindungi dan mengamankan akun</a>
               </li>
             </ol>
           </nav>
@@ -106,6 +106,7 @@ function myProfile(): JSX.Element {
     email: "",
     nomor_hp: "",
     password: "",
+    gambar: "",
   });
   console.log(uploadedImageUrl);
 
@@ -126,6 +127,7 @@ function myProfile(): JSX.Element {
         email: data.email,
         nomor_hp: data.nomor_hp,
         password: data.password,
+        gambar: data.image_profil,
       });
       if (data.image_profil) {
         setUploadedImageUrl(data.image_profil);
@@ -178,9 +180,13 @@ function myProfile(): JSX.Element {
       });
 
       const update = response.data.data.username;
+      const gambar = response.data.data.image_profil;
+      console.log(gambar);
       Cookies.remove("username");
-      window.location.reload();
+      Cookies.remove("gambar");
       Cookies.set("username", update);
+      Cookies.set("gambar", gambar);
+      navigate("/profilsaya");
     } catch (error) {
       console.error("Error: ", error);
     }
@@ -247,9 +253,13 @@ function myProfile(): JSX.Element {
           <img src={bgUserCover} className="h-full w-full" alt="bgCover" />
 
           <button className="bg-blue-300 p-1 w-14 h-14 rounded-full overflow-hidden absolute top-[2rem] ml-3" onClick={() => document.getElementById("uploadInput")?.click()}>
-            {selectedImage && (
+            {selectedImage ? (
               <div>
                 <img className="w-[50px] h-[50px]  top-5" src={URL.createObjectURL(selectedImage)} alt="Selected" />
+              </div>
+            ) : (
+              <div>
+                <img className="w-[50px] h-[50px]  top-5" src={formData.gambar} alt="Selected" />
               </div>
             )}
           </button>

@@ -118,6 +118,7 @@ function myProfile(): JSX.Element {
     ram: "",
     model: "",
     processor: "",
+    gambar: "",
   });
   console.log(uploadedImageUrl);
 
@@ -185,13 +186,12 @@ function myProfile(): JSX.Element {
   const getProfile = async () => {
     const authToken = Cookies.get("authToken");
     try {
-      const response = await axios.get("https://altalaptop.shop/products/4", {
+      const response = await axios.get(`https://altalaptop.shop/products/${id}`, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
       });
       const data = response.data.data;
-      console.log(data);
       setformData({
         brand: data.brand,
         price: data.price,
@@ -202,6 +202,7 @@ function myProfile(): JSX.Element {
         ram: data.ram,
         model: data.model,
         processor: data.processor,
+        gambar: data.gambar,
       });
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -237,9 +238,13 @@ function myProfile(): JSX.Element {
           <img src={bgUserCover} className="h-full w-full" alt="bgCover" />
 
           <button className="bg-blue-300 p-1 w-14 h-14 rounded-full overflow-hidden absolute top-[2rem] ml-3" onClick={() => document.getElementById("uploadInput")?.click()}>
-            {selectedImage && (
+            {selectedImage ? (
               <div>
                 <img className="w-[50px] h-[50px]  top-5" src={URL.createObjectURL(selectedImage)} alt="Selected" />
+              </div>
+            ) : (
+              <div>
+                <img className="w-[50px] h-[50px]  top-5" src={formData.gambar} alt="Selected" />
               </div>
             )}
           </button>

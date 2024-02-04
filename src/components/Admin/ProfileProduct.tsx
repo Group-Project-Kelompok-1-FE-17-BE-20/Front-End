@@ -24,10 +24,10 @@ const ProfileProduct: FC<typeLaptopDetail> = (props: typeLaptopDetail) => {
           <NumberFormatter value={price} />
         </span>
         <div className="flex items-center gap-5 mt-2">
-          <button onClick={hapus} className="px-3 py-2 bg-blue-400 rounded-md  text-white">
+          <button onClick={hapus} className="md:px-3 md:py-2 p-2 text-sm md:text-base bg-red-400 rounded-md  text-white">
             Hapus
           </button>
-          <button onClick={ubah} className="px-3 py-2  bg-orange-400 rounded-md text-white">
+          <button onClick={ubah} className="md:px-3 md:py-2 p-2 text-sm md:text-base bg-orange-400 rounded-md text-white">
             Ubah
           </button>
         </div>

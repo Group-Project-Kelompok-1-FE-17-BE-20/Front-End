@@ -56,17 +56,20 @@ function UserProfile(props: any) {
     <div>
       {!hidden ? "" : <Header />}
       <div>
-        <div className="px-3 md:px-10 sm:pt-16">
-          <h2 className="font-poppins text-3xl font-semibold leading-4 mb-4">Produk Saya</h2>
-          <nav className="flex mb-4 font-poppins " aria-label="Breadcrumb">
-            <ol className="inline-flex items-center space-x-1 md:space-x-3">
-              <li className="inline-flex items-center">
-                <a href="#" className="inline-flex items-center text-xl font-medium text-gray-500 hover:text-gray-700">
-                  Menambah produk yang ingin dipasarkan
-                </a>
-              </li>
-            </ol>
-          </nav>
+        <div className="px-0 md:px-10 pt-16">
+          <div className="px-5">
+            <h2 className="font-poppins md:text-3xl text-2xl font-semibold leading-4 mb-4">Produk Saya</h2>
+            <nav className="flex mb-4 font-poppins " aria-label="Breadcrumb">
+              <ol className="inline-flex items-center space-x-1 md:space-x-3">
+                <li className="inline-flex items-center">
+                  <a href="#" className="inline-flex items-center text-sm md:text-xl font-medium text-gray-500 hover:text-gray-700">
+                    Menambah produk yang ingin dipasarkan
+                  </a>
+                </li>
+              </ol>
+            </nav>
+          </div>
+
           <div className="flex flex-col lg:flex-row gap-12 mt-7">
             {!hidden ? (
               ""
@@ -195,8 +198,8 @@ function myProfile(): JSX.Element {
   };
 
   return (
-    <section className="w-full lg:flex-1 px-[38px] py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8">
-      <h2 className="font-poppins text-2xl font-semibold text-[#111827] mb-[12px]">Tambah Produk</h2>
+    <section className="w-full lg:flex-1 px-3 md:px-[38px] py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8">
+      <h2 className="font-poppins text-md md:text-2xl font-semibold text-[#111827] mb-[12px]">Tambah Produk</h2>
       <form onSubmit={handleSave}>
         <div className="container w-full h-[17vh] relative">
           <img src={bgUserCover} className="h-full w-full" alt="bgCover" />

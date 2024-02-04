@@ -268,6 +268,7 @@ function myProfile(): JSX.Element {
                   }
                   alt="Selected"
                 />
+
               </div>
             )}
           </button>

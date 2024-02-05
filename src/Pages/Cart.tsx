@@ -247,10 +247,10 @@ function Cart() {
           </ol>
         </nav>
       </div>
-      <section className="py-[5rem] w-full mx-auto lg:flex-1 px-3 md:px-[38px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[1404px] mb-10 ">
+      <section className="py-[5rem] w-full mx-auto lg:flex-1 px-3 md:px-[38px]  rounded-md max-w-none lg:max-w-[1404px] mb-10 ">
         {cartItems.length > 0 ? (
           <>
-            <div className="flex-col justify-start items-center gap-[30px] flex">
+            <div className="flex-col justify-start items-center gap-[30px] flex md:pt-10 ">
               <div className="text-center text-zinc-700 text-3xl lg:text-[46px] font-semibold font-poppins">Keranjang Kamu</div>
             </div>
             <div className="flex gap-7 w-full mt-10 flex-wrap lg:flex-nowrap">
@@ -258,12 +258,12 @@ function Cart() {
                 {cartItems.map(({ productId, totalPrice, quantity, model, price, brand, gambar }, i) => (
                   <div key={i} className="md:w-full w-full  grid h-[188px] md:px-6 md:py-5 px-2 py-2 bg-white rounded-[20px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex-col justify-start items-start gap-6 lg:inline-flex ">
                     <div className="self-stretch  justify-start items-center gap-4 inline-flex">
-                      <div className="md:w-[124px] md:h-[124px] border-2 border-slate-300 overflow-hidden bg-zinc-100 rounded-lg justify-center items-center flex">
-                        <img className="md:w-full h-full" src={gambar} />
-                      </div>
                       <div className="grow shrink basis-0 h-[124px] justify-between items-center flex">
+                        <div className="md:w-[124px] md:h-[124px] border-2 border-slate-300 overflow-hidden bg-zinc-100 rounded-lg justify-center items-center flex">
+                          <img className="md:w-full h-full" src={gambar} />
+                        </div>
                         <div className="h-[118px]  flex-col justify-between items-start inline-flex">
-                          <div className="flex-col w-[40vw] md:w-[15vw] justify-start items-start gap-0.5 flex">
+                          <div className="flex-col w-[40vw] md:ml-0 ml-5 md:w-[20vw] justify-start items-start gap-0.5 flex">
                             <div className="text-zinc-800 text-sm font-medium font-poppins truncate w-52">{brand}</div>
                             <div className="text-zinc-800 text-xl font-semibold font-poppins">{model}</div>
                             <div className="flex-col justify-start items-start gap-1 flex">
@@ -273,10 +273,10 @@ function Cart() {
                               </div>
                             </div>
                           </div>
-                          <div className="text-orange-400 text-md md:text-2xl font-semibold  font-poppins">Rp {formatToIDR(totalPrice)}</div>
+                          <div className="text-orange-400 text-md md:text-2xl font-semibold md:ml-0 ml-5 font-poppins">Rp {formatToIDR(totalPrice)}</div>
                         </div>
 
-                        <div className="md:w-[225px] w-full gap-5 md:h-[124px] flex-col justify-between items-end inline-flex">
+                        <div className="md:w-[225px] w-full gap-5 md:h-[124px] flex-col justify-between items-end  inline-flex">
                           <div className="h-6 justify-start items-start gap-4 inline-flex">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={() => deleteCartItem(productId)} className="cursor-pointer">
                               <path

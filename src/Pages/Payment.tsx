@@ -10,14 +10,18 @@ import NumberFormatter from "../components/NumberFormatter";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import { formatTime } from "../utils/functions";
 
 const Payment: FC = () => {
   const username = Cookies.get("username");
+  const navigate = useNavigate();
   const [showPayment, setShow] = useState<Boolean>(false);
   const [showPopup, setShowPopup] = useState<Boolean>(false);
   const [items, setItems] = useState([]);
-  const [popupTimer, setPopupTimer] = useState<NodeJS.Timeout | null>(null);
+  const [popupTimer, setPopupTimer] = useState<number>(2 * 60 * 60 * 1000); // Initial timer value in milliseconds  console.log(popupTimer);
   const authToken = Cookies.get("authToken");
+  const [statusPayment, setPayment] = useState<string>("");
   const [showData, setShowData] = useState<showPayment>({
     nama_lengkap: "",
     alamat: "",
@@ -34,6 +38,11 @@ const Payment: FC = () => {
 
   const changeShow = () => {
     setShow(!showPayment);
+  };
+
+  const closePopup = () => {
+    setShowPopup(!showPopup);
+    navigate("/");
   };
 
   const handleChange = (e: any) => {
@@ -78,8 +87,16 @@ const Payment: FC = () => {
             });
             setShowPopup(!showPopup);
           })
-          .catch((error) => {
-            console.error("Error:", error);
+          .catch(() => {
+            Swal.fire({
+              title: "Gagal",
+              text: `Pembayaran sebelumnya belum selesai `,
+              icon: "error",
+              showCancelButton: true,
+              confirmButtonText: "OK",
+              cancelButtonText: "NO",
+              confirmButtonColor: "rgb(3 150 199)",
+            });
           });
       }
       if (popupTimer) {
@@ -88,22 +105,47 @@ const Payment: FC = () => {
     });
   };
 
+  const checkPaymentStatus = (data: any) => {
+    if (data === "settlement") {
+      setTimeout(() => {
+        setShowPopup(false);
+        navigate("/detailtransaksi");
+      }, 5000);
+    } else {
+      Swal.fire({
+        title: "Error",
+        text: "Pembayaran anda Gagal. Silakan coba lagi nanti.",
+        icon: "error",
+      });
+      navigate("/");
+    }
+  };
+
   useEffect(() => {
-    // Start the timer when the component mounts
-    const timer = setTimeout(() => {
-      setShowPopup(false);
-    }, 2 * 60 * 60 * 1000); // 2 hours in milliseconds
+    axios
+      .get(`https://altalaptop.shop/orders-history`, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      })
+      .then((response) => {
+        setPayment(response.data.data[0].transaction_status);
+      });
 
-    // Save the timer in state to clear it later
-    setPopupTimer(timer);
+    if (showPopup) {
+      checkPaymentStatus(statusPayment);
+    }
+  }, [statusPayment, popupTimer]);
 
-    // Clear the timer when the component unmounts
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setPopupTimer((prev) => prev - 1000);
+    }, 1000);
+
     return () => {
-      if (popupTimer) {
-        clearTimeout(popupTimer);
-      }
+      clearInterval(timer);
     };
-  }, [showPopup]); // Rerun the effect when showPopup changes
+  }, [popupTimer]);
 
   useEffect(() => {
     const finalOrder = location.state?.finalOrder;
@@ -210,8 +252,9 @@ const Payment: FC = () => {
                 </span>
               </p>
               <div className="mb-4 bg-orange-200 p-3 rounded text-lg font-bold">kode VA : {showData.va_number}</div>
+              <p className="my-2 text-sm flex justify-end">Waktu Tersisa: {formatTime(popupTimer)}</p>
               <div className="flex gap-3">
-                <button className="bg-gray-500 text-white px-4 py-2 mt-5 rounded hover:bg-gray-600" onClick={() => setShowPopup(false)}>
+                <button className="bg-gray-500 text-white px-4 py-2 mt-5 rounded hover:bg-gray-600" onClick={closePopup}>
                   Tutup
                 </button>
               </div>

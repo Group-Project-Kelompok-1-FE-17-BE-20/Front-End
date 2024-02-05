@@ -70,18 +70,10 @@ const ListProduct = () => {
 
   return (
     <>
-      <div id="main-container" className="flex flex-col pt-12 gap-8 font-Poppins">
-        <div id="header-info" className="flex flex-col px-6 md:px-20">
-          <span id="header-title" className="md:text-3xl text-2xl md:text-left text-center font-Poppins">
-            Produk Toko Saya
-          </span>
-          <span id="header-description" className="text-[#828282] text-xs md:text-base md:text-left text-center">
-            Lihat informasi mengenai produk saya
-          </span>
-        </div>
-
+      <div id="main-container" className="flex flex-col py-5  font-Poppins">
+        <h2 className="font-poppins text-xl md:text-2xl font-semibold text-[#111827] mb-[12px] ml-5">Daftar Produk</h2>
         <div id="users-container" className="flex justify-center items-center">
-          <div id="users-list" className="flex flex-col lg:h-[60vh] h-[35vh] gap-5 mb-20 border-2 border-slate-50 p-2 md:p-5 overflow-y-scroll w-[90vw]">
+          <div id="users-list" className="flex flex-col lg:h-[80vh] h-[55vh] gap-5  border-2 border-slate-50 p-2 md:p-5 overflow-y-scroll w-[95vw] md:w-[90vw]">
             {dataUser &&
               dataUser.data &&
               dataUser.data.length > 0 &&

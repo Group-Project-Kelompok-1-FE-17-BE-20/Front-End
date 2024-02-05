@@ -56,31 +56,17 @@ function UserProfile(props: any) {
     <div>
       {!hidden ? "" : <Header />}
       <div>
-        <div className="px-0 md:px-10 pt-16">
-          <div className="px-5">
-            <h2 className="font-poppins md:text-3xl text-2xl font-semibold leading-4 mb-4">Produk Saya</h2>
-            <nav className="flex mb-4 font-poppins " aria-label="Breadcrumb">
-              <ol className="inline-flex items-center space-x-1 md:space-x-3">
-                <li className="inline-flex items-center">
-                  <a href="#" className="inline-flex items-center text-sm md:text-xl font-medium text-gray-500 hover:text-gray-700">
-                    Menambah produk yang ingin dipasarkan
-                  </a>
-                </li>
-              </ol>
-            </nav>
-          </div>
-
-          <div className="flex flex-col lg:flex-row gap-12 mt-7">
+        <div>
+          <div className="flex flex-col lg:flex-row gap-12 ">
             {!hidden ? (
               ""
             ) : (
               <aside className="w-full lg:w-1/5 px-4 py-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md min-w-[309px] max-w-none lg:max-w-[309px] h-min">
                 <ul className="space-y-4 lg:space-y-10">
-                  {myProfiles.map(({ svg, title, subtitle, id }) => (
+                  {myProfiles.map(({ svg, subtitle, id }) => (
                     <li key={id} className={`${activeUser === id ? "bg-[#0396C7]" : "bg-[#D0E9FEB2]"} rounded-md flex px-3 py-2 items-center gap-3 cursor-pointer`} onClick={() => handleMenuProfileClick(id)}>
                       <div className={`${activeUser === id ? "bg-white" : "bg-[#0396C7]"} p-2 rounded-full`}>{svg}</div>
                       <div className="flex flex-col">
-                        <h4 className={`${activeUser === id ? "text-white" : "text-[#0396C7]"} font-poppins font-medium text-sm`}>{title}</h4>
                         <p className={`${activeUser === id ? "text-white" : "text-[#0396C7]"} font-poppins font-normal text-[10px]`}>{subtitle}</p>
                       </div>
                     </li>
@@ -198,7 +184,7 @@ function myProfile(): JSX.Element {
   };
 
   return (
-    <section className="w-full lg:flex-1 px-3 md:px-[38px] py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8">
+    <section className="w-full lg:flex-1 px-3 md:px-[38px] py-[15px] h-full shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8">
       <h2 className="font-poppins text-md md:text-2xl font-semibold text-[#111827] mb-[12px]">Tambah Produk</h2>
       <form onSubmit={handleSave}>
         <div className="container w-full h-[17vh] relative">

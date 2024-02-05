@@ -108,7 +108,8 @@ function myProfile(): JSX.Element {
     password: "",
     gambar: "",
   });
-  console.log(uploadedImageUrl);
+
+  uploadedImageUrl ? uploadedImageUrl : "";
 
   const getProfile = async () => {
     const authToken = Cookies.get("authToken");
@@ -119,7 +120,6 @@ function myProfile(): JSX.Element {
         },
       });
       const data = response.data.data;
-      console.log(data);
       setformData({
         nama_lengkap: data.nama_lengkap,
         username: data.username,
@@ -181,7 +181,6 @@ function myProfile(): JSX.Element {
 
       const update = response.data.data.username;
       const gambar = response.data.data.image_profil;
-      console.log(gambar);
       Cookies.remove("username");
       Cookies.remove("gambar");
       Cookies.set("username", update);
@@ -195,9 +194,8 @@ function myProfile(): JSX.Element {
   const handleHapus = async (e: any) => {
     e.preventDefault();
     const authToken = Cookies.get("authToken");
-    console.log(authToken);
     try {
-      const response = await axios.delete("https://altalaptop.shop/users", {
+      await axios.delete("https://altalaptop.shop/users", {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -213,7 +211,6 @@ function myProfile(): JSX.Element {
       }).then((res) => {
         if (res) {
           Cookies.remove("username");
-          console.log(response);
           navigate("/");
         }
       });

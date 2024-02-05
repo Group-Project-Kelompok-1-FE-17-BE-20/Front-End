@@ -108,11 +108,7 @@ const ProfileToko: React.FC = () => {
 };
 
 const MyProducts: React.FC = () => {
-  return (
-    <section className="w-full lg:flex-1 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none  mb-8">
-      <CreateProduct hidden={false} />
-    </section>
-  );
+  return <CreateProduct hidden={false} />;
 };
 
 const ListProducts: React.FC = () => {

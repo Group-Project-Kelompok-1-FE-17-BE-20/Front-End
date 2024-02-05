@@ -85,8 +85,8 @@ const Card: FC<productDataType> = (props: productDataType) => {
 
   return (
     <>
-      <div id={`card-${id}`} className="flex flex-col justify-center items-start shadow-md border-2  border-b-zinc-600 rounded-md md:p-5 p-2 font-Poppins gap-2">
-        <img id={`image-${id}`} src={`${gambar ? gambar : `https://via.placeholder.com/250`}`} alt="" className="h-full rounded-md" />
+      <div id={`card-${id}`} className="flex flex-col justify-center items-start shadow-md border-2  border-b-zinc-600 rounded-md md:p-5 p-3 font-Poppins gap-2">
+        <img id={`image-${id}`} src={`${gambar ? gambar : `https://via.placeholder.com/250`}`} alt="image" width={"200px"} className="h-full rounded-md" />
         <span id={`model-${id}`} className="font-bold text-sm font-Poppins">{`${brand} ${model}`}</span>
         <span id={`details-${id}`} className="text-xs">{`${processor} ${ram} ${storage} `}</span>
         <NumberFormatter value={price} />

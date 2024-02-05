@@ -33,6 +33,7 @@ const DaftarProduct = () => {
     }).then((res) => {
       if (res.isConfirmed) {
         Cookies.remove("username");
+        navigate("/login");
       }
     });
   };
@@ -343,8 +344,8 @@ const DaftarProduct = () => {
         </div>
 
         <div id="daftarProdukSection" className="flex flex-col justify-center items-center gap-3 lg:pt-[30vh] md:pt-[10vh] pt-[25vh] lg:h-[45vh] h-[30vh]">
-          <span className="font-semibold text-[#484848] text-2xl md:text-4xl font-Poppins">Daftar Produk</span>
-          <p className="tracking-wide md:w-[50vw] w-[100vw] px-[30px] md:px-3 text-center text-xs md:text-sm font-Poppins  text-[#8A8A8A]">
+          <span className="font-semibold text-[#484848] text-3xl md:text-4xl font-Poppins">Daftar Produk</span>
+          <p className="md:tracking-wide -tracking-normal md:w-[50vw] w-[100vw] px-[30px] md:px-3 text-center text-xs md:text-sm font-Poppins  text-[#8A8A8A]">
             Menemukan pengalaman komputasi terbaik dengan koleksi laptop terbaru kami. Performa canggih dan desain yang elegan
           </p>
           <div className="lg:w-[50vw] md:[60vw] w-[90vw] grid grid-cols-4 mt-3 justify-center items-center md:gap-4 gap-2 text-[#828282]">
@@ -364,7 +365,7 @@ const DaftarProduct = () => {
         </div>
 
         <div id="produkContent" className="content md:my-16 mt-20 pb-10 md:pb-0 flex flex-col justify-center items-center">
-          <div className="grid lg:grid-cols-4 grid-cols-2 md:gap-8 gap-2 md:px-5  justify-center items-center w-[90vw]">
+          <div className="grid lg:grid-cols-4 grid-cols-2 md:gap-8 gap-3 md:px-5 w-screen px-5 justify-center items-center md:w-[90vw]">
             {currentItems
               ? currentItems.map((item: any, id: any) => (
                   <Card

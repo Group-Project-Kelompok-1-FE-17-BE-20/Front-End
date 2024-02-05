@@ -97,7 +97,7 @@ function UserProfile(props: any) {
 
 function orderHistory() {
   return (
-    <section className="w-full lg:flex-1 px-[8px] py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8">
+    <section className="w-full lg:flex-1  shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] ">
       <RiwayatPesanan />
     </section>
   );

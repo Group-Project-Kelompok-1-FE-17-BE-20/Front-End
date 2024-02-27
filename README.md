@@ -45,33 +45,12 @@ StoreID adalah aplikasi yang dirancang untuk memudahkan pengguna dalam mencari d
 
  
  
- ## 🧰 Installation
-Follow these steps to install and set up the ProdukKita API:
-1. **Clone the repository:**
-
-   ```bash
-   git clone https://github.com/Produk-Kita/ProdukKita-FE.git
-   
-2. **Move to Cloned Repository Folder**
-
-    ```bash
-    cd ProdukKita-FE
-    
-3. **Update dependecies**
-    
-    ```bash
-    npm install
-
-7. **Run ProdukKita** 
-8. 
-    ```bash
-    npm run dev
 
 ## 🤖 Author
 
 - **Inas Latifah** - FE 17 ALTA
-  - [Github](https://github.com/alimprasetyo77)
+  - [Github](https://github.com/inaslathifah)
 - **Bachtiar Putera Alamsyah** - FE 17 ALTA
-  - [Github](https://github.com/alimprasetyo77)
+  - [Github](https://github.com/BachtiaraPutera10)
 - **Irsan Jamaludin** - FE 17 ALTA
   - [Github](https://github.com/IrsanJam)

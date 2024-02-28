@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { orders, typeLaptopDetail } from "../../utils/interface";
 import axios from "axios";
 import Cookies from "js-cookie";
 import ProfileHistory from "../../components/Admin/ProfileHistory";
+import { infoAlertFC } from "../../utils/functions";
 
 const HistoryOrderUser = () => {
   const authToken = Cookies.get("authToken");
@@ -19,11 +20,13 @@ const HistoryOrderUser = () => {
       });
       setDataUser(response.data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      infoAlertFC("Warning", "Anda Belum Punya Riwayat Order", "warning");
     }
   };
 
-  cekData();
+  useEffect(() => {
+    cekData();
+  }, []);
 
   return (
     <>

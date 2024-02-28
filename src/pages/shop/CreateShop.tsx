@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Product/Header";
+import { infoAlertFC } from "../../utils/functions";
 
 const CreateShop: React.FC = () => {
   const [activeShop, setActiveShop] = useState<string>("MyProfile");
@@ -92,17 +93,18 @@ const MyProfile: React.FC = () => {
           },
         }
       );
-      console.log(response);
-      Swal.fire({
-        title: "Confirmation",
-        text: `Berhasil Di Simpan`,
-        icon: "success",
-        confirmButtonText: "OK",
-        confirmButtonColor: "rgb(3 150 199)",
-      });
+      if (response) {
+        Swal.fire({
+          title: "Confirmation",
+          text: `Berhasil Di Simpan`,
+          icon: "success",
+          confirmButtonText: "OK",
+          confirmButtonColor: "rgb(3 150 199)",
+        });
+      }
       navigate("/my-profile");
     } catch (error) {
-      console.error("Error:", error);
+      infoAlertFC("Warning", "Gagal untuk mendapatkan data", "warning");
     }
   };
 

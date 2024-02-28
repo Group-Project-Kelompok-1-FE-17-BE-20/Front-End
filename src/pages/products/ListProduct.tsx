@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import ProfileProduct from "../../components/Admin/ProfileProduct";
+import { infoAlertFC } from "../../utils/functions";
 
 const ListProduct = () => {
   const authToken = Cookies.get("authToken");
@@ -62,7 +63,7 @@ const ListProduct = () => {
       });
       setDataUser(response.data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      infoAlertFC("Error", "Gagal mendapatkan data", "error");
     }
   };
 

@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { formatTime } from "../../utils/functions";
 import Header from "../../components/Product/Header";
 import Footer from "../../components/Footer";
+import { copyToClipboard } from "../../utils/functions";
 
 const Payment: FC = () => {
   const username = Cookies.get("username");
@@ -19,9 +20,8 @@ const Payment: FC = () => {
   const [showPayment, setShow] = useState<Boolean>(false);
   const [showPopup, setShowPopup] = useState<Boolean>(false);
   const [items, setItems] = useState([]);
-  const [popupTimer, setPopupTimer] = useState<number>(2 * 60 * 60 * 1000); // Initial timer value in milliseconds  console.log(popupTimer);
+  const [popupTimer, setPopupTimer] = useState<number>(24 * 60 * 60 * 1000);
   const authToken = Cookies.get("authToken");
-  const [statusPayment, setPayment] = useState<string>("");
   const [showData, setShowData] = useState<showPayment>({
     nama_lengkap: "",
     alamat: "",
@@ -104,41 +104,6 @@ const Payment: FC = () => {
       }
     });
   };
-
-  const checkPaymentStatus = (data: any) => {
-    if (data === "settlement") {
-      setTimeout(() => {
-        setShowPopup(false);
-        navigate("/detail-transaction");
-      }, 5000);
-    } else {
-      setTimeout(() => {
-        setShowPopup(false);
-        Swal.fire({
-          title: "Error",
-          text: "Pembayaran anda Gagal. Silakan coba lagi nanti.",
-          icon: "error",
-        });
-        navigate("/");
-      }, 1000);
-    }
-  };
-
-  useEffect(() => {
-    axios
-      .get(`https://altalaptop.shop/orders-history`, {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      })
-      .then((response) => {
-        setPayment(response.data.data[0].transaction_status);
-      });
-
-    if (showPopup) {
-      checkPaymentStatus(statusPayment);
-    }
-  }, [statusPayment, popupTimer]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -254,7 +219,10 @@ const Payment: FC = () => {
                   <NumberFormatter value={location.state.total} />
                 </span>
               </p>
-              <div className="mb-4 bg-orange-200 p-3 rounded text-lg font-bold">kode VA : {showData.va_number}</div>
+              <div className="mb-4 bg-orange-200 p-3 flex items-center justify-between rounded text-lg font-bold">
+                <span> Kode VA : {showData.va_number}</span>
+                <img className="cursor-pointer h-[20px] w-[20px]" width="24" height="24" src="https://img.icons8.com/material-sharp/24/copy.png" alt="copy" onClick={() => copyToClipboard(showData.va_number)} />
+              </div>
               <p className="my-2 text-sm flex justify-end"> Waktu Tersisa: {formatTime(popupTimer)}</p>
               <div className="flex gap-3">
                 <button className="bg-gray-500 text-white px-4 py-2 mt-5 rounded hover:bg-gray-600" onClick={closePopup}>

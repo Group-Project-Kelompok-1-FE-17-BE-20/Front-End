@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import Card from "../../components/Product/Card";
+import { infoAlertFC } from "../../utils/functions";
 
 const MainProduct = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -47,7 +48,6 @@ const MainProduct = () => {
   };
 
   const getProduct = async () => {
-    const authToken = Cookies.get("authToken");
     try {
       const response = await axios.get("https://altalaptop.shop/all-products", {
         headers: {
@@ -105,12 +105,12 @@ const MainProduct = () => {
             const searchData = searchQuery ? filteredData.filter((item: any) => item.model.toLowerCase().includes(searchQuery.toLowerCase()) || item.brand.toLowerCase().includes(searchQuery.toLowerCase())) : filteredData;
             setLapData((prev) => ({ ...prev, data: searchData }));
           } catch (error) {
-            console.log(error);
+            infoAlertFC("Error", "Gagal mendapatkan data", "error");
           }
         };
         product();
       } else {
-        console.log(error);
+        infoAlertFC("Error", "Gagal mendapatkan data", "error");
       }
     }
   };
@@ -405,7 +405,7 @@ const MainProduct = () => {
             </button>
 
             {Array.from({ length: totalPages }, (_, index) => (
-              <button className="p-3 bg-white" key={`pageBtn_${index}`} onClick={() => setCurrentPage(index + 1)} disabled={currentPage === index + 1}>
+              <button className={length > 1 ? `p-3 bg-slate-50 border-2 border-slate-500` : "hidden"} key={`pageBtn_${index}`} onClick={() => setCurrentPage(index + 1)} disabled={currentPage === index + 1}>
                 {index + 1}
               </button>
             ))}

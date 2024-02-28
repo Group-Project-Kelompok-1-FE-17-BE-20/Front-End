@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import NumberFormatter from "../../components/NumberFormatter";
 import Header from "../../components/Product/Header";
 import Footer from "../../components/Footer";
+import { infoAlertFC } from "../../utils/functions";
 
 const DetailProduct: FC = () => {
   const username = Cookies.get("username");
@@ -60,7 +61,7 @@ const DetailProduct: FC = () => {
             }
           });
         } catch (error: any) {
-          console.log("Kesalahan Axios Lengkap:", error.response);
+          infoAlertFC("Error", "Gagal untuk menambahkan ke Keranjang", "error");
         }
       } else {
         Swal.fire({
@@ -78,7 +79,7 @@ const DetailProduct: FC = () => {
         });
       }
     } catch (error) {
-      console.error("Error in addCart:", error);
+      infoAlertFC("Error", "Error Menambahkan data Ke Keranjang", "error");
     }
   };
 

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import Footer from "../../components/Footer";
-import Header from "../../components/product/Header";
 import axios from "axios";
 import { CartState } from "../../utils/interface";
 import { CartType } from "../../utils/interface";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import Header from "../../components/Product/Header";
+import Footer from "../../components/Footer";
 
 function Cart() {
   const navigate = useNavigate();

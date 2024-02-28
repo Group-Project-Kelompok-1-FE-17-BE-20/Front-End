@@ -1,4 +1,3 @@
-import Header from "../../components/product/Header";
 import bgUserCover from "../../img/Rectangle 2775.png";
 import React, { useState } from "react";
 import axios from "axios";
@@ -6,6 +5,7 @@ import { ShopProfile } from "../../utils/interface";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import Header from "../../components/Product/Header";
 
 const CreateShop: React.FC = () => {
   const [activeShop, setActiveShop] = useState<string>("MyProfile");

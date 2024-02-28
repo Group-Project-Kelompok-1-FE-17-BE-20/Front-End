@@ -2,11 +2,11 @@ import bgUserCover from "../../img/Rectangle 2775.png";
 import { useState } from "react";
 import axios from "axios";
 import { FormDataProduct, MyProfile } from "../../utils/interface";
-import Footer from "../../components/Footer";
-import Header from "../../components/product/Header";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import HistoryOrderUser from "../payment/HistoryOrderUser";
+import Header from "../../components/Product/Header";
+import Footer from "../../components/Footer";
 
 function UserProfile(props: any) {
   const [activeUser, setActiveUser] = useState<string>("myProfile");

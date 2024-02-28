@@ -1,11 +1,11 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import Footer from "../../components/Footer";
-import Header from "../../components/product/Header";
-import ProfileUsers from "../../components/admin/ProfileUsers";
 import { useEffect, useState } from "react";
 import { userDataType } from "../../utils/interface";
 import { useNavigate } from "react-router-dom";
+import ProfileUsers from "../../components/Admin/ProfileUsers";
+import Header from "../../components/Product/Header";
+import Footer from "../../components/Footer";
 
 const ListUsers = () => {
   const username = Cookies.get("username");

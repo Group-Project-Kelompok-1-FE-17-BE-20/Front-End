@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import CardHistoryOrder from "../../components/admin/CardHistoryOrder";
-import Footer from "../../components/Footer";
-import Header from "../../components/product/Header";
+import CardHistoryOrder from "../../components/Admin/CardHistoryOrder";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import Footer from "../../components/Footer";
+import Header from "../../components/Product/Header";
 
 const HistoryOrderAll = () => {
   const username = Cookies.get("username");

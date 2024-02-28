@@ -2,9 +2,9 @@ import { useState } from "react";
 import { typeLaptopDetail } from "../../utils/interface";
 import axios from "axios";
 import Cookies from "js-cookie";
-import ProfileProduct from "../../components/admin/ProfileProduct";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import ProfileProduct from "../../components/Admin/ProfileProduct";
 
 const ListProduct = () => {
   const authToken = Cookies.get("authToken");

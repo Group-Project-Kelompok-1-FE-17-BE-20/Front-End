@@ -1,9 +1,9 @@
 import { FC, useEffect } from "react";
-import Header from "../../components/product/Header";
 import givSukser from "../../img/sukses-transaksi.gif";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
+import Header from "../../components/Product/Header";
 
 const DetailTransaction: FC = () => {
   const navigate = useNavigate();

@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import ProfileHistory from "../../components/Admin/ProfileHistory";
 import { infoAlertFC } from "../../utils/functions";
 
+
 const HistoryOrderUser = () => {
   const authToken = Cookies.get("authToken");
   const [dataUser, setDataUser] = useState<typeLaptopDetail>({

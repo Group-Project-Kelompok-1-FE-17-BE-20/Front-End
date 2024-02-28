@@ -10,6 +10,7 @@ import Header from "../../components/Product/Header";
 import Footer from "../../components/Footer";
 import { infoAlertFC } from "../../utils/functions";
 
+
 const DetailProduct: FC = () => {
   const username = Cookies.get("username");
   const navigate = useNavigate();

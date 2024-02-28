@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import ProfileProduct from "../../components/Admin/ProfileProduct";
 import { infoAlertFC } from "../../utils/functions";
 
+
 const ListProduct = () => {
   const authToken = Cookies.get("authToken");
   const navigate = useNavigate();

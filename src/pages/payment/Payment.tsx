@@ -14,6 +14,7 @@ import Header from "../../components/Product/Header";
 import Footer from "../../components/Footer";
 import { copyToClipboard } from "../../utils/functions";
 
+
 const Payment: FC = () => {
   const username = Cookies.get("username");
   const navigate = useNavigate();

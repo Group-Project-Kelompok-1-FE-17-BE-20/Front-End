@@ -11,6 +11,7 @@ import Header from "../../components/Product/Header";
 import Footer from "../../components/Footer";
 import { infoAlertFC } from "../../utils/functions";
 
+
 function UserProfile() {
   const [activeUser, setActiveUser] = useState<string>("myProfile");
 

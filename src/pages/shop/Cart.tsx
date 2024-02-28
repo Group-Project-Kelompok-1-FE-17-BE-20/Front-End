@@ -8,6 +8,7 @@ import Header from "../../components/Product/Header";
 import Footer from "../../components/Footer";
 import { infoAlertFC } from "../../utils/functions";
 
+
 function Cart() {
   const navigate = useNavigate();
   const authToken = Cookies.get("authToken");

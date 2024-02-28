@@ -9,6 +9,7 @@ import Header from "../../components/Product/Header";
 import Footer from "../../components/Footer";
 import { infoAlertFC } from "../../utils/functions";
 
+
 function UserProfile(props: any) {
   const [activeUser, setActiveUser] = useState<string>("myProfile");
   const { hidden } = props;

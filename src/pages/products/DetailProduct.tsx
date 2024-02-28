@@ -1,13 +1,13 @@
 import { FC, useEffect, useState } from "react";
-import Header from "../components/Product/Header";
-import Footer from "../components/Footer";
-import { typeLaptopDetail } from "../utils/interface";
+import Header from "../../components/product/Header";
+import Footer from "../../components/Footer";
+import { typeLaptopDetail } from "../../utils/interface";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
-import NumberFormatter from "../components/NumberFormatter";
+import NumberFormatter from "../../components/NumberFormatter";
 
 const DetailProduct: FC = () => {
   const username = Cookies.get("username");
@@ -108,7 +108,7 @@ const DetailProduct: FC = () => {
       if (number === detail?.stock) {
         Swal.fire({
           title: "Konfirmasi",
-          text: `Stock hanya segini`,
+          text: `Stock hanya tersisa ${detail?.stock}`,
           icon: "warning",
           showCancelButton: true,
           confirmButtonText: "OK",

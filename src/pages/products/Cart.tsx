@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import Footer from "../components/Footer";
-import Header from "../components/Product/Header";
+import Footer from "../../components/Footer";
+import Header from "../../components/product/Header";
 import axios from "axios";
-import { CartState } from "../utils/interface";
-import { CartType } from "../utils/interface";
+import { CartState } from "../../utils/interface";
+import { CartType } from "../../utils/interface";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
@@ -347,7 +347,7 @@ function Cart() {
             </div>
           </>
         ) : (
-          <div className="flex-col justify-start items-center gap-[30px] flex">
+          <div className="flex-col justify-start items-center gap-[30px] pt-20 flex">
             <div className="text-center text-zinc-700 md:text-[46px] font-semibold font-poppins text-2xl">Keranjang Kamu Kosong</div>
           </div>
         )}

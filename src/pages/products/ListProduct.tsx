@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { typeLaptopDetail } from "../utils/interface";
+import { typeLaptopDetail } from "../../utils/interface";
 import axios from "axios";
 import Cookies from "js-cookie";
-import ProfileProduct from "../components/Admin/ProfileProduct";
+import ProfileProduct from "../../components/admin/ProfileProduct";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -15,7 +15,7 @@ const ListProduct = () => {
 
   const ubahData = (id: any) => {
     if (id) {
-      navigate(`/editproduk/${id}`, {
+      navigate(`/edit-produk/${id}`, {
         state: {
           id: `${id}`,
         },

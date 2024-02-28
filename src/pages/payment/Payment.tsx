@@ -1,17 +1,17 @@
 import { FC, useEffect } from "react";
-import Footer from "../components/Footer";
-import Header from "../components/Product/Header";
+import Footer from "../../components/Footer";
+import Header from "../../components/product/Header";
 import { useState } from "react";
-import { bankData } from "../utils/payment";
-import PaymentButton from "../components/PaymentButton";
-import { postPayment, showPayment } from "../utils/interface";
+import { bankData } from "../../utils/payment";
+import PaymentButton from "../../components/PaymentButton";
+import { postPayment, showPayment } from "../../utils/interface";
 import Swal from "sweetalert2";
-import NumberFormatter from "../components/NumberFormatter";
+import NumberFormatter from "../../components/NumberFormatter";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import { formatTime } from "../utils/functions";
+import { formatTime } from "../../utils/functions";
 
 const Payment: FC = () => {
   const username = Cookies.get("username");
@@ -90,7 +90,7 @@ const Payment: FC = () => {
           .catch(() => {
             Swal.fire({
               title: "Gagal",
-              text: `Pembayaran sebelumnya belum selesai `,
+              text: `Transaksi Belum Bisa dilakukan, Coba sesaat lagi `,
               icon: "error",
               showCancelButton: true,
               confirmButtonText: "OK",
@@ -109,15 +109,18 @@ const Payment: FC = () => {
     if (data === "settlement") {
       setTimeout(() => {
         setShowPopup(false);
-        navigate("/detailtransaksi");
+        navigate("/detail-transaction");
       }, 5000);
     } else {
-      Swal.fire({
-        title: "Error",
-        text: "Pembayaran anda Gagal. Silakan coba lagi nanti.",
-        icon: "error",
-      });
-      navigate("/");
+      setTimeout(() => {
+        setShowPopup(false);
+        Swal.fire({
+          title: "Error",
+          text: "Pembayaran anda Gagal. Silakan coba lagi nanti.",
+          icon: "error",
+        });
+        navigate("/");
+      }, 1000);
     }
   };
 
@@ -252,7 +255,7 @@ const Payment: FC = () => {
                 </span>
               </p>
               <div className="mb-4 bg-orange-200 p-3 rounded text-lg font-bold">kode VA : {showData.va_number}</div>
-              <p className="my-2 text-sm flex justify-end">Waktu Tersisa: {formatTime(popupTimer)}</p>
+              <p className="my-2 text-sm flex justify-end"> Waktu Tersisa: {formatTime(popupTimer)}</p>
               <div className="flex gap-3">
                 <button className="bg-gray-500 text-white px-4 py-2 mt-5 rounded hover:bg-gray-600" onClick={closePopup}>
                   Tutup

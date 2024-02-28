@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const Header: FC = () => {
+const Navbar: FC = () => {
   const authToken = Cookies.get("authToken");
   const username = Cookies.get("username");
   const gambar = Cookies.get("gambar");
@@ -205,4 +205,4 @@ const Header: FC = () => {
     </div>
   );
 };
-export default Header;
+export default Navbar;

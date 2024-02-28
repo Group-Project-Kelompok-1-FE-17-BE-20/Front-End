@@ -1,6 +1,4 @@
 import { FC, useEffect } from "react";
-import Footer from "../../components/Footer";
-import Header from "../../components/product/Header";
 import { useState } from "react";
 import { bankData } from "../../utils/payment";
 import PaymentButton from "../../components/PaymentButton";
@@ -12,6 +10,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { formatTime } from "../../utils/functions";
+import Header from "../../components/Product/Header";
+import Footer from "../../components/Footer";
 
 const Payment: FC = () => {
   const username = Cookies.get("username");

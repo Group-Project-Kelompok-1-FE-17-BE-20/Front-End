@@ -5,8 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { FC, FormEvent } from "react";
 import { LoginState } from "../../utils/interface";
 import { useState } from "react";
-import { isEmailValid } from "../../utils/functions";
-import { infoAlertFC } from "../../utils/functions";
+import { infoAlertFC, isEmailValid } from "../../utils/functions";
 const Login: FC = () => {
   const navigate = useNavigate();
   const [loginState, setLoginState] = useState<LoginState>({

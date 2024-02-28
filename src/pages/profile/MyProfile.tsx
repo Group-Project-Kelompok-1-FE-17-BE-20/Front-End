@@ -2,13 +2,13 @@ import bgUserCover from "../../img/Rectangle 2775.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { MyProfile } from "../../utils/interface";
-import Footer from "../../components/Footer";
-import Header from "../../components/product/Header";
-import HistoryOrderUser from "../../pages/payment/HistoryOrderUser";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { FormDataObject } from "../../utils/interface";
+import HistoryOrderUser from "../payment/HistoryOrderUser";
+import Header from "../../components/Product/Header";
+import Footer from "../../components/Footer";
 
 function UserProfile() {
   const [activeUser, setActiveUser] = useState<string>("myProfile");

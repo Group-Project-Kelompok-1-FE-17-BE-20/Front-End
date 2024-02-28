@@ -1,11 +1,11 @@
 import Footer from "../../components/Footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Card from "../../components/product/Card";
 import { lapData } from "../../utils/interface";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
+import Card from "../../components/Product/Card";
 
 const MainProduct = () => {
   const [searchQuery, setSearchQuery] = useState("");

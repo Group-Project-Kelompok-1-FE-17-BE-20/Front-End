@@ -126,5 +126,4 @@ const CardHistoryOrder: FC = () => {
     </>
   );
 };
-
 export default CardHistoryOrder;

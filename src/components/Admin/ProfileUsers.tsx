@@ -23,5 +23,4 @@ const ProfileUsers: FC<typeListUsers> = (props: typeListUsers) => {
     </div>
   );
 };
-
 export default ProfileUsers;

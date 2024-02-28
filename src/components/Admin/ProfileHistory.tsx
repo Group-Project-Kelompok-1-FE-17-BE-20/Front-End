@@ -35,5 +35,4 @@ const ProfileHistory: FC<orders> = (props: orders) => {
     </div>
   );
 };
-
 export default ProfileHistory;

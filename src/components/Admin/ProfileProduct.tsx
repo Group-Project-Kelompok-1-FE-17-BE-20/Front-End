@@ -35,5 +35,4 @@ const ProfileProduct: FC<typeLaptopDetail> = (props: typeLaptopDetail) => {
     </div>
   );
 };
-
 export default ProfileProduct;

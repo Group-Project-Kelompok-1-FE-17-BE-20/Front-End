@@ -5,7 +5,7 @@ const NumberFormatter: React.FC<NumberFormatterProps> = ({ value }) => {
   const formattedNumber = new Intl.NumberFormat().format(value);
 
   return (
-    <span id="formattedNumber" className="font-extrabold text-red-500 font-sans">
+    <span id="formattedNumber" className="font-extrabold text-slate-500 font-sans">
       Rp. {formattedNumber}
     </span>
   );

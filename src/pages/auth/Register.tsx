@@ -1,6 +1,6 @@
-import bgCoverUser from "../img/Rectangle 2775.png";
+import bgCoverUser from "../../img/Rectangle 2775.png";
 import { FC, FormEvent, useState } from "react";
-import { registerType } from "../utils/interface";
+import { registerType } from "../../utils/interface";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";

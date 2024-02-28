@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { orders, typeLaptopDetail } from "../utils/interface";
+import { orders, typeLaptopDetail } from "../../utils/interface";
 import axios from "axios";
 import Cookies from "js-cookie";
-import ProfileHistory from "../components/Admin/ProfileHistory";
+import ProfileHistory from "../../components/admin/ProfileHistory";
 
-const RiwayatPesanan = () => {
+const HistoryOrderUser = () => {
   const authToken = Cookies.get("authToken");
   const [dataUser, setDataUser] = useState<typeLaptopDetail>({
     data: [],
@@ -56,4 +56,4 @@ const RiwayatPesanan = () => {
   );
 };
 
-export default RiwayatPesanan;
+export default HistoryOrderUser;

@@ -1,10 +1,10 @@
-import bgUserCover from "../img/Rectangle 2775.png";
+import bgUserCover from "../../img/Rectangle 2775.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { FormDataProduct, MyProfile } from "../utils/interface";
-import Footer from "../components/Footer";
-import Header from "../components/Product/Header";
-import RiwayatPesanan from "./RiwayatPesanan";
+import { FormDataProduct, MyProfile } from "../../utils/interface";
+import Footer from "../../components/Footer";
+import Header from "../../components/product/Header";
+import HistoryOrderUser from "../../pages/payment/HistoryOrderUser";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -98,7 +98,7 @@ function UserProfile(props: any) {
 function orderHistory() {
   return (
     <section className="w-full lg:flex-1  shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] ">
-      <RiwayatPesanan />
+      <HistoryOrderUser />
     </section>
   );
 }
@@ -165,7 +165,7 @@ function myProfile(): JSX.Element {
         confirmButtonText: "OK",
         confirmButtonColor: "rgb(3 150 199)",
       }).then(() => {
-        navigate("/profiltoko");
+        navigate("/shop-profile");
         setformData({
           brand: "",
           price: "",

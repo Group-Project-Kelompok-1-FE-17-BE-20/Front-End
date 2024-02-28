@@ -1,12 +1,12 @@
-import { useNavigate } from "react-router-dom";
-import { FC, FormEvent } from "react";
-import { LoginState } from "../utils/interface";
-import { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
-import { isEmailValid } from "../utils/functions";
-import { infoAlertFC } from "../utils/functions";
+import { useNavigate } from "react-router-dom";
+import { FC, FormEvent } from "react";
+import { LoginState } from "../../utils/interface";
+import { useState } from "react";
+import { isEmailValid } from "../../utils/functions";
+import { infoAlertFC } from "../../utils/functions";
 const Login: FC = () => {
   const navigate = useNavigate();
   const [loginState, setLoginState] = useState<LoginState>({
@@ -25,7 +25,7 @@ const Login: FC = () => {
       return;
     }
     if (loginState.email === "admin@gmail.com" && loginState.password === "1") {
-      navigate("/daftar-users");
+      navigate("/list-users");
       Cookies.set("username", "admin");
     } else {
       try {

@@ -1,14 +1,14 @@
-import bgUserCover from "../img/Rectangle 2775.png";
+import bgUserCover from "../../img/Rectangle 2775.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { MyProfile } from "../utils/interface";
-import Footer from "../components/Footer";
-import Header from "../components/Product/Header";
-import RiwayatPesanan from "./RiwayatPesanan";
+import { MyProfile } from "../../utils/interface";
+import Footer from "../../components/Footer";
+import Header from "../../components/product/Header";
+import HistoryOrderUser from "../../pages/payment/HistoryOrderUser";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { FormDataObject } from "../utils/interface";
+import { FormDataObject } from "../../utils/interface";
 
 function UserProfile() {
   const [activeUser, setActiveUser] = useState<string>("myProfile");
@@ -91,7 +91,7 @@ function UserProfile() {
 function orderHistory() {
   return (
     <section className="w-full lg:flex-1 px-[8px] py-[15px] shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-md max-w-none lg:max-w-[749px] mb-8">
-      <RiwayatPesanan />
+      <HistoryOrderUser />
     </section>
   );
 }
@@ -185,7 +185,7 @@ function myProfile(): JSX.Element {
       Cookies.remove("gambar");
       Cookies.set("username", update);
       Cookies.set("gambar", gambar);
-      navigate("/profilsaya");
+      navigate("/my-profile");
     } catch (error) {
       console.error("Error: ", error);
     }
@@ -271,7 +271,6 @@ function myProfile(): JSX.Element {
 
           <div className="Camera" style={{ width: "50%", height: "50%", position: "absolute", cursor: "pointer" }}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" role="img">
-              {/* You can keep the camera icon if you want, or remove it since the input will handle the upload */}
               <path
                 d="M3.58579 7.58579C3.21071 7.96086 3 8.46957 3 9V18C3 18.5304 3.21071 19.0391 3.58579 19.4142C3.96086 19.7893 4.46957 20 5 20H19C19.5304 20 20.0391 19.7893 20.4142 19.4142C20.7893 19.0391 21 18.5304 21 18V9C21 8.46957 20.7893 7.96086 20.4142 7.58579C20.0391 7.21071 19.5304 7 19 7H18.07C17.7408 7.00005 17.4167 6.91884 17.1264 6.76359C16.8362 6.60834 16.5887 6.38383 16.406 6.11L15.594 4.89C15.4113 4.61617 15.1638 4.39166 14.8736 4.23641C14.5833 4.08116 14.2592 3.99995 13.93 4H10.07C9.74082 3.99995 9.41671 4.08116 9.12643 4.23641C8.83616 4.39166 8.5887 4.61617 8.406 4.89L7.594 6.11C7.4113 6.38383 7.16384 6.60834 6.87357 6.76359C6.58329 6.91884 6.25918 7.00005 5.93 7H5C4.46957 7 3.96086 7.21071 3.58579 7.58579Z"
                 stroke="white"

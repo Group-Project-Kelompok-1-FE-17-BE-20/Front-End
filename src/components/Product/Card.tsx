@@ -103,5 +103,4 @@ const Card: FC<productDataType> = (props: productDataType) => {
     </>
   );
 };
-
 export default Card;

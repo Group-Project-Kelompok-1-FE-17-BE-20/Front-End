@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Header from "../../components/Product/Header";
 import Footer from "../../components/Footer";
+import { infoAlertFC } from "../../utils/functions";
+
 
 function Cart() {
   const navigate = useNavigate();
@@ -38,9 +40,9 @@ function Cart() {
       }
     } catch (error: any) {
       if (error.response && error.response.status === 401) {
-        console.log("Unauthorized: Pastikan token otorisasi valid.");
+        infoAlertFC("Error", "Error Autorisasi", "error");
       } else {
-        console.error("Error:", error.message);
+        infoAlertFC("Error", "Gagal Terkoneksi", "error");
       }
     }
   };

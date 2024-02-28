@@ -9,6 +9,8 @@ import { FormDataObject } from "../../utils/interface";
 import HistoryOrderUser from "../payment/HistoryOrderUser";
 import Header from "../../components/Product/Header";
 import Footer from "../../components/Footer";
+import { infoAlertFC } from "../../utils/functions";
+
 
 function UserProfile() {
   const [activeUser, setActiveUser] = useState<string>("myProfile");
@@ -109,8 +111,6 @@ function myProfile(): JSX.Element {
     gambar: "",
   });
 
-  uploadedImageUrl ? uploadedImageUrl : "";
-
   const getProfile = async () => {
     const authToken = Cookies.get("authToken");
     try {
@@ -133,7 +133,7 @@ function myProfile(): JSX.Element {
         setUploadedImageUrl(data.image_profil);
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      infoAlertFC("Error", "Gagal mendapatkan data", "error");
     }
   };
 
@@ -151,43 +151,45 @@ function myProfile(): JSX.Element {
 
     e.preventDefault();
     const authToken = Cookies.get("authToken");
-    try {
-      const formData = new FormData();
-      if (selectedImage) {
-        formData.append("image_profil", selectedImage);
-        formData.append("nama_lengkap", nama_lengkap);
-        formData.append("username", username);
-        formData.append("jenis_kelamin", jenis_kelamin);
-        formData.append("email", email);
-        formData.append("nomor_hp", nomor_hp);
-        formData.append("password", password);
+    if (uploadedImageUrl) {
+      try {
+        const formData = new FormData();
+        if (selectedImage) {
+          formData.append("image_profil", selectedImage);
+          formData.append("nama_lengkap", nama_lengkap);
+          formData.append("username", username);
+          formData.append("jenis_kelamin", jenis_kelamin);
+          formData.append("email", email);
+          formData.append("nomor_hp", nomor_hp);
+          formData.append("password", password);
+        }
+
+        const response = await axios.put("https://altalaptop.shop/users", formData, {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        setUploadedImageUrl(response.data.data.image_url);
+        Swal.fire({
+          title: "Confirmation",
+          text: "Data Berhasil dirubah",
+          icon: "success",
+          confirmButtonText: "OK",
+          confirmButtonColor: "rgb(3 150 199)",
+        });
+
+        const update = response.data.data.username;
+        const gambar = response.data.data.image_profil;
+        Cookies.remove("username");
+        Cookies.remove("gambar");
+        Cookies.set("username", update);
+        Cookies.set("gambar", gambar);
+        navigate("/my-profile");
+      } catch (error) {
+        infoAlertFC("warning", "Error Anda Harus Masukan Gambar dulu", "error");
       }
-
-      const response = await axios.put("https://altalaptop.shop/users", formData, {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      setUploadedImageUrl(response.data.data.image_url);
-      Swal.fire({
-        title: "Confirmation",
-        text: "Data Berhasil dirubah",
-        icon: "success",
-        confirmButtonText: "OK",
-        confirmButtonColor: "rgb(3 150 199)",
-      });
-
-      const update = response.data.data.username;
-      const gambar = response.data.data.image_profil;
-      Cookies.remove("username");
-      Cookies.remove("gambar");
-      Cookies.set("username", update);
-      Cookies.set("gambar", gambar);
-      navigate("/my-profile");
-    } catch (error) {
-      console.error("Error: ", error);
     }
   };
 
@@ -215,7 +217,7 @@ function myProfile(): JSX.Element {
         }
       });
     } catch (error) {
-      console.error("Error: ", error);
+      infoAlertFC("Error", "Gagal menghapus data", "error");
       Swal.fire({
         title: "Error",
         text: "Terjadi kesalahan saat menghapus akun",

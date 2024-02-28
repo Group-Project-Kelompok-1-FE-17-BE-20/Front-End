@@ -24,3 +24,18 @@ export const formatTime = (milliseconds: number) => {
 
   return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 };
+
+export const copyToClipboard = (vaNumber: string | any) => {
+  const vaCodeInput = document.createElement("input");
+  let valueToCopy = "";
+  if (vaNumber) {
+    valueToCopy = vaNumber;
+  }
+  vaCodeInput.value = valueToCopy;
+  document.body.appendChild(vaCodeInput);
+  vaCodeInput.select();
+  document.execCommand("copy");
+  document.body.removeChild(vaCodeInput);
+
+  infoAlertFC("Info", "VA Number Berhasil disalin", "success");
+};

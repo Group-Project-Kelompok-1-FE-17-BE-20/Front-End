@@ -8,6 +8,8 @@ import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../components/Product/Header";
 import Footer from "../../components/Footer";
+import { infoAlertFC } from "../../utils/functions";
+
 
 function UserProfile(props: any) {
   const [activeUser, setActiveUser] = useState<string>("myProfile");
@@ -105,6 +107,7 @@ function orderHistory() {
 function myProfile(): JSX.Element {
   const navigate = useNavigate();
   const location = useLocation();
+  const authToken = Cookies.get("authToken");
   const id = location.state.id;
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
@@ -120,7 +123,6 @@ function myProfile(): JSX.Element {
     processor: "",
     gambar: "",
   });
-  console.log(uploadedImageUrl);
 
   const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     const brand = formData.brand;
@@ -134,57 +136,57 @@ function myProfile(): JSX.Element {
     const processor = formData.processor;
 
     e.preventDefault();
-    const authToken = Cookies.get("authToken");
-    try {
-      const formData = new FormData();
-      if (selectedImage) {
-        formData.append("gambar", selectedImage);
-        formData.append("brand", brand);
-        formData.append("model", model);
-        formData.append("categories", categories);
-        formData.append("price", price);
-        formData.append("description", description);
-        formData.append("storage", storage);
-        formData.append("ram", ram);
-        formData.append("processor", processor);
-        formData.append("stock", stock);
-      }
+    if (uploadedImageUrl) {
+      try {
+        const formData = new FormData();
+        if (selectedImage) {
+          formData.append("gambar", selectedImage);
+          formData.append("brand", brand);
+          formData.append("model", model);
+          formData.append("categories", categories);
+          formData.append("price", price);
+          formData.append("description", description);
+          formData.append("storage", storage);
+          formData.append("ram", ram);
+          formData.append("processor", processor);
+          formData.append("stock", stock);
+        }
 
-      const response = await axios.put(`https://altalaptop.shop/products/${id}`, formData, {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      setUploadedImageUrl(response.data.image_url);
-      Swal.fire({
-        title: "Confirmation",
-        text: "Congratulations, Data Berhasil disimpan",
-        icon: "success",
-        confirmButtonText: "OK",
-        confirmButtonColor: "rgb(3 150 199)",
-      }).then(() => {
-        navigate("/shop-profile");
-        setformData({
-          brand: "",
-          price: "",
-          categories: "",
-          description: "",
-          stock: "",
-          storage: "",
-          ram: "",
-          model: "",
-          processor: "",
+        const response = await axios.put(`https://altalaptop.shop/products/${id}`, formData, {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": "multipart/form-data",
+          },
         });
-      });
-    } catch (error) {
-      console.error("Error:", error);
+
+        setUploadedImageUrl(response.data.image_url);
+        Swal.fire({
+          title: "Confirmation",
+          text: "Congratulations, Data Berhasil disimpan",
+          icon: "success",
+          confirmButtonText: "OK",
+          confirmButtonColor: "rgb(3 150 199)",
+        }).then(() => {
+          navigate("/shop-profile");
+          setformData({
+            brand: "",
+            price: "",
+            categories: "",
+            description: "",
+            stock: "",
+            storage: "",
+            ram: "",
+            model: "",
+            processor: "",
+          });
+        });
+      } catch (error) {
+        infoAlertFC("Warning", "tidak dapat mengupdata data", "warning");
+      }
     }
   };
 
   const getProfile = async () => {
-    const authToken = Cookies.get("authToken");
     try {
       const response = await axios.get(`https://altalaptop.shop/products/${id}`, {
         headers: {
@@ -205,13 +207,12 @@ function myProfile(): JSX.Element {
         gambar: data.gambar,
       });
     } catch (error) {
-      console.error("Error fetching data:", error);
+      infoAlertFC("Error", "Gagal mendapatkan data", "error");
     }
   };
 
   useEffect(() => {
     getProfile();
-    console.log(formData);
   }, []);
 
   const handlePerubahan = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {

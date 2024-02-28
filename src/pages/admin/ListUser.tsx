@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import ProfileUsers from "../../components/Admin/ProfileUsers";
 import Header from "../../components/Product/Header";
 import Footer from "../../components/Footer";
+import { infoAlertFC } from "../../utils/functions";
+
 
 const ListUsers = () => {
   const username = Cookies.get("username");
@@ -23,7 +25,7 @@ const ListUsers = () => {
           const response = await axios.get("https://altalaptop.shop/alluser");
           setDataUser(response.data);
         } catch (error) {
-          console.log(error);
+          infoAlertFC("Warning", "Belum ada User", "warning");
         }
       };
       cekData();

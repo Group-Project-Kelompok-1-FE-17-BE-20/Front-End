@@ -68,7 +68,6 @@ const Login: FC = () => {
           handleLoginError(!response);
         }
       } catch (error) {
-        console.error("Login error:", error);
         handleLoginError(error);
       }
     }

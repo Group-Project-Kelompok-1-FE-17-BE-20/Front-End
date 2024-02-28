@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Header from "../../components/Product/Header";
 import Footer from "../../components/Footer";
+import { infoAlertFC } from "../../utils/functions";
+
 
 function Cart() {
   const navigate = useNavigate();
@@ -38,9 +40,9 @@ function Cart() {
       }
     } catch (error: any) {
       if (error.response && error.response.status === 401) {
-        console.log("Unauthorized: Pastikan token otorisasi valid.");
+        infoAlertFC("Error", "Unauthorized: Pastikan token otorisasi valid.", "warning");
       } else {
-        console.error("Error:", error.message);
+        infoAlertFC("Error", "Anda Belum Bisa Melakukan Order.", "error");
       }
     }
   };
@@ -64,7 +66,7 @@ function Cart() {
         removeFromFinalOrder(productId);
       }
     } catch (error) {
-      console.error("Error editing item:", error);
+      infoAlertFC("Error", "Anda Tidak Bisa Mengubah Jumlahnya.", "error");
       throw error;
     }
   };
@@ -87,7 +89,7 @@ function Cart() {
     try {
       await editCartItem(itemId, newquantity);
     } catch (error) {
-      console.error("Error incrementing quantity:", error);
+      infoAlertFC("Error", "Anda Tidak Bisa Menambah Quantity", "error");
     }
   };
 
@@ -109,7 +111,7 @@ function Cart() {
     try {
       await editCartItem(itemId, newquantity);
     } catch (error) {
-      console.error("Error decrementing quantity:", error);
+      infoAlertFC("Error", "Anda Tidak Bisa Mengurangi Quantity", "error");
     }
   };
 
@@ -124,7 +126,7 @@ function Cart() {
         };
       });
     } else {
-      console.error("Product not found in cart");
+      infoAlertFC("Error", "Produk tidak ada di Keranjang", "error");
     }
   };
 
@@ -142,11 +144,11 @@ function Cart() {
             removeFromFinalOrder(productId);
           }
         })
-        .catch((error) => {
-          console.error("Error deleting item:", error);
+        .catch(() => {
+          infoAlertFC("Error", "Anda Tidak bisa Menghapus data", "error");
         });
     } catch (error) {
-      console.error("Error deleting item:", error);
+      infoAlertFC("Error", "Tidak Bisa Menghapus", "error");
     }
   };
 
@@ -210,11 +212,11 @@ function Cart() {
           });
           setCartItems(response.data.data);
         })
-        .catch((error: Error) => {
-          console.error("Error fetching shopping cart:", error);
+        .catch(() => {
+          infoAlertFC("Error", "Gagal Menampilkan Data", "error");
         });
     } catch (error) {
-      console.error("Error fetching shopping cart:", error);
+      infoAlertFC("Error", "Tidak dapat Menampilkan data.", "error");
     }
   };
 

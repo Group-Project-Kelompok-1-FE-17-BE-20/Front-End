@@ -1,4 +1,4 @@
-import Header from "../../components/product/Header";
+import Header from "../components/product/Header";
 import bgUserCover from "../../img/Rectangle 2775.png";
 import React, { useEffect, useState } from "react";
 import axios from "axios";

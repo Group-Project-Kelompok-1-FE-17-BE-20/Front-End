@@ -1,7 +1,7 @@
-import Footer from "../../components/Footer";
+import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Card from "../../components/product/Card";
+import Card from "../components/product/Card";
 import { lapData } from "../../utils/interface";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";

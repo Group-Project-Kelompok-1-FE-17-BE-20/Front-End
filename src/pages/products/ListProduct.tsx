@@ -2,7 +2,7 @@ import { useState } from "react";
 import { typeLaptopDetail } from "../../utils/interface";
 import axios from "axios";
 import Cookies from "js-cookie";
-import ProfileProduct from "../../components/admin/ProfileProduct";
+import ProfileProduct from "../components/admin/ProfileProduct";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 

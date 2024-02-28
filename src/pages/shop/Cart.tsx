@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Footer from "../../components/Footer";
-import Header from "../../components/product/Header";
+import Footer from "../components/Footer";
+import Header from "../components/product/Header";
 import axios from "axios";
 import { CartState } from "../../utils/interface";
 import { CartType } from "../../utils/interface";

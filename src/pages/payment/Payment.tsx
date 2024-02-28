@@ -1,12 +1,12 @@
 import { FC, useEffect } from "react";
-import Footer from "../../components/Footer";
-import Header from "../../components/product/Header";
+import Footer from "../components/Footer";
+import Header from "../components/product/Header";
 import { useState } from "react";
 import { bankData } from "../../utils/payment";
-import PaymentButton from "../../components/PaymentButton";
+import PaymentButton from "../components/PaymentButton";
 import { postPayment, showPayment } from "../../utils/interface";
 import Swal from "sweetalert2";
-import NumberFormatter from "../../components/NumberFormatter";
+import NumberFormatter from "../components/NumberFormatter";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";

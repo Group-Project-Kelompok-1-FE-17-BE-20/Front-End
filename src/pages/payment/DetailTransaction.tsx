@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react";
-import Header from "../../components/product/Header";
+import Header from "../components/product/Header";
 import givSukser from "../../img/sukses-transaksi.gif";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";

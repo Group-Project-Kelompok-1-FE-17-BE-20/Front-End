@@ -15,7 +15,7 @@ const Navbar: FC = () => {
   const logOut = (): void => {
     Swal.fire({
       title: "Confirmation",
-      text: "Apakah anda yakin ingin keluar",
+      text: "Anda yakin ingin keluar",
       icon: "question",
       showCancelButton: true,
       confirmButtonText: "OK",
@@ -25,7 +25,6 @@ const Navbar: FC = () => {
       if (res.isConfirmed) {
         Cookies.remove("username");
         navigate("/login");
-        window.location.reload();
       }
     });
   };
@@ -88,7 +87,7 @@ const Navbar: FC = () => {
         </div>
 
         {username === "admin" && showHamMenu && (
-          <div className="bg-white ease-in duration-1000 transition-all p-4 absolute md:top-[20vh] top-[12vh] right-[0rem] border-[1.2px] shadow-md w-[45vw] md:w-[20vw]">
+          <div className="bg-white ease-in duration-1000 transition-all p-4 absolute md:top-[20vh] top-[12vh] right-[0rem] border-[1.2px] shadow-md w-[50vw] md:w-[20vw]">
             <div className="flex flex-col items-center justify-center">
               <div className="flex flex-col justify-center items-start w-full gap-3">
                 <button onClick={() => navigate("/list-users")} className="text-[#828282] hover:text-[#0396C7] flex  items-center gap-3 w-full">
@@ -130,7 +129,7 @@ const Navbar: FC = () => {
         )}
 
         {username !== "admin" && showHamMenu && (
-          <div className="bg-white ease-in duration-1000 transition-all p-4 absolute md:top-[20vh] top-[12vh] right-[0rem] border-[1.2px] shadow-md w-[45vw] md:w-[20vw]">
+          <div className="bg-white ease-in duration-1000 transition-all p-4 absolute md:top-[20vh] top-[12vh] right-[0rem] border-[1.2px] shadow-md w-[50vw] md:w-[20vw]">
             <div className="flex flex-col items-center justify-center">
               <div className="flex flex-col justify-center items-start w-full gap-3">
                 <button onClick={() => navigate("/my-profile")} className="text-[#828282] hover:text-[#0396C7] flex  items-center gap-3 w-full">

@@ -7,7 +7,6 @@ import Swal from "sweetalert2";
 import ProfileProduct from "../../components/Admin/ProfileProduct";
 import { infoAlertFC } from "../../utils/functions";
 
-
 const ListProduct = () => {
   const authToken = Cookies.get("authToken");
   const navigate = useNavigate();
@@ -28,7 +27,7 @@ const ListProduct = () => {
   const hapusData = (id: any) => {
     Swal.fire({
       title: "Confirmation",
-      text: "Apakah anda yakin mau menghapus data",
+      text: "Anda ingin menghapus data?",
       icon: "question",
       showCancelButton: true,
       confirmButtonText: "OK",
@@ -45,7 +44,7 @@ const ListProduct = () => {
           .then(() => {
             Swal.fire({
               title: "Confirmation",
-              text: "Data Berhasil di hapus",
+              text: "Produk Berhasil di hapus",
               icon: "question",
               confirmButtonText: "OK",
               confirmButtonColor: "rgb(255 10 10)",

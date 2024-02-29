@@ -8,7 +8,6 @@ import Header from "../../components/Product/Header";
 import Footer from "../../components/Footer";
 import { infoAlertFC } from "../../utils/functions";
 
-
 function Cart() {
   const navigate = useNavigate();
   const authToken = Cookies.get("authToken");
@@ -349,8 +348,9 @@ function Cart() {
             </div>
           </>
         ) : (
-          <div className="flex-col justify-start items-center gap-[30px] pt-20 flex">
+          <div className="flex-col md:justify-center justify-start items-center gap-[30px] pt-20 flex h-[50vh] md:h-[50vh]">
             <div className="text-center text-zinc-700 md:text-[46px] font-semibold font-poppins text-2xl">Keranjang Kamu Kosong</div>
+            <span className="text-9xl mt-3">😢</span>
           </div>
         )}
       </section>

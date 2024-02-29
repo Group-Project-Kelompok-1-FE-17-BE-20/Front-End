@@ -77,7 +77,7 @@ const Login: FC = () => {
     if (error.message === "Network Error") {
       Swal.fire({
         title: "Warning",
-        text: "Tidak terkoneksi ke database, Periksa Koneksi Anda",
+        text: "Tidak terkoneksi ke database",
         icon: "error",
         showCancelButton: true,
         confirmButtonText: "OK",

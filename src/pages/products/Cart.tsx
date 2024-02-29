@@ -8,7 +8,6 @@ import Header from "../../components/Product/Header";
 import Footer from "../../components/Footer";
 import { infoAlertFC } from "../../utils/functions";
 
-
 function Cart() {
   const navigate = useNavigate();
   const authToken = Cookies.get("authToken");
@@ -249,7 +248,7 @@ function Cart() {
           </ol>
         </nav>
       </div>
-      <section className="py-[5rem] w-full mx-auto lg:flex-1 px-3 md:px-[38px]  rounded-md max-w-none lg:max-w-[1404px] mb-10 ">
+      <section className={`py-[5rem] w-full mx-auto lg:flex-1 px-3 md:px-[38px] h-[100vh] rounded-md max-w-none lg:max-w-[1404px] mb-10 `}>
         {cartItems.length > 0 ? (
           <>
             <div className="flex-col justify-start items-center gap-[30px] flex md:pt-10 ">
@@ -349,8 +348,8 @@ function Cart() {
             </div>
           </>
         ) : (
-          <div className="flex-col justify-start items-center gap-[30px] pt-20 flex">
-            <div className="text-center text-zinc-700 md:text-[46px] font-semibold font-poppins text-2xl">Keranjang Kamu Kosong</div>
+          <div className="flex-col justify-start items-center gap-[30px] pt-20 flex bg-green-400">
+            <div className="text-center text-zinc-700 md:text-[46px] font-semibold font-poppins text-2xl">Keranjang Kamu kkKosong</div>
           </div>
         )}
       </section>

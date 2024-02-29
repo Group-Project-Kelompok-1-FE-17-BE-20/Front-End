@@ -11,7 +11,6 @@ import Header from "../../components/Product/Header";
 import Footer from "../../components/Footer";
 import { infoAlertFC } from "../../utils/functions";
 
-
 function UserProfile() {
   const [activeUser, setActiveUser] = useState<string>("myProfile");
 
@@ -151,81 +150,80 @@ function myProfile(): JSX.Element {
 
     e.preventDefault();
     const authToken = Cookies.get("authToken");
-    if (uploadedImageUrl) {
-      try {
-        const formData = new FormData();
-        if (selectedImage) {
-          formData.append("image_profil", selectedImage);
-          formData.append("nama_lengkap", nama_lengkap);
-          formData.append("username", username);
-          formData.append("jenis_kelamin", jenis_kelamin);
-          formData.append("email", email);
-          formData.append("nomor_hp", nomor_hp);
-          formData.append("password", password);
-        }
-
-        const response = await axios.put("https://altalaptop.shop/users", formData, {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-            "Content-Type": "multipart/form-data",
-          },
-        });
-
-        setUploadedImageUrl(response.data.data.image_url);
-        Swal.fire({
-          title: "Confirmation",
-          text: "Data Berhasil dirubah",
-          icon: "success",
-          confirmButtonText: "OK",
-          confirmButtonColor: "rgb(3 150 199)",
-        });
-
-        const update = response.data.data.username;
-        const gambar = response.data.data.image_profil;
-        Cookies.remove("username");
-        Cookies.remove("gambar");
-        Cookies.set("username", update);
-        Cookies.set("gambar", gambar);
-        navigate("/my-profile");
-      } catch (error) {
-        infoAlertFC("warning", "Error Anda Harus Masukan Gambar dulu", "error");
+    !uploadedImageUrl && "";
+    try {
+      const formData = new FormData();
+      if (selectedImage) {
+        formData.append("image_profil", selectedImage);
+        formData.append("nama_lengkap", nama_lengkap);
+        formData.append("username", username);
+        formData.append("jenis_kelamin", jenis_kelamin);
+        formData.append("email", email);
+        formData.append("nomor_hp", nomor_hp);
+        formData.append("password", password);
       }
+
+      const response = await axios.put("https://altalaptop.shop/users", formData, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      setUploadedImageUrl(response.data.data.image_url);
+      Swal.fire({
+        title: "Confirmation",
+        text: "Akun Berhasil dirubah",
+        icon: "success",
+        confirmButtonText: "OK",
+        confirmButtonColor: "rgb(3 150 199)",
+      });
+
+      const update = response.data.data.username;
+      const gambar = response.data.data.image_profil;
+      Cookies.remove("username");
+      Cookies.remove("gambar");
+      Cookies.set("username", update);
+      Cookies.set("gambar", gambar);
+      navigate("/my-profile");
+    } catch (error) {
+      infoAlertFC("warning", "Error Anda Harus Masukan Gambar dulu", "error");
     }
   };
 
   const handleHapus = async (e: any) => {
     e.preventDefault();
     const authToken = Cookies.get("authToken");
-    try {
-      await axios.delete("https://altalaptop.shop/users", {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
-      Swal.fire({
-        title: "Confirmation",
-        text: "Apakah anda yakin mau menghapus data",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonText: "OK",
-        cancelButtonText: "NO",
-        confirmButtonColor: "rgb(255 10 10)",
-      }).then((res) => {
-        if (res) {
+    Swal.fire({
+      title: "Confirmation",
+      text: "Anda yakin menghapus akun ?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "OK",
+      cancelButtonText: "NO",
+      confirmButtonColor: "rgb(255 10 10)",
+    }).then(async (res) => {
+      if (res.isConfirmed) {
+        try {
+          await axios.delete("https://altalaptop.shop/users", {
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+            },
+          });
           Cookies.remove("username");
           navigate("/");
+        } catch (error) {
+          infoAlertFC("Error", "Gagal menghapus Akun", "error");
+          Swal.fire({
+            title: "Error",
+            text: "Terjadi kesalahan saat menghapus akun",
+            icon: "error",
+            confirmButtonText: "OK",
+            confirmButtonColor: "rgb(3 150 199)",
+          });
         }
-      });
-    } catch (error) {
-      infoAlertFC("Error", "Gagal menghapus data", "error");
-      Swal.fire({
-        title: "Error",
-        text: "Terjadi kesalahan saat menghapus akun",
-        icon: "error",
-        confirmButtonText: "OK",
-        confirmButtonColor: "rgb(3 150 199)",
-      });
-    }
+      }
+    });
   };
 
   const handlePerubahan = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -270,25 +268,6 @@ function myProfile(): JSX.Element {
               </div>
             )}
           </button>
-
-          <div className="Camera" style={{ width: "50%", height: "50%", position: "absolute", cursor: "pointer" }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" role="img">
-              <path
-                d="M3.58579 7.58579C3.21071 7.96086 3 8.46957 3 9V18C3 18.5304 3.21071 19.0391 3.58579 19.4142C3.96086 19.7893 4.46957 20 5 20H19C19.5304 20 20.0391 19.7893 20.4142 19.4142C20.7893 19.0391 21 18.5304 21 18V9C21 8.46957 20.7893 7.96086 20.4142 7.58579C20.0391 7.21071 19.5304 7 19 7H18.07C17.7408 7.00005 17.4167 6.91884 17.1264 6.76359C16.8362 6.60834 16.5887 6.38383 16.406 6.11L15.594 4.89C15.4113 4.61617 15.1638 4.39166 14.8736 4.23641C14.5833 4.08116 14.2592 3.99995 13.93 4H10.07C9.74082 3.99995 9.41671 4.08116 9.12643 4.23641C8.83616 4.39166 8.5887 4.61617 8.406 4.89L7.594 6.11C7.4113 6.38383 7.16384 6.60834 6.87357 6.76359C6.58329 6.91884 6.25918 7.00005 5.93 7H5C4.46957 7 3.96086 7.21071 3.58579 7.58579Z"
-                stroke="white"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M14.1213 15.1213C14.6839 14.5587 15 13.7956 15 13C15 12.2044 14.6839 11.4413 14.1213 10.8787C13.5587 10.3161 12.7956 10 12 10C11.2044 10 10.4413 10.3161 9.87868 10.8787C9.31607 11.4413 9 12.2044 9 13C9 13.7956 9.31607 14.5587 9.87868 15.1213C10.4413 15.6839 11.2044 16 12 16C12.7956 16 13.5587 15.6839 14.1213 15.1213Z"
-                stroke="white"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </div>
 
           <div className="GantiCover" style={{ width: 40, height: 20, position: "absolute", top: 0, right: 0, padding: "5px", display: "flex", justifyContent: "flex-end", alignItems: "flex-start" }}>
             <label htmlFor="uploadInput" className="Cover" style={{ width: 70, height: 15, display: "flex", alignItems: "center" }}>

@@ -25,7 +25,7 @@ const MainProduct = () => {
   const logOut = (): void => {
     Swal.fire({
       title: "Confirmation",
-      text: "Apakah anda yakin ingin keluar",
+      text: "Anda yakin ingin keluar?",
       icon: "question",
       showCancelButton: true,
       confirmButtonText: "OK",
@@ -204,7 +204,7 @@ const MainProduct = () => {
               </div>
 
               {username === "admin" && showHamMenu && (
-                <div className="bg-white ease-in duration-1000 transition-all p-4 absolute md:top-[20vh] top-[13vh] right-[0rem] border-[1.2px] shadow-md w-[45vw] md:w-[20vw]">
+                <div className="bg-white ease-in duration-1000 transition-all p-4 absolute md:top-[20vh] top-[13vh] right-[0rem] border-[1.2px] shadow-md w-[50vw] md:w-[20vw]">
                   <div className="flex flex-col items-center justify-center">
                     <div className="flex flex-col justify-center items-start w-full gap-3">
                       <button id="userListBtn" className="text-[#828282] hover:text-[#0396C7] flex  items-center gap-3 w-full">
@@ -240,7 +240,7 @@ const MainProduct = () => {
               )}
 
               {username !== "admin" && showHamMenu && (
-                <div className="bg-white ease-in duration-1000 transition-all p-4 absolute md:top-[20vh] top-[13vh] right-[0rem] border-[1.2px] shadow-md w-[45vw] md:w-[20vw]">
+                <div className="bg-white ease-in duration-1000 transition-all p-4 absolute md:top-[20vh] top-[13vh] right-[0rem] border-[1.2px] shadow-md w-[50vw] md:w-[20vw]">
                   <div className="flex flex-col items-center justify-center">
                     <div className="flex flex-col justify-center items-start w-full gap-3">
                       <button onClick={() => navigate("my-profile")} className="text-[#828282] hover:text-[#0396C7] flex  items-center gap-3 w-full">
@@ -345,8 +345,8 @@ const MainProduct = () => {
 
         <div id="daftarProdukSection" className="flex flex-col justify-center items-center gap-3 lg:pt-[30vh] md:pt-[10vh] pt-[25vh] lg:h-[45vh] h-[30vh]">
           <span className="font-semibold text-[#484848] text-3xl md:text-4xl font-Poppins">Daftar Produk</span>
-          <p className="md:tracking-wide -tracking-normal md:w-[50vw] w-[100vw] px-[30px] md:px-3 text-center text-xs md:text-sm font-Poppins  text-[#8A8A8A]">
-            Menemukan pengalaman komputasi terbaik dengan koleksi laptop terbaru kami. Performa canggih dan desain yang elegan
+          <p className="md:tracking-wide -tracking-normal md:w-[50vw] w-[100vw] px-8 md:px-8 text-center text-xs md:text-sm font-Poppins  text-[#8A8A8A]">
+            Menemukan pengalaman komputasi terbaik dengan koleksi laptop terbaru kami. <span className="hidden md:block">Performa canggih dan desain yang elegan</span>
           </p>
           <div className="lg:w-[50vw] md:[60vw] w-[90vw] grid grid-cols-4 mt-3 justify-center items-center md:gap-4 gap-2 text-[#828282]">
             <button id="semuaBtn" className={`md:px-5 px-2 py-2 text-xs md:text-base rounded-md ${category === "Semua" ? "bg-[#0396C7] text-white" : "bg-[#DBF6FF]"}`} onClick={() => handleCategory("Semua")}>
@@ -364,7 +364,7 @@ const MainProduct = () => {
           </div>
         </div>
 
-        <div id="produkContent" className="content md:my-16 mt-20 pb-10 md:pb-0 flex flex-col justify-center items-center">
+        <div id="produkContent" className={`content md:my-16 mt-20 pb-10 md:pb-0 flex flex-col  ${currentItems.length < 1 ? `h-[35vh]` : `h-auto`} justify-center items-center`}>
           <div className="grid lg:grid-cols-4 grid-cols-2 md:gap-8 gap-3 md:px-5 w-screen px-5 justify-center items-center md:w-[90vw]">
             {currentItems
               ? currentItems.map((item: any, id: any) => (

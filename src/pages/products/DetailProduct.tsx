@@ -10,7 +10,6 @@ import Header from "../../components/Product/Header";
 import Footer from "../../components/Footer";
 import { infoAlertFC } from "../../utils/functions";
 
-
 const DetailProduct: FC = () => {
   const username = Cookies.get("username");
   const navigate = useNavigate();
@@ -52,7 +51,7 @@ const DetailProduct: FC = () => {
           });
           Swal.fire({
             title: "Berhasil",
-            text: `Barang sudah ditambahkan ke Keranjang`,
+            text: `Barang ditambahkan ke keranjang`,
             icon: "success",
             confirmButtonText: "OK",
             confirmButtonColor: "rgb(3 150 199)",
@@ -131,11 +130,11 @@ const DetailProduct: FC = () => {
       <div id="main-container" className="h-screen w-screen">
         <Header />
         <div className="flex justify-center items-center w-full">
-          <div id="content-container" className="content flex flex-col md:flex-row justify-center items-center p-5 lg:p-10 mb-20 mt-40 px-3 lg:px-10 shadow-md bg-white  border-[0.5px] border-slate-200 rounded-md gap-8 font-Poppins w-10/12">
+          <div id="content-container" className="content flex flex-col md:flex-row justify-center items-center lg:p-10 mb-20 mt-40  lg:px-10 shadow-md bg-white  border-[0.5px] border-slate-200 rounded-md gap-8 font-Poppins w-10/12">
             <div id="image-container" className="flex justify-center h-full md:h-[25rem] items-center border-2 border-slate-100 rounded-md shadow-md w-full md:w-1/2 overflow-hidden">
-              <img id="product-image" src={`${detail?.gambar}`} className="w-[90%] h-[90%]  rounded-md" />
+              <img id="product-image" src={`${detail?.gambar}`} className="w-full h-full  rounded-md" />
             </div>
-            <div id="details-container" className="flex flex-col items-start p-2 lg:p-8 md:py-5 justify-start md:h-[25rem] w-full md:w-1/2 gap-5">
+            <div id="details-container" className="flex flex-col items-start p-5 lg:p-8 md:py-5 justify-start md:h-[25rem] w-full md:w-1/2 gap-5">
               <span id="product-model" className="md:text-3xl text-lg font-bold text-slate-400">
                 {detail?.model}
               </span>

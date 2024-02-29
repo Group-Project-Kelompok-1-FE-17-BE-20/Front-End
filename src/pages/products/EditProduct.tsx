@@ -10,7 +10,6 @@ import Header from "../../components/Product/Header";
 import Footer from "../../components/Footer";
 import { infoAlertFC } from "../../utils/functions";
 
-
 function UserProfile(props: any) {
   const [activeUser, setActiveUser] = useState<string>("myProfile");
   const { hidden } = props;
@@ -162,7 +161,7 @@ function myProfile(): JSX.Element {
         setUploadedImageUrl(response.data.image_url);
         Swal.fire({
           title: "Confirmation",
-          text: "Congratulations, Data Berhasil disimpan",
+          text: "Berhasil Mengupdate data",
           icon: "success",
           confirmButtonText: "OK",
           confirmButtonColor: "rgb(3 150 199)",

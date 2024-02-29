@@ -205,7 +205,7 @@ const Payment: FC = () => {
         <>
           <div className="fixed inset-0 bg-black opacity-50 z-50"></div>
           <div className="fixed inset-0 flex items-center justify-center z-50 font-Poppins">
-            <div className="bg-white w-96 p-8 rounded shadow-lg">
+            <div className="bg-white w-96 p-8 mx-5 rounded shadow-lg">
               <p className="my-2 text-2xl font-semibold text-blue-700">Detail Pembayaran</p>
               <p className="my-2 text-sm">Nama: {showData.nama_lengkap}</p>
               <hr />

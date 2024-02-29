@@ -15,38 +15,38 @@ const Footer: FC = () => {
                 INFORMASI STOREID
               </div>
               <div id="storeInfoLinks" className="flex-col justify-start items-start gap-2 flex">
-                <div id="storeInfoLink1" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                <div id="storeInfoLink1" className="text-gray-500 text-xs font-medium font-poppins tracking-wide">
                   Tentang StoreID
                 </div>
-                <div id="storeInfoLink2" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                <div id="storeInfoLink2" className="text-gray-500 text-xs font-medium font-poppins tracking-wide">
                   Kebijakan StoreID
                 </div>
-                <div id="storeInfoLink3" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                <div id="storeInfoLink3" className="text-gray-500 text-xs font-medium font-poppins tracking-wide">
                   Kebijakan Privasi
                 </div>
-                <div id="storeInfoLink4" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                <div id="storeInfoLink4" className="text-gray-500 text-xs font-medium font-poppins tracking-wide">
                   Blog Fashion
                 </div>
               </div>
             </div>
             <div id="helpSupportContainer" className="flex-col justify-start items-start gap-4 inline-flex">
               <div id="helpSupportHeading" className="text-gray-800 text-sm font-semibold font-poppins uppercase tracking-wide">
-                Bantuan & dukungan
+                Dukungan
               </div>
               <div id="helpSupportLinks" className="flex-col justify-start items-start gap-2 flex">
-                <div id="helpSupportLink1" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                <div id="helpSupportLink1" className="text-gray-500 text-xs font-medium font-poppins tracking-wide">
                   Informasi Belanja
                 </div>
-                <div id="helpSupportLink2" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                <div id="helpSupportLink2" className="text-gray-500 text-xs font-medium font-poppins tracking-wide">
                   Pengembalian Dana
                 </div>
-                <div id="helpSupportLink3" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                <div id="helpSupportLink3" className="text-gray-500 text-xs font-medium font-poppins tracking-wide">
                   Cara Memesan
                 </div>
-                <div id="helpSupportLink4" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                <div id="helpSupportLink4" className="text-gray-500 text-xs font-medium font-poppins tracking-wide">
                   Cara Melacak
                 </div>
-                <div id="helpSupportLink5" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                <div id="helpSupportLink5" className="text-gray-500 text-xs font-medium font-poppins tracking-wide">
                   Metode Pembayaran
                 </div>
               </div>
@@ -56,16 +56,16 @@ const Footer: FC = () => {
                 LAYANAN PELANGGAN
               </div>
               <div id="customerServiceLinks" className="flex-col justify-start items-start gap-2 flex">
-                <div id="customerServiceLink1" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                <div id="customerServiceLink1" className="text-gray-500 text-xs font-medium font-poppins tracking-wide">
                   Hubungi Kami
                 </div>
-                <div id="customerServiceLink2" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                <div id="customerServiceLink2" className="text-gray-500 text-xs font-medium font-poppins tracking-wide">
                   Pembayaran
                 </div>
-                <div id="customerServiceLink3" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                <div id="customerServiceLink3" className="text-gray-500 text-xs font-medium font-poppins tracking-wide">
                   Bonus Point
                 </div>
-                <div id="customerServiceLink4" className="text-gray-500 text-sm font-medium font-poppins tracking-wide">
+                <div id="customerServiceLink4" className="text-gray-500 text-xs font-medium font-poppins tracking-wide">
                   Pemberitahuan
                 </div>
               </div>

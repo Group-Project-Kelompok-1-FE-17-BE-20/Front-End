@@ -14,7 +14,6 @@ import Header from "../../components/Product/Header";
 import Footer from "../../components/Footer";
 import { copyToClipboard } from "../../utils/functions";
 
-
 const Payment: FC = () => {
   const username = Cookies.get("username");
   const navigate = useNavigate();
@@ -65,7 +64,7 @@ const Payment: FC = () => {
     e.preventDefault();
     Swal.fire({
       title: "Confirmation",
-      text: `Anda Mau Melanjutkan Pembayaran`,
+      text: `Lanjutkan Pembayaran`,
       icon: "question",
       showCancelButton: true,
       confirmButtonText: "OK",
@@ -128,8 +127,8 @@ const Payment: FC = () => {
       <Header />
       <div className="flex flex-col items-center justify-center pt-44 gap-8 font-Poppins">
         <div className="flex flex-col px-10 gap-3">
-          <span className="text-2xl md:text-3xl lg:text-4xl text-center font-Poppins">Pembayaran</span>
-          <span className="text-[#828282] text-center text-xs md:text-base">Lakukan Pembayaran produk yang diinginkan</span>
+          <span className="text-3xl  text-[#484848] font-semibold md:text-4xl lg:text-4xl text-center font-Poppins">Pembayaran</span>
+          <span className=" text-[#8A8A8A] text-center text-xs md:text-base">Lakukan Pembayaran produk yang diinginkan</span>
         </div>
       </div>
 
@@ -160,14 +159,14 @@ const Payment: FC = () => {
               </div>
             ) : (
               <div className="lg:w-[567px] w-[90vw] h-[206px] relative bg-white rounded shadow">
-                <div className="pl-[23px] pr-5 pt-[17.81px] pb-[15px] left-[19px] top-[21px] absolute bg-orange-100 rounded-[3px] shadow border border-zinc-400 justify-center items-start lg:gap-[187px] inline-flex">
+                <div className="md:pl-[23px] p-2 md:pr-5 pt-[17.81px] pb-[15px] left-[19px] top-[21px] absolute bg-orange-100 rounded-[3px] shadow border border-zinc-400 justify-center items-start lg:gap-[187px] inline-flex">
                   <div className="text-amber-500 text-base font-normal font-['Inter'] leading-relaxed">Silakan pilih metode pembayaranmu</div>
                   <img className="w-7 h-7 rounded" src="https://img.icons8.com/?size=48&id=63263&format=png" />
                 </div>
                 <div className="left-[78px] top-[118.64px] absolute text-gray-600 text-[0.8rem] md:text-2xl font-bold font-Poppins leading-9">Bank Transfer Virtual Account</div>
                 <div className="left-[78px] top-[159.81px] absolute text-neutral-300 text-xs md:text-base font-normal font-['Inter'] leading-relaxed">Proses otomatis dan lebih cepat</div>
                 <img className="w-9 h-10 left-[18px] top-[118px] absolute rounded" src="https://image.shutterstock.com/image-vector/bank-icon-260nw-435428170.jpg" />
-                <img onClick={changeShow} className="cursor-pointer w-[29px] h-[29px] right-4 md:left-[495px] top-[137px] absolute rounded" src="https://img.icons8.com/ios/50/expand-arrow--v2.png" />
+                <img onClick={changeShow} className="cursor-pointer w-[15px] md:w-[29px] h-[15px] md:h-[29px] right-4 md:left-[495px] top-[137px] absolute rounded" src="https://img.icons8.com/ios/50/expand-arrow--v2.png" />
               </div>
             )}
             {showPayment &&

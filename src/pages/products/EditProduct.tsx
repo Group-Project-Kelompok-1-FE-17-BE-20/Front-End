@@ -162,7 +162,7 @@ function myProfile(): JSX.Element {
         setUploadedImageUrl(response.data.image_url);
         Swal.fire({
           title: "Confirmation",
-          text: "Congratulations, Data Berhasil disimpan",
+          text: "Berhasil Mengupdate data",
           icon: "success",
           confirmButtonText: "OK",
           confirmButtonColor: "rgb(3 150 199)",

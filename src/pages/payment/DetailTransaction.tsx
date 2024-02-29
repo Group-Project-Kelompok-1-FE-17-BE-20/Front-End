@@ -13,7 +13,7 @@ const DetailTransaction: FC = () => {
     setTimeout(() => {
       Swal.fire({
         title: "Confirmation",
-        text: "Apakah anda ingin ke beranda",
+        text: "Anda ingin ke beranda ?",
         icon: "question",
         showCancelButton: true,
         confirmButtonText: "OK",

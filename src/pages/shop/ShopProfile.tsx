@@ -169,7 +169,7 @@ const MyProfile: React.FC = () => {
       });
       Swal.fire({
         title: "Confirmation",
-        text: `Berhasil Di Simpan`,
+        text: `Berhasil Update Toko`,
         icon: "success",
         confirmButtonText: "OK",
         confirmButtonColor: "rgb(3 150 199)",
@@ -194,7 +194,7 @@ const MyProfile: React.FC = () => {
       });
       Swal.fire({
         title: "Confirmation",
-        text: `Hapus Akun Berhasil`,
+        text: `Hapus Toko Berhasil`,
         icon: "success",
         confirmButtonText: "OK",
         confirmButtonColor: "rgb(3 150 199)",

@@ -43,7 +43,7 @@ const Register: FC = () => {
       if (response) {
         Swal.fire({
           title: "Confirmation",
-          text: `${registerState.username} Anda Berhasil Registrasi Silahkan Login`,
+          text: `${registerState.username} Anda Berhasil Registrasi`,
           icon: "success",
           confirmButtonText: "OK",
           confirmButtonColor: "rgb(3 150 199)",
@@ -57,7 +57,7 @@ const Register: FC = () => {
       if (error.message === "Network Error") {
         Swal.fire({
           title: "Warning",
-          text: "Tidak terkoneksi ke database, Periksa Koneksi Anda",
+          text: "Tidak terkoneksi ke database",
           icon: "error",
           showCancelButton: true,
           confirmButtonText: "OK",
@@ -66,7 +66,7 @@ const Register: FC = () => {
       } else if (error.response.data.message) {
         Swal.fire({
           title: "Warning",
-          text: "Email yang anda Masukan sudah ada",
+          text: "Email sudah terdaftar",
           icon: "error",
           showCancelButton: true,
           confirmButtonText: "OK",

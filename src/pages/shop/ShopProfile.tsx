@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../components/Product/Header";
 import { infoAlertFC } from "../../utils/functions";
 
+
 const ProfileToko: React.FC = () => {
   const [activeShop, setActiveShop] = useState<string>("MyProfile");
   const renderActiveShopContent = (activeShop: string, shopProfiles: ShopProfile[]) => {

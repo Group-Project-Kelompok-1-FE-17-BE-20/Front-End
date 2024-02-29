@@ -163,12 +163,12 @@ function myProfile(): JSX.Element {
         formData.append("password", password);
       }
 
-      const response = await axios.put("https://altalaptop.shop/users", formData, {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
+        const response = await axios.put("https://altalaptop.shop/users", formData, {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
       setUploadedImageUrl(response.data.data.image_url);
       Swal.fire({

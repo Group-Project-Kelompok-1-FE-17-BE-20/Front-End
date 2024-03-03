@@ -271,7 +271,7 @@ function myProfile(): JSX.Element {
               <option value="Pilih Jenis Kelamin">Pilih Kategori</option>
               <option value="Low End">Low End</option>
               <option value="Mid Range">Mid Range</option>
-              <option value="Mid Range">High End</option>
+              <option value="High End">High End</option>
             </select>
           </div>
           <div>

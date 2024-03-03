@@ -163,12 +163,12 @@ function myProfile(): JSX.Element {
         formData.append("password", password);
       }
 
-        const response = await axios.put("https://altalaptop.shop/users", formData, {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-            "Content-Type": "multipart/form-data",
-          },
-        });
+      const response = await axios.put("https://altalaptop.shop/users", formData, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       setUploadedImageUrl(response.data.data.image_url);
       Swal.fire({
@@ -322,9 +322,9 @@ function myProfile(): JSX.Element {
               </span>
             </label>
             <select id="jenis_kelamin" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value={formData.jenis_kelamin} onChange={handlePerubahan}>
-              <option value="Pilih Jenis Kelamin">Pilih Jenis Kelamin</option>
-              <option value="1">Laki-laki</option>
-              <option value="2">Perempuan</option>
+              <option value="">Pilih Jenis Kelamin</option>
+              <option value="Laki-Laki">Laki-laki</option>
+              <option value="Perempuan">Perempuan</option>
             </select>
           </div>
           <div>

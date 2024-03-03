@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import Cookies from "js-cookie";
 
 const ProtectedRoute = ({ children }: { children?: ReactNode }) => {
-  const token = Cookies.get("authToken");
+  const token = Cookies.get("username");
   const { pathname } = useLocation();
 
   const authProtected = ["/404"];

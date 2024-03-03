@@ -6,7 +6,7 @@ const ProtectedRoute = ({ children }: { children?: ReactNode }) => {
   const token = Cookies.get("authToken");
   const { pathname } = useLocation();
 
-  const authProtected = ["/login", "/register"];
+  const authProtected = ["/404"];
   const protectedByToken = [
     "/profilerenter",
     "/create-product",

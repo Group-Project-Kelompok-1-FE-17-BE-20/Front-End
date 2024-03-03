@@ -16,6 +16,7 @@ import HistoryOrderUser from "../../src/pages/payment/HistoryOrderUser";
 import CreateShop from "../../src/pages/shop/CreateShop";
 import EditProduct from "../../src/pages/products/EditProduct";
 import ProtectedRoute from "./ProtectedRoute";
+import NotFound from "./NotFound";
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
             <Route path="/create-toko" element={<CreateShop />}></Route>
             <Route path="/edit-produk/:id" element={<EditProduct />}></Route>
           </Route>
-          <Route path="*" element={<>Not found</>} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </>

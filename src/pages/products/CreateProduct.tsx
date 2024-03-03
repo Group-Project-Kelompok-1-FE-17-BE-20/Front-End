@@ -9,7 +9,6 @@ import Header from "../../components/Product/Header";
 import Footer from "../../components/Footer";
 import { infoAlertFC } from "../../utils/functions";
 
-
 function UserProfile(props: any) {
   const [activeUser, setActiveUser] = useState<string>("myProfile");
   const { hidden } = props;
@@ -120,53 +119,51 @@ function myProfile(): JSX.Element {
 
     e.preventDefault();
     const authToken = Cookies.get("authToken");
-
-    if (uploadedImageUrl) {
-      try {
-        const formData = new FormData();
-        if (selectedImage) {
-          formData.append("gambar", selectedImage);
-          formData.append("brand", brand);
-          formData.append("model", model);
-          formData.append("categories", categories);
-          formData.append("price", price);
-          formData.append("description", description);
-          formData.append("storage", storage);
-          formData.append("ram", ram);
-          formData.append("processor", processor);
-          formData.append("stock", stock);
-        }
-
-        const response = await axios.post("https://altalaptop.shop/products", formData, {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-            "Content-Type": "multipart/form-data",
-          },
-        });
-
-        setUploadedImageUrl(response.data.image_url);
-        Swal.fire({
-          title: "Confirmation",
-          text: "Congratulations, Data Berhasil disimpan",
-          icon: "success",
-          confirmButtonText: "OK",
-          confirmButtonColor: "rgb(3 150 199)",
-        }).then(() => {
-          setformData({
-            brand: "",
-            price: "",
-            categories: "",
-            description: "",
-            stock: "",
-            storage: "",
-            ram: "",
-            model: "",
-            processor: "",
-          });
-        });
-      } catch (error) {
-        infoAlertFC("warning", "Error Anda Harus Masukan Gambar dulu", "error");
+    !uploadedImageUrl && "";
+    try {
+      const formData = new FormData();
+      if (selectedImage) {
+        formData.append("gambar", selectedImage);
+        formData.append("brand", brand);
+        formData.append("model", model);
+        formData.append("categories", categories);
+        formData.append("price", price);
+        formData.append("description", description);
+        formData.append("storage", storage);
+        formData.append("ram", ram);
+        formData.append("processor", processor);
+        formData.append("stock", stock);
       }
+
+      const response = await axios.post("https://altalaptop.shop/products", formData, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      setUploadedImageUrl(response.data.image_url);
+      Swal.fire({
+        title: "Confirmation",
+        text: "Data Berhasil disimpan",
+        icon: "success",
+        confirmButtonText: "OK",
+        confirmButtonColor: "rgb(3 150 199)",
+      }).then(() => {
+        setformData({
+          brand: "",
+          price: "",
+          categories: "",
+          description: "",
+          stock: "",
+          storage: "",
+          ram: "",
+          model: "",
+          processor: "",
+        });
+      });
+    } catch (error) {
+      infoAlertFC("warning", "Error Anda Harus Masukan Gambar dulu", "error");
     }
   };
 

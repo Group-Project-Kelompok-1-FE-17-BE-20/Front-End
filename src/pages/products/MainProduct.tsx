@@ -105,12 +105,10 @@ const MainProduct = () => {
             const searchData = searchQuery ? filteredData.filter((item: any) => item.model.toLowerCase().includes(searchQuery.toLowerCase()) || item.brand.toLowerCase().includes(searchQuery.toLowerCase())) : filteredData;
             setLapData((prev) => ({ ...prev, data: searchData }));
           } catch (error) {
-            infoAlertFC("Error", "Gagal mendapatkan data", "error");
+            infoAlertFC("Error", "Tidak ada Produk", "error");
           }
         };
         product();
-      } else {
-        infoAlertFC("Error", "Gagal mendapatkan data", "error");
       }
     }
   };
@@ -405,7 +403,7 @@ const MainProduct = () => {
             </button>
 
             {Array.from({ length: totalPages }, (_, index) => (
-              <button className={length > 1 ? `p-3 bg-slate-50 border-2 border-slate-500` : "hidden"} key={`pageBtn_${index}`} onClick={() => setCurrentPage(index + 1)} disabled={currentPage === index + 1}>
+              <button className={length < 1 ? `p-3 bg-slate-50 border-[0.5px] rounded-md border-slate-500` : "hidden"} key={`pageBtn_${index}`} onClick={() => setCurrentPage(index + 1)} disabled={currentPage === index + 1}>
                 {index + 1}
               </button>
             ))}
